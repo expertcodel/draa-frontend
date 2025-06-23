@@ -47,12 +47,15 @@ export default function CoursePage() {
                             <div className="tab-content" id="myTabContent">
                                 <div className="tab-pane fade show active" id="overview" role="tabpanel">
                                     <div className="courses-overview">
+                                        <figure className="courseThumbImg">
+                                            <Image fill src="/images/courses/img1.jpg" alt="image" />
+                                        </figure>
                                         <h3>Course Description</h3>
                                         <p>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
                                         </p>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
                                         </p>
                                         <h3>Certification</h3>
                                         <p>
@@ -336,6 +339,25 @@ export default function CoursePage() {
                                 <div className="content">
                                     <em><FontAwesomeIcon icon={faPlay} /></em>
                                     <span>Course Preview</span>
+                                </div>
+                            </div>
+                            <div className="btn-box order-details">
+                                <div className="payment-box p-0 bg-blank">
+                                    <label className="mb-2">Select Course Level</label>
+                                    <div className="payment-method">
+                                        <p>
+                                            <input type="radio" id="Level1" name="radio-gender" checked />
+                                            <label htmlFor="Level1">Level-I</label>
+                                        </p>
+                                        <p>
+                                            <input type="radio" id="Level2" name="radio-gender" />
+                                            <label htmlFor="Level2">Level-II</label>
+                                        </p>
+                                        <p>
+                                            <input type="radio" id="Level3" name="radio-gender" />
+                                            <label htmlFor="Level3">Level-III</label>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             <div className="btn-box">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import SortingSelect from "@/component/SortingSelect";
-import { faAngleDoubleLeft, faAngleDoubleRight, faBarsStaggered, faBookBookmark, faCartShopping, faHeart, faPeopleGroup, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faBarsStaggered, faBookBookmark, faCartShopping, faHeart, faPeopleGroup, faSearch } from "@fortawesome/free-solid-svg-icons";
 import RangeSlider from "@/component/RangeSlider";
 
 export default async function Courses() {
@@ -66,7 +66,7 @@ export default async function Courses() {
                                             </p>
                                         </div>
                                         <Link href="/register-course" className="add-to-cart default-btn">
-                                            <FontAwesomeIcon icon={faCartShopping} /> Buy Now
+                                            Buy Now <FontAwesomeIcon icon={faAngleRight} />
                                             <span />
                                         </Link>
                                     </div>

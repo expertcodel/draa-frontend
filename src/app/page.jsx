@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleUp, faBookBookmark, faClockRotateLeft, faDesktop, faGlobe, faHeart, faNoteSticky, faPeopleGroup, faSearch, faTimes, faTimesCircle, faUser, faUserCheck, faUserFriends } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faAngleUp, faBookBookmark, faClockRotateLeft, faDesktop, faGlobe, faHeart, faNoteSticky, faPeopleGroup, faSearch, faTimes, faTimesCircle, faUser, faUserCheck, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { faViadeo } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import ThumbnailCourseCarousel from "@/component/ThumbnailCourseCarousel";
@@ -9,6 +9,8 @@ import ThumbnailPopularCourseCarousel from "@/component/ThumbnailPopularCourseCa
 import TestimonialsCarousel from "@/component/TestimonialsCarousel";
 import AboutSection from "@/component/AboutSection";
 import TestimonialOdometer from "@/component/TestimonialOdometer";
+import SingleBookCarousel from "@/component/SingleBookCarousel";
+import ThumbnailTestSeriesCarousel from "@/component/ThumbnailTestSeriesCarousel";
 
 export default function Home() {
   return (
@@ -105,26 +107,7 @@ export default function Home() {
         {/* End Main Banner Area */}
 
         <div className="bg-f5f7fa py-5"></div>
-        {/* Start Features Area */}
-        <div className="features-area pt-100 pb-70">
-            <div className="container">
-                <div className="section-title">
-                    <span className="sub-title">Education for everyone</span>
-                    <h2>Affordable Online Courses and Learning Opportunities​</h2>
-                    <p>
-                        Finding your own space and utilize better learning options can result in faster than the traditional ways. Enjoy the beauty of eLearning!
-                    </p>
-                </div>
-                <div className="row">
-                    <div className="col-12">
-                        <ThumbnailCourseCarousel />
-                    </div>
-                </div>
-            </div>
-        </div>
-        {/* End Features Area */}
-
-        <AboutSection bgClass="bg-fef8ef" />
+        
 
         {/* Start Courses Area */}
         <div className="courses-area ptb-100">
@@ -137,8 +120,52 @@ export default function Home() {
                     </p>
                 </div>
                 <div className="row justify-content-center">
-                    <div className="col-12">
-                        <ThumbnailPopularCourseCarousel />
+                    <div className="col-12 courses-details-desc mt-0">
+                        <ul className="nav nav-tabs" id="myTab" role="tablist">
+                            <li className="nav-item" role="presentation">
+                                <button className="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">
+                                    Overview
+                                </button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                                <button className="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false">
+                                    Curriculum
+                                </button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                                <button className="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor" type="button" role="tab" aria-controls="instructor" aria-selected="false">
+                                    Instructor
+                                </button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                                <button className="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">
+                                    Reviews
+                                </button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                                <button className="nav-link" id="test-tab" data-bs-toggle="tab" data-bs-target="#test" type="button" role="tab" aria-controls="test" aria-selected="false">
+                                    Test
+                                </button>
+                            </li>
+                        </ul>
+                        <div className="tab-content px-0" id="myTabContent">
+                            <div className="tab-pane fade show active" id="overview" role="tabpanel">
+                                <ThumbnailPopularCourseCarousel />
+                            </div>
+                            <div className="tab-pane fade" id="curriculum" role="tabpanel">
+                                2
+                            </div>
+                            <div className="tab-pane fade" id="instructor" role="tabpanel">
+                                3
+                            </div>
+                            <div className="tab-pane fade" id="reviews" role="tabpanel">
+                                <ThumbnailPopularCourseCarousel />
+                            </div>
+                            <div className="tab-pane fade" id="test" role="tabpanel">
+                                5
+                            </div>
+                        </div>
+                        
                     </div>
                     <div className="col-lg-12 col-md-12">
                         <div className="courses-info">
@@ -153,41 +180,40 @@ export default function Home() {
         </div>
         {/* End Courses Area */}
 
+        <AboutSection bgClass="bg-fef8ef" />
+
+        {/* Start Test Series */}
+        <div className="features-area pt-100 pb-70">
+            <div className="container">
+                <div className="section-title">
+                    <span className="sub-title">Test Series</span>
+                    <h2>Ace Every Exam with Our Test Series</h2>
+                    <p>
+                        Boost your preparation with expertly crafted test series designed to improve accuracy, speed, and confidence for competitive exams.
+                    </p>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <ThumbnailTestSeriesCarousel />
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/* End Test Series */}
+
         <TestimonialOdometer />
 
         {/* Start Get Instant Courses Area */}
-        <div className="get-instant-courses-area">
+        <div className="get-instant-courses-area bg-fef8ef">
             <div className="container">
-                <div className="get-instant-courses-inner-area">
-                    <div className="row align-items-center">
-                        <div className="col-lg-8 col-md-12">
-                            <div className="get-instant-courses-content">
-                                <span className="sub-title">Get Instant Access to The Free</span>
-                                <h2>Self Development Course</h2>
-                                <p>
-                                    eLearniv Self Development Course can assist you in bringing the significant changes in personal understanding and reshaping the confidence to achieve the best from your career! We trust that learning should be enjoyable, and only that can make substantial
-                                    changes to someone!
-                                </p>
-                                <a href="profile-authentication.html" className="default-btn">
-                                    <i className="flaticon-user" /> Start For Free
-                                    <span />
-                                </a>
-                            </div>
+                <SingleBookCarousel />
+                <div className="row pb-5">
+                    <div className="col-lg-12 col-md-12">
+                        <div className="blog-post-info">
+                            <p>
+                                Get into details now?​ <Link href="/books">View all books</Link>
+                            </p>
                         </div>
-                        <div className="col-lg-4 col-md-12">
-                            <div className="get-instant-courses-image">
-                                <img src="/images/man.jpg" alt="image" />
-                                <div className="shape7" data-speed="0.06" data-revert="true">
-                                    <img src="/images/shape/shape4.png" alt="image" />
-                                </div>
-                                <div className="shape6" data-speed="0.06" data-revert="true">
-                                    <img src="/images/shape/shape6.png" alt="image" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="shape5" data-speed="0.06" data-revert="true">
-                        <img src="/images/shape/shape5.png" alt="image" />
                     </div>
                 </div>
             </div>

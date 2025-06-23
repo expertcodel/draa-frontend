@@ -1,0 +1,120 @@
+[
+  {
+    "label": "Home",
+    "href": "/"
+  },
+  {
+    "label": "About",
+    "children": [
+      { "label": "About Us", "href": "/about-us" },
+      { "label": "Our Faculty", "href": "/faculty" },
+      { "label": "Knowladge Hub", "href": "/blog" },
+      { "label": "Privacy Policy", "href": "/privacy-policy" },
+      { "label": "Terms & Condition", "href": "/terms-condition" }
+    ]
+  },
+  {
+    "label": "Courses",
+    "megamenu": true,
+    "gridColumns": [
+      [
+        { "label": "Class 1", "href": "/courses" },
+        { "label": "Class 2", "href": "/courses" },
+        { "label": "Class 3", "href": "/courses" },
+        { "label": "Class 4", "href": "/courses" },
+        { "label": "Class 5", "href": "/courses" },
+        { "label": "Class 6", "href": "/courses" }
+      ],
+      [
+        { "label": "Java", "href": "/courses" },
+        { "label": "Python", "href": "/courses" },
+        { "label": "COMPUTER SCIENCE IN THE WORKPLACE", "href": "/courses" },
+        { "label": "Digital Media", "href": "/courses" },
+        { "label": "Ethical hacking", "href": "/courses" },
+        { "label": "Entrepreneurship", "href": "/courses" }
+      ],
+      [
+        { "label": "CUET", "href": "/courses" },
+        { "label": "LLB", "href": "/courses" },
+        { "label": "UGC NET/JRF", "href": "/courses" },
+        { "label": "CSIR -NET/JRF", "href": "/courses" },
+        { "label": "CA", "href": "/courses" },
+        { "label": "JEE", "href": "/courses" }
+      ],
+      [
+        { "label": "IBPS", "href": "/courses" },
+        { "label": "SBI", "href": "/courses" },
+        { "label": "LIC", "href": "/courses" },
+        { "label": "Reseave bank of India", "href": "/courses" },
+        { "label": "Grade II", "href": "/courses" },
+        { "label": "HDFC/ICICI/IDFC/PRIVATE BANK", "href": "/courses" }
+      ],
+      [
+        { "label": "SSC GD", "href": "/courses" },
+        { "label": "SSC MTS", "href": "/courses" },
+        { "label": "SSC CHSL", "href": "/courses" },
+        { "label": "SSC CGL", "href": "/courses" },
+        { "label": "SSC CPO", "href": "/courses" }
+      ]
+    ],
+    "widgets": [
+      {
+        "icon": "bx-code-alt",
+        "title": "CBSE",
+        "count": "60",
+        "href": "/courses"
+      },
+      {
+        "icon": "bx-camera",
+        "title": "Olympiad",
+        "count": "21",
+        "href": "/courses"
+      },
+      {
+        "icon": "bx-layer",
+        "title": "Academic",
+        "count": "58",
+        "href": "/courses"
+      },
+      {
+        "icon": "bxs-flag-checkered",
+        "title": "Technical Exams",
+        "count": "99",
+        "href": "/courses"
+      },
+      {
+        "icon": "bx-health",
+        "title": "Banking",
+        "count": "21",
+        "href": "/courses"
+      },
+      {
+        "icon": "bx-line-chart",
+        "title": "Railway",
+        "count": "49",
+        "href": "/courses"
+      }
+    ]
+  },
+  {
+    "label": "Books",
+    "children": [
+      { "label": "Entrance Exams", "href": "/books" },
+      { "label": "Government Examination", "href": "/books" },
+      { "label": "K-12", "href": "/books" },
+      { "label": "Academics", "href": "/books" },
+      { "label": "Stationery", "href": "/books" },
+      { "label": "Children’s Books", "href": "/books" }
+    ]
+  },
+  {
+    "label": "Test Series",
+    "children": [
+      { "label": "Leadership", "href": "/leadership" }
+    ]
+  },
+  {
+    "label": "Contact Us",
+    "href": "/contact-us"
+  }
+]

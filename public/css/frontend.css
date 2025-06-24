@@ -216,6 +216,9 @@ p:last-child {
 .bg-eee8df {
   background-color: #eee8df;
 }
+.bg-blank {
+  background: transparent;
+}
 
 .ptb-100 {
   padding-top: 100px;
@@ -4363,7 +4366,7 @@ Courses Details Area CSS
   border: none;
   border-radius: 5px;
   padding-left: 30px;
-  padding-right: 30px;
+  padding-right: 30px; display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden;
 }
 .courses-details-desc .nav .nav-item {
   margin-bottom: 0;
@@ -4406,6 +4409,9 @@ Courses Details Area CSS
   padding-left: 30px;
   padding-right: 30px;
   padding-top: 40px;
+}
+.courses-details-desc .tab-content .courses-overview .courseThumbImg{
+  width: 300px; height: 300px; display: inline-block; position: relative; float: inline-start; margin-right: 16px;
 }
 .courses-details-desc .tab-content .courses-overview h3 {
   margin-bottom: 12px;
@@ -7526,6 +7532,7 @@ Get Instant Courses Area CSS
   background-color: #f9f9f9;
   border-radius: 5px;
 }
+.get-instant-courses-inner-area.bg-blank{background: transparent;}
 .get-instant-courses-inner-area .row {
   margin-left: 0;
   margin-right: 0;
@@ -12261,6 +12268,7 @@ Checkout Area CSS
   margin-top: 30px;
   padding: 30px;
 }
+.order-details .payment-box.bg-blank{background: transparent; box-shadow: none;}
 .order-details .payment-box .payment-method p [type=radio]:checked, .order-details .payment-box .payment-method p [type=radio]:not(:checked) {
   display: none;
 }

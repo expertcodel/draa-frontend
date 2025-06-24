@@ -73,6 +73,10 @@ export default async function Courses() {
                                         <p>
                                             This master level course is for you if you are looking to learn the DL &amp; ANN topics in and out within a short time!
                                         </p>
+                                        <Link href="/" className="default-btn">
+                                            Enroll Now
+                                            <span />
+                                        </Link>
                                         {/* <ul className="courses-box-footer d-flex justify-content-between align-items-center">
                                             <li>
                                                 <FontAwesomeIcon icon={faBookBookmark} /> 15 Lessons

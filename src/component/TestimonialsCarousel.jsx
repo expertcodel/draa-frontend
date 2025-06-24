@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 
-export default function TestimonialsCarousel() {
+export default function TestimonialsCarousel({ testimoniallist }) {
   return (
     <>
       <div className="Testimonials-slider-wrapper verticalSlider">
@@ -41,21 +41,21 @@ export default function TestimonialsCarousel() {
           }}
           className="Testimonials-slider"
         >
-          {[1, 2, 3, 4, 5].map((item) => (
-            <SwiperSlide key={item}>
+          {testimoniallist.map((item) => (
+            <SwiperSlide key={item.id}>
               <div className="single-feedback-item">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  {item.comment}
                 </p>
                 <div className="client-info d-flex align-items-center">
                   <img
-                    src="/images/user/user1.jpg"
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/testimonials/${item.image}`}
                     className="rounded-circle"
                     alt="User"
                   />
                   <div className="title">
-                    <h3>John Smith</h3>
-                    <span>Python Developer</span>
+                    <h3>{item.name}</h3>
+                    <span>{item.rank}</span>
                   </div>
                 </div>
               </div>

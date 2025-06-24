@@ -17,9 +17,13 @@ import { formatToReadableDate } from '../utils/ReadableDate.js'
 export default async function Home() {
 
     let blogList = [];
+    let bookList = [];
+    let testimoniallist = [];
+    let category = [];
+    let courselist = [];
     try {
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/blogs/?path=/`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/home`, {
 
             method: 'GET',
             cache: 'no-store'
@@ -28,6 +32,10 @@ export default async function Home() {
         const res = await response.json();
         if (res.status) {
             blogList = res.bloglist;
+            bookList = res.booklist;
+            testimoniallist = res.testimoniallist;
+            category = res.category;
+            courselist = res.courselist;
         }
 
     } catch (error) {
@@ -132,117 +140,98 @@ export default async function Home() {
             </div>
             {/* End Main Banner Area */}
 
-        <div className="bg-f5f7fa py-5"></div>
-        {/* Start Courses Area */}
-        <div className="courses-area ptb-100">
-            <div className="container">
-                <div className="section-title">
-                    <span className="sub-title">Learn At Your Own Pace</span>
-                    <h2>eLearniv Popular Courses</h2>
-                    <p>
-                        Explore all of our courses and pick your suitable ones to enroll and start learning with us! We ensure that you will never regret it!
-                    </p>
-                </div>
-                <div className="row justify-content-center">
-                    <div className="col-12 courses-details-desc mt-0">
-                        <ul className="nav nav-tabs" id="myTab" role="tablist">
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">
-                                    Overview
-                                </button>
-                            </li>
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false">
-                                    Curriculum
-                                </button>
-                            </li>
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor" type="button" role="tab" aria-controls="instructor" aria-selected="false">
-                                    Instructor
-                                </button>
-                            </li>
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">
-                                    Reviews
-                                </button>
-                            </li>
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="test-tab" data-bs-toggle="tab" data-bs-target="#test" type="button" role="tab" aria-controls="test" aria-selected="false">
-                                    Test
-                                </button>
-                            </li>
-                        </ul>
-                        <div className="tab-content px-0" id="myTabContent">
-                            <div className="tab-pane fade show active" id="overview" role="tabpanel">
-                                <ThumbnailPopularCourseCarousel />
-                            </div>
-                            <div className="tab-pane fade" id="curriculum" role="tabpanel">
-                                2
-                            </div>
-                            <div className="tab-pane fade" id="instructor" role="tabpanel">
-                                3
-                            </div>
-                            <div className="tab-pane fade" id="reviews" role="tabpanel">
-                                <ThumbnailPopularCourseCarousel />
-                            </div>
-                            <div className="tab-pane fade" id="test" role="tabpanel">
-                                5
-                            </div>
-                        </div>
-                        
+            <div className="bg-f5f7fa py-5"></div>
+            {/* Start Courses Area */}
+            <div className="courses-area ptb-100">
+                <div className="container">
+                    <div className="section-title">
+                        <span className="sub-title">Learn At Your Own Pace</span>
+                        <h2>eLearniv Popular Courses</h2>
+                        <p>
+                            Explore all of our courses and pick your suitable ones to enroll and start learning with us! We ensure that you will never regret it!
+                        </p>
                     </div>
-                    <div className="col-lg-12 col-md-12">
-                        <div className="courses-info">
-                            <p>
-                                Enjoy the top notch learning methods and achieve next level skills! You are the creator of your own career &amp; we will guide you through that.{" "}
-                                <Link href="/courses">View ALl</Link>.
-                            </p>
+                    <div className="row justify-content-center">
+                        <div className="col-12 courses-details-desc mt-0">
+                            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                {category.map((category, i) => <li className="nav-item" role="presentation" key={category.id}>
+                                    <button className={i === 0 ? "nav-link active" : "nav-link"} id="overview-tab" data-bs-toggle="tab" data-bs-target={`#${category.slug}`} type="button" role="tab" aria-controls="overview" aria-selected={i === 0 ? "true" : "false"}>
+                                        {category.name}
+                                    </button>
+                                </li>)}
+
+                            </ul>
+                            <div className="tab-content px-0" id="myTabContent">
+                                {category.map((category, i) => <div className={i===0?"tab-pane fade show active":"tab-pane fade"} id={category.slug} role="tabpanel" key={i}>
+                                    <ThumbnailPopularCourseCarousel courselist={courselist} />
+                                </div>)}
+                                {/* <div className="tab-pane fade" id="curriculum" role="tabpanel">
+                                    2
+                                </div>
+                                <div className="tab-pane fade" id="instructor" role="tabpanel">
+                                    3
+                                </div>
+                                <div className="tab-pane fade" id="reviews" role="tabpanel">
+                                    <ThumbnailPopularCourseCarousel courselist={courselist} />
+                                </div>
+                                <div className="tab-pane fade" id="test" role="tabpanel">
+                                    5
+                                </div> */}
+                            </div>
+
+                        </div>
+                        <div className="col-lg-12 col-md-12">
+                            <div className="courses-info">
+                                <p>
+                                    Enjoy the top notch learning methods and achieve next level skills! You are the creator of your own career &amp; we will guide you through that.{" "}
+                                    <Link href="/courses">View ALl</Link>.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {/* End Courses Area */}
+            {/* End Courses Area */}
 
-        <AboutSection bgClass="bg-fef8ef" />
+            <AboutSection bgClass="bg-fef8ef" />
 
-        {/* Start Test Series */}
-        <div className="features-area pt-100 pb-70">
-            <div className="container">
-                <div className="section-title">
-                    <span className="sub-title">Test Series</span>
-                    <h2>Ace Every Exam with Our Test Series</h2>
-                    <p>
-                        Boost your preparation with expertly crafted test series designed to improve accuracy, speed, and confidence for competitive exams.
-                    </p>
-                </div>
-                <div className="row">
-                    <div className="col-12">
-                        <ThumbnailTestSeriesCarousel />
+            {/* Start Test Series */}
+            <div className="features-area pt-100 pb-70">
+                <div className="container">
+                    <div className="section-title">
+                        <span className="sub-title">Test Series</span>
+                        <h2>Ace Every Exam with Our Test Series</h2>
+                        <p>
+                            Boost your preparation with expertly crafted test series designed to improve accuracy, speed, and confidence for competitive exams.
+                        </p>
                     </div>
-                </div>
-            </div>
-        </div>
-        {/* End Test Series */}
-
-        <TestimonialOdometer />
-
-        {/* Start Get Instant Courses Area */}
-        <div className="get-instant-courses-area bg-fef8ef">
-            <div className="container">
-                <SingleBookCarousel />
-                <div className="row pb-5">
-                    <div className="col-lg-12 col-md-12">
-                        <div className="blog-post-info">
-                            <p>
-                                Get into details now?​ <Link href="/books">View all books</Link>
-                            </p>
+                    <div className="row">
+                        <div className="col-12">
+                            <ThumbnailTestSeriesCarousel />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {/* End Get Instant Courses Area */}
+            {/* End Test Series */}
+
+            <TestimonialOdometer testimoniallist={testimoniallist} />
+
+            {/* Start Get Instant Courses Area */}
+            <div className="get-instant-courses-area bg-fef8ef">
+                <div className="container">
+                    <SingleBookCarousel bookList={bookList} />
+                    <div className="row pb-5">
+                        <div className="col-lg-12 col-md-12">
+                            <div className="blog-post-info">
+                                <p>
+                                    Get into details now?​ <Link href="/books">View all books</Link>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* End Get Instant Courses Area */}
 
             {/* Start Blog Area */}
             <div className="blog-area ptb-100">

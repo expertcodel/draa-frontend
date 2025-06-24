@@ -5,7 +5,7 @@ import Link from "next/link";
 import TestimonialsCarousel from "./TestimonialsCarousel";
 
 
-export default async function TestimonialOdometer() {
+export default async function TestimonialOdometer({testimoniallist}) {
     return (
         <>
             {/* Start Funfacts And Feedback Area */}
@@ -22,7 +22,7 @@ export default async function TestimonialOdometer() {
                                     With the eLearniv, you can study whenever and wherever you choose. We have students in over 175 countries and a global reputation as a pioneer in the field of flexible learning. Our teaching also means, if you travel often or need to relocate, you can
                                     continue to study wherever you go.
                                 </p>
-                                <TestimonialsCarousel />
+                                <TestimonialsCarousel testimoniallist={testimoniallist}/>
                                 <div className="feedback-info">
                                     <p>
                                         Not a member yet?​{" "}

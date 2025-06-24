@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 
-export default async function AboutSection({ bgClass="" }) {
+export default  function AboutSection({ bgClass="" }) {
     const pathname = usePathname();
     return (
         <>

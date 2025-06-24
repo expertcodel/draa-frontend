@@ -9,11 +9,11 @@ import { formatToReadableDate } from '../utils/ReadableDate.js'
 import { useState } from "react";
 export default function Blog({ bloglist, totalItems }) {
 
-    // let blogList = [];
+   
     const [blogList, setBloglist] = useState(bloglist);
     const [button, setButton] = useState(totalItems);
     const [idx, setIdx] = useState(1);
-    // const [name, setName] = useState("");
+    
 
     const pagination = async (idx) => {
 

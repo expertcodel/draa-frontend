@@ -346,15 +346,15 @@ export default function CoursePage() {
                                     <label className="mb-2">Select Course Level</label>
                                     <div className="payment-method">
                                         <p>
-                                            <input type="radio" id="Level1" name="radio-gender" checked />
+                                            <input type="radio" id="Level1" name="radio-level" />
                                             <label htmlFor="Level1">Level-I</label>
                                         </p>
                                         <p>
-                                            <input type="radio" id="Level2" name="radio-gender" />
+                                            <input type="radio" id="Level2" name="radio-level" />
                                             <label htmlFor="Level2">Level-II</label>
                                         </p>
                                         <p>
-                                            <input type="radio" id="Level3" name="radio-gender" />
+                                            <input type="radio" id="Level3" name="radio-level" />
                                             <label htmlFor="Level3">Level-III</label>
                                         </p>
                                     </div>

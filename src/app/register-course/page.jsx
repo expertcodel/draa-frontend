@@ -242,13 +242,13 @@ export default function RegisterCourse() {
 
                     });
                     // alert("Payment successful!");
-                    const response = res.json();
-                    if (response.status) {
+                    const response1 = res.json();
+                    if (response1.status) {
                         sessionStorage.removeItem('courseDetail');
                         sessionStorage.setItem('successMsg', 'Course Registered Successfully');
                         window.location.href = '/'
                     }
-                  
+
 
                 },
                 prefill: {

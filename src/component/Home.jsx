@@ -13,21 +13,36 @@ import TestimonialOdometer from "@/component/TestimonialOdometer";
 import SingleBookCarousel from "@/component/SingleBookCarousel";
 import ThumbnailTestSeriesCarousel from "@/component/ThumbnailTestSeriesCarousel";
 import { formatToReadableDate } from '../utils/ReadableDate.js'
-import { useState } from "react";
+import Tooltip from "./Tooltip.jsx";
+import { useState,useEffect } from "react";
 
 
 export default function Home({ blogList, bookList, testimoniallist, category, courselist }) {
 
 
     const [courseList, setCourselist] = useState(courselist);
+    const [message, setMessage] = useState(typeof window !== 'undefined' && sessionStorage.getItem('successMsg') ? sessionStorage.getItem('successMsg') : "")
+       useEffect(() => {
+
+
+
+        if (message !== "") {
+            const timer = setTimeout(() => {
+                setMessage("");
+                sessionStorage.removeItem('successMsg');
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+
+    }, [])
     const courseBycategory = async (course_category_id) => {
 
         try {
 
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courseByCategory/?course_category_id=${course_category_id}`, { method: 'GET' });
-            const res=await response.json();
-            if(res.status)
-            {
+            const res = await response.json();
+            if (res.status) {
                 setCourselist(res.courselist);
             }
 
@@ -45,6 +60,10 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
 
             {/* Start Main Banner Area */}
             <div className="banner-wrapper-area">
+                {
+
+                    message !== "" && <Tooltip message={message} />
+                }
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-lg-6 col-md-12">
@@ -148,7 +167,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                         <div className="col-12 courses-details-desc mt-0">
                             <ul className="nav nav-tabs" id="myTab" role="tablist">
                                 {category.map((category, i) => <li className="nav-item" role="presentation" key={category.id}>
-                                    <button className={i === 0 ? "nav-link active" : "nav-link"} id="overview-tab" data-bs-toggle="tab" data-bs-target={`#${category.slug}`} type="button" role="tab" aria-controls="overview" aria-selected={i === 0 ? "true" : "false"} onClick={()=>courseBycategory(category.id)}>
+                                    <button className={i === 0 ? "nav-link active" : "nav-link"} id="overview-tab" data-bs-toggle="tab" data-bs-target={`#${category.slug}`} type="button" role="tab" aria-controls="overview" aria-selected={i === 0 ? "true" : "false"} onClick={() => courseBycategory(category.id)}>
                                         {category.name}
                                     </button>
                                 </li>)}

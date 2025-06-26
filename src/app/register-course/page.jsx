@@ -6,10 +6,12 @@ import { faAngleRight, faCheckCircle, faPhone, faUserFriends } from '@fortawesom
 import CountrySelect from "@/component/CountrySelect";
 import Breadcrumb from "@/component/Breadcrumb";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 export default function RegisterCourse() {
 
     const [courseData, setCoursedata] = useState(sessionStorage.getItem('courseDetail') && JSON.parse(sessionStorage.getItem('courseDetail')))
     const [loading, setLoading] = useState(false);
+    const router = useRouter()
 
     const [message, setMessage] = useState({ name: "", number: "", email: "", date: "", institute: "", qualification: "", city: "", country: "", zip: "", address: "", gender: "", terms: "" })
 
@@ -232,7 +234,7 @@ export default function RegisterCourse() {
                 description: "Course Payment",
                 order_id: order.order.id,
                 handler: async (response) => {
-                    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment/verify`, {
+                    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment/verify`, {
                         method: "POST",
                         body: JSON.stringify({
 
@@ -241,13 +243,10 @@ export default function RegisterCourse() {
                         }),
 
                     });
-                    // alert("Payment successful!");
-                    const response1 = res.json();
-                    if (response1.status) {
-                        sessionStorage.removeItem('courseDetail');
-                        sessionStorage.setItem('successMsg', 'Course Registered Successfully');
-                        window.location.href = '/'
-                    }
+
+                    sessionStorage.removeItem('courseDetail');
+                    sessionStorage.setItem('successMsg', 'Course Registered Successfully');
+                    router.push('/')
 
 
                 },
@@ -265,6 +264,7 @@ export default function RegisterCourse() {
 
 
     }
+
 
     return (
         <>

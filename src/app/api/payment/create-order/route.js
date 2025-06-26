@@ -31,9 +31,6 @@ export async function POST(req) {
 
     })
 
-    console.log(registration, "data");
-
-
     return Response.json({ order, id: registration.id });
 
   } catch (err) {

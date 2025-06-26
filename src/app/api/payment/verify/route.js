@@ -30,7 +30,7 @@ export async function POST(req) {
 
     try {
         await course_registrationmodel.update({ is_paid: 1 }, { where: { id } });
-        return NextResponse.json({ success: true });
+        return NextResponse.json({ status: true });
     } catch (err) {
         console.log(err, "error");
 

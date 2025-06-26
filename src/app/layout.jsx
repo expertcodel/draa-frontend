@@ -8,7 +8,7 @@ import "./custom.scss";
 import BootstrapClient from "@/component/bootstrap-client";
 import Header from "@/component/Header";
 import Footer from "@/component/Footer";
-
+import Script from "next/script";
 config.autoAddCss = false;
 
 const geistSans = Geist({
@@ -44,6 +44,8 @@ export default function RootLayout({ children }) {
 
           <Footer />
         </main>
+
+            <Script src="https://checkout.razorpay.com/v1/checkout.js" />
         
       </body>
       <BootstrapClient />

@@ -5,7 +5,7 @@ import Link from "next/link";
 import TestimonialsCarousel from "./TestimonialsCarousel";
 
 
-export default async function TestimonialOdometer({testimoniallist}) {
+export default function TestimonialOdometer({testimoniallist}) {
     return (
         <>
             {/* Start Funfacts And Feedback Area */}

@@ -20,6 +20,7 @@ export default function CommonSelect({
         isMulti={isMulti}
         className={className}
         {...rest}
+        name="country"
       />
     </div>
   );

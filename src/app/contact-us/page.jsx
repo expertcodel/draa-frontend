@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faClock, faMapLocation, faPhone } from "@fortawesome/free-solid-svg-icons";
+import Form from "../../component/Form";
 
 export default async function ContactUs() {
     return (
@@ -60,48 +61,7 @@ export default async function ContactUs() {
                                 <p>
                                     Your email address will not be published. Required fields are marked *
                                 </p>
-                                <form id="contactForm">
-                                    <div className="row">
-                                        <div className="col-lg-12 col-md-6">
-                                            <div className="form-group mb-3">
-                                                <input type="text" name="name" id="name" required="" data-error="Please enter your name" placeholder="Your name" />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-6">
-                                            <div className="form-group mb-3">
-                                                <input type="email" name="email" id="email" required="" data-error="Please enter your email" placeholder="Your email address" />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-12">
-                                            <div className="form-group mb-3">
-                                                <input type="text" name="phone_number" id="phone_number" required="" data-error="Please enter your phone number" placeholder="Your phone number" />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-12">
-                                            <div className="form-group mb-3">
-                                                <textarea name="address" id="address" cols={30} rows={3} required="" data-error="Please enter your address" placeholder="Enter your address..." defaultValue={ ""} />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-12">
-                                            <div className="form-group mb-3">
-                                                <textarea name="message" id="message" cols={30} rows={5} required="" data-error="Please enter your message" placeholder="Write your message..." defaultValue={ ""} />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-12">
-                                            <button type="submit" className="default-btn">
-                                                Send Message
-                                                <span />
-                                            </button>
-                                            <div id="msgSubmit" className="h3 text-center hidden" />
-                                            <div className="clearfix" />
-                                        </div>
-                                    </div>
-                                </form>
+                                <Form/>
                             </div>
                         </div>
                     </div>

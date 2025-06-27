@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Form from "./Form";
 export default function CoursePage({ courseDetail, faqs, reviews, instructor }) {
 
 
@@ -19,7 +20,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor }) 
     const [level, setLevel] = useState(sessionStorage.getItem('courseDetail') ? JSON.parse(sessionStorage.getItem('courseDetail')) : { level: "1", price: courseDetail.price_level_1 });
     const setCoursedetail = () => {
 
-        sessionStorage.setItem('courseDetail', JSON.stringify({ level: level.level, price: level.price, title: courseDetail.title , course_id:courseDetail.id,mode_of_study:courseDetail.mode_of_study}));
+        sessionStorage.setItem('courseDetail', JSON.stringify({ level: level.level, price: level.price, title: courseDetail.title, course_id: courseDetail.id, mode_of_study: courseDetail.mode_of_study }));
         router.push("/register-course");
     }
 
@@ -300,42 +301,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor }) 
 
                             <div className="contact-form mt-3">
                                 <h2>Ask Your Query</h2>
-                                <form id="contactForm">
-                                    <div className="row">
-                                        <div className="col-lg-12 col-md-6">
-                                            <div className="form-group mb-3">
-                                                <input type="text" name="name" id="name" required="" data-error="Please enter your name" placeholder="Your name" />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-6">
-                                            <div className="form-group mb-3">
-                                                <input type="email" name="email" id="email" required="" data-error="Please enter your email" placeholder="Your email address" />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-12">
-                                            <div className="form-group mb-3">
-                                                <input type="text" name="phone_number" id="phone_number" required="" data-error="Please enter your phone number" placeholder="Your phone number" />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-12">
-                                            <div className="form-group mb-3">
-                                                <textarea name="message" id="message" cols={30} rows={5} required="" data-error="Please enter your message" placeholder="Write your message..." defaultValue={""} />
-                                                <div className="help-block with-errors" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12 col-md-12">
-                                            <button type="submit" className="default-btn">
-                                                Send Message
-                                                <span />
-                                            </button>
-                                            <div id="msgSubmit" className="h3 text-center hidden" />
-                                            <div className="clearfix" />
-                                        </div>
-                                    </div>
-                                </form>
+                                <Form />
                             </div>
                         </div>
                     </div>

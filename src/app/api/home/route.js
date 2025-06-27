@@ -4,7 +4,7 @@ import { blogModel } from "../../models/blog.model";
 import { testimonialModel } from "../../models/testimonial.model";
 import { course_categoryModel } from '../../models/course_category.model'
 import { courseModel } from "../../models/course.model";
-;
+
 export async function GET() {
 
 

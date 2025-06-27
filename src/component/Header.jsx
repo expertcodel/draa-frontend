@@ -8,45 +8,45 @@ import { faAngleDown, faShoppingCart, faUser } from "@fortawesome/free-solid-svg
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Header() {
-  const [isSticky, setIsSticky] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState({});
-  const [isMobileView, setIsMobileView] = useState(false);
-  const [hideDropdown, setHideDropdown] = useState(false);
+export default function Header({ courselist, booklist }) {
+    const [isSticky, setIsSticky] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState({});
+    const [isMobileView, setIsMobileView] = useState(false);
+    const [hideDropdown, setHideDropdown] = useState(false);
 
 
-  // Handle scroll and resize
-  useEffect(() => {
-    const handleScroll = () => setIsSticky(window.scrollY > 120);
-    const handleResize = () => {
-        const isMobile = window.innerWidth < 1199;
-        setIsMobileView(isMobile);
+    // Handle scroll and resize
+    useEffect(() => {
+        const handleScroll = () => setIsSticky(window.scrollY > 120);
+        const handleResize = () => {
+            const isMobile = window.innerWidth < 1199;
+            setIsMobileView(isMobile);
 
-        if (!isMobile) {
-            setIsMobileMenuOpen(false);
-            setDropdownOpen({});
-        }
-    };
+            if (!isMobile) {
+                setIsMobileMenuOpen(false);
+                setDropdownOpen({});
+            }
+        };
 
 
-    // Initial run
-    handleResize();
+        // Initial run
+        handleResize();
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen((prev) => {
             const newState = !prev;
             // Close all dropdowns when closing mobile menu
             if (!newState) {
-            setDropdownOpen({});
+                setDropdownOpen({});
             }
             return newState;
         });
@@ -59,15 +59,15 @@ export default function Header() {
 
             // Get the parent path (or "" if top-level)
             const parentPath = key.includes("/")
-            ? key.substring(0, key.lastIndexOf("/"))
-            : "";
+                ? key.substring(0, key.lastIndexOf("/"))
+                : "";
 
             const newState = Object.fromEntries(
                 Object.entries(prev).filter(([k]) => {
                     // Keep keys that are not siblings of the current key
                     const kParent = k.includes("/")
-                    ? k.substring(0, k.lastIndexOf("/"))
-                    : "";
+                        ? k.substring(0, k.lastIndexOf("/"))
+                        : "";
                     return kParent !== parentPath;
                 })
             );
@@ -82,14 +82,14 @@ export default function Header() {
     };
 
     const handleLinkClick = () => {
-  if (isMobileView) {
-    setDropdownOpen({});
-    setIsMobileMenuOpen(false);
-  } else {
-    setHideDropdown(true); // temporarily hide dropdown
-    setTimeout(() => setHideDropdown(false), 500); // reset after 500ms
-  }
-};
+        if (isMobileView) {
+            setDropdownOpen({});
+            setIsMobileMenuOpen(false);
+        } else {
+            setHideDropdown(true); // temporarily hide dropdown
+            setTimeout(() => setHideDropdown(false), 500); // reset after 500ms
+        }
+    };
 
 
 
@@ -110,10 +110,10 @@ export default function Header() {
 
         return (
             <li
-            key={key}
-            className={classNames("nav-item", {
-                megamenu: isMegaMenu,
-            })}
+                key={key}
+                className={classNames("nav-item", {
+                    megamenu: isMegaMenu,
+                })}
             >
                 {item.href ? (
                     <Link href={item.href} className="nav-link" onClick={(e) => {
@@ -122,7 +122,7 @@ export default function Header() {
                     }}>
                         {item.label} {(hasChildren || isMegaMenu) && (<FontAwesomeIcon icon={faAngleDown} />)}
                     </Link>
-                    ) : (
+                ) : (
                     <span className="nav-link" role="button" tabIndex={0} onClick={handleClick}>
                         {item.label} {(hasChildren || isMegaMenu) && (<FontAwesomeIcon icon={faAngleDown} />)}
                     </span>
@@ -131,10 +131,10 @@ export default function Header() {
 
                 {isMegaMenu && (
                     <ul
-                    className={classNames("dropdown-menu", {
-                        show: isOpen || !isMobileView,
-                        "hide-dropdown": hideDropdown && !isMobileView,
-                    })}
+                        className={classNames("dropdown-menu", {
+                            show: isOpen || !isMobileView,
+                            "hide-dropdown": hideDropdown && !isMobileView,
+                        })}
                     >
                         <li className="nav-item">
                             <div className="container">
@@ -152,22 +152,22 @@ export default function Header() {
                                     ))}
                                 </div>
                                 <div className="row m-0">
-                                    {item.widgets?.map((widget, idx) => (
-                                    <div
-                                        key={`widget-${idx}`}
-                                        className="col-lg-2 col-sm-4 col-md-4 col-6 p-0"
-                                    >
-                                        <div className="single-category-widget">
-                                        <div className="icon">
-                                            <i className={`bx ${widget.icon}`} />
+                                    {courselist.map((widget, idx) => (
+                                        <div
+                                            key={`widget-${idx}`}
+                                            className="col-lg-2 col-sm-4 col-md-4 col-6 p-0"
+                                        >
+                                            <div className="single-category-widget">
+                                                <div className="icon">
+                                                    {/* <i className={`bx ${widget.icon}`} /> */}
+                                                </div>
+                                                <h3>{widget.name}</h3>
+                                                <span className="sub-title">
+                                                    {widget.count} Courses
+                                                </span>
+                                                <Link href={widget.slug} className="link-btn" onClick={handleLinkClick} />
+                                            </div>
                                         </div>
-                                        <h3>{widget.title}</h3>
-                                        <span className="sub-title">
-                                            {widget.count} Courses
-                                        </span>
-                                        <Link href={widget.href} className="link-btn" onClick={handleLinkClick} />
-                                        </div>
-                                    </div>
                                     ))}
                                 </div>
                             </div>
@@ -177,12 +177,12 @@ export default function Header() {
 
                 {hasChildren && !isMegaMenu && (
                     <ul
-                    className={classNames("dropdown-menu", {
-                        show: isOpen || !isMobileView,
-                        "hide-dropdown": hideDropdown && !isMobileView,
-                    })}
+                        className={classNames("dropdown-menu", {
+                            show: isOpen || !isMobileView,
+                            "hide-dropdown": hideDropdown && !isMobileView,
+                        })}
                     >
-                        {item.children.map((child) => renderNavItem(child, key))}
+                        {item.label === 'Books' ? booklist.map((child) => renderNavItem(child, key)) : item.children.map((child) => renderNavItem(child, key))}
                     </ul>
                 )}
             </li>
@@ -192,7 +192,7 @@ export default function Header() {
 
 
     return (
-        <header className={classNames( "navbar-area customHeader", { "is-sticky": isSticky })}>
+        <header className={classNames("navbar-area customHeader", { "is-sticky": isSticky })}>
             <div className="elearniv-nav transition-all duration-300">
                 <div className="container">
                     <nav className="navbar navbar-light">
@@ -211,7 +211,7 @@ export default function Header() {
                             </button>
                         </div>
 
-                        <div className={classNames( "collapse navbar-collapse", { show: isMobileMenuOpen, })}>
+                        <div className={classNames("collapse navbar-collapse", { show: isMobileMenuOpen, })}>
                             <ul className="navbar-nav">
                                 {navItems.map((item) => renderNavItem(item))}
                             </ul>

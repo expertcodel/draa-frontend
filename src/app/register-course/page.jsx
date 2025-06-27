@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 export default function RegisterCourse() {
 
-    const [courseData, setCoursedata] = useState(sessionStorage.getItem('courseDetail') && JSON.parse(sessionStorage.getItem('courseDetail')))
+    const [courseData, setCoursedata] = useState(typeof (window) !== 'undefined' && sessionStorage.getItem('courseDetail') && JSON.parse(sessionStorage.getItem('courseDetail')))
     const [loading, setLoading] = useState(false);
     const router = useRouter()
 

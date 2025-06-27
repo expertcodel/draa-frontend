@@ -16,7 +16,7 @@ export const connectTodb = () => {
 
 
             console.log("database connected successfully!");
-            if (process.env.NODE_ENV === 'development') {
+            if (process.env.NODE_ENV === 'production') {
                 global.instance = sequelize;
             }
 

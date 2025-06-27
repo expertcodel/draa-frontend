@@ -11,7 +11,7 @@ export default async function AboutUs() {
 
             <AboutSection />
 
-            <TestimonialOdometer />
+            {/* <TestimonialOdometer /> */}
 
             {/* Start Advisor Area */}
             <div className="advisor-area bg-f9f9f9 ptb-100">

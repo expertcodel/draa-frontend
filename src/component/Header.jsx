@@ -8,7 +8,7 @@ import { faAngleDown, faShoppingCart, faUser } from "@fortawesome/free-solid-svg
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Header({ courselist, booklist }) {
+export default function Header({ courselist, booklist, courses }) {
     const [isSticky, setIsSticky] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState({});
@@ -139,13 +139,14 @@ export default function Header({ courselist, booklist }) {
                         <li className="nav-item">
                             <div className="container">
                                 <div className="row">
-                                    {item.gridColumns?.map((column, colIdx) => (
+                                    {courses?.map((column, colIdx) => (
                                         <div className="col" key={`column-${colIdx}`}>
                                             <ul className="megamenu-submenu">
-                                                {column.map((link, linkIdx) => (
+                                                {JSON.parse(column.courses).map((link, linkIdx) => (
                                                     <li key={`link-${colIdx}-${linkIdx}`}>
-                                                        <Link href={link.href} onClick={handleLinkClick}>{link.label}</Link>
+                                                        <Link href={`/courses/${link.slug}`} onClick={handleLinkClick}>{link.title}</Link>
                                                     </li>
+
                                                 ))}
                                             </ul>
                                         </div>
@@ -165,7 +166,7 @@ export default function Header({ courselist, booklist }) {
                                                 <span className="sub-title">
                                                     {widget.count} Courses
                                                 </span>
-                                                <Link href={widget.slug} className="link-btn" onClick={handleLinkClick} />
+                                                <Link href={`/courses/?course_name=${widget.slug}`} className="link-btn" onClick={handleLinkClick} />
                                             </div>
                                         </div>
                                     ))}
@@ -182,7 +183,12 @@ export default function Header({ courselist, booklist }) {
                             "hide-dropdown": hideDropdown && !isMobileView,
                         })}
                     >
-                        {item.label === 'Books' ? booklist.map((child) => renderNavItem(child, key)) : item.children.map((child) => renderNavItem(child, key))}
+                        {item.label === 'Books' ? booklist.map((child) =>
+                            renderNavItem(
+                                { ...child, href: `/books/?book_category=${child.href}` },
+                                key
+                            )
+                        ) : item.children.map((child) => renderNavItem(child, key))}
                     </ul>
                 )}
             </li>

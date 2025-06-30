@@ -30,6 +30,7 @@ export default async function RootLayout({ children }) {
 
   let courselist = [];
   let booklist = [];
+  let courses=[];
   try {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/header`, {
@@ -42,6 +43,7 @@ export default async function RootLayout({ children }) {
     if (res.status) {
       booklist = res.booklist;
       courselist = res.courselist;
+      courses=res.courses;
     }
 
   } catch (error) {
@@ -64,7 +66,7 @@ export default async function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
 
         <main className="page-wrapper">
-          <Header courselist={courselist} booklist={booklist}/>
+          <Header courselist={courselist} booklist={booklist} courses={courses}/>
 
           {/* Render the page content */}
           {children}

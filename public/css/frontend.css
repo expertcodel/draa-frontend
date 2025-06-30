@@ -19807,3 +19807,11 @@ Booking Popup Modal Area CSS
     display: block; width: 100%; font-size: 20px; text-transform: uppercase; margin-bottom: 4px; line-height: 12px;
 }
 .tooltipSec.success{background: rgba(25, 135, 84, .8);}
+
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

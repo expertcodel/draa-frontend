@@ -72,9 +72,9 @@ export default function Blog({ bloglist, totalItems }) {
                                 </div>
                             ))
                         }
-                        <div className="col-lg-12 col-md-12">
+                       { button > 1 && <div className="col-lg-12 col-md-12">
                             <div className="pagination-area text-center">
-                                <button className="prev page-numbers" onClick={() => pagination(idx - 1)} style={{border:'none'}}>
+                                <button className={idx <= 1 ?"prev page-numbers disabled":"prev page-numbers"} onClick={() => pagination(idx - 1)} style={{border:'none'}}>
                                     <FontAwesomeIcon icon={faAngleDoubleLeft} />
                                 </button>
                                 {Array.from({ length: button }, (_, i) => <span className={idx === i + 1 ? "page-numbers current" : "page-numbers"} aria-current="page" key={i} onClick={() => pagination(i + 1)} style={{cursor:'pointer'}}>
@@ -86,7 +86,7 @@ export default function Blog({ bloglist, totalItems }) {
                                     <FontAwesomeIcon icon={faAngleDoubleRight} />
                                 </button>
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </section>

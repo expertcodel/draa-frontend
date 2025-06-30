@@ -5,32 +5,33 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import SortingSelect from "@/component/SortingSelect";
-import { faAngleDoubleLeft, faAngleDoubleRight, faBarsStaggered, faBookBookmark, faHeart, faPeopleGroup, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faBarsStaggered, faBookBookmark, faCartShopping, faHeart, faPeopleGroup, faSearch } from "@fortawesome/free-solid-svg-icons";
 import RangeSlider from "@/component/RangeSlider";
-import { useState ,useEffect} from "react";
-export default function Courses({ courselist, totalItems, total, course_name }) {
+import { useState, useEffect } from "react";
 
-    const [courseList, setcourselist] = useState(courselist);
+export default function Books({ booklist, totalItems, total, book_category }) {
+
+    const [bookList, setbooklist] = useState(booklist);
     const [button, setButton] = useState(totalItems);
     const [idx, setIdx] = useState(1);
     const [name, setName] = useState("");
 
     useEffect(() => {
-     
-        setcourselist(courselist)
+
+        setbooklist(booklist)
         setButton(totalItems)
-       
-    }, [courselist,total])
-    
+
+    }, [booklist, total])
+
 
     const pagination = async (idx) => {
 
         if (idx > 0 && idx <= button) {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${idx}&name=${name}&course_name=${course_name}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${idx}&name=${name}&book_category=${book_category}`);
             setIdx(idx);
             const res = await response.json();
             if (res.status) {
-                setcourselist(res.courselist);
+                setbooklist(res.booklist);
                 setButton(Math.ceil(res.totalItems / 12));
             }
         }
@@ -39,12 +40,12 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
     const searching = async (idx, name) => {
 
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${1}&name=${name}&course_name=${course_name}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${book_category}`);
         setName(name);
         setIdx(1);
         const res = await response.json();
         if (res.status) {
-            setcourselist(res.courselist);
+            setbooklist(res.booklist);
             setButton(Math.ceil(res.totalItems / 12));
         }
 
@@ -53,25 +54,25 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
     return (
         <>
             {/*Breadcrumb*/}
-            <Breadcrumb title="Courses" />
+            <Breadcrumb title="Books" />
 
             {/*searchField*/}
             <div className="searchField">
                 <form className="search-box">
-                    <input type="text" className="input-search" placeholder="What do you want to learn?" onChange={(e) => searching(idx, e.target.value)} />
+                    <input type="text" className="input-search" placeholder="Waht do you want to learn?" onChange={(e) => searching(idx, e.target.value)} />
                     <button type="submit">
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
                 </form>
             </div>
 
-            {/* Start Courses Area */}
-            <div className="courses-area courses-section pt-100 pb-70">
+            {/* Start books Area */}
+            <div className="products-area ptb-100">
                 <div className="container">
                     <div className="elearniv-grid-sorting row align-items-center">
                         <div className="col-md-8 col-sm-7 result-count">
                             <p>
-                                We found <span className="count">{total}</span> courses available for you
+                                We found <span className="count">{total}</span> books available for you
                             </p>
                         </div>
                         <div className="col-md-4 col-sm-5 filterOption">
@@ -90,49 +91,36 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                     </div>
 
                     <div className="row">
-                        {courseList.map((course, i) => (
-                            <div className="col-md-4 col-sm-6 col-12" key={course.id}>
-                                <div className="single-courses-box">
-                                    <div className="courses-image">
-                                        <Link href="/courses/1" className="d-block image">
-                                            {/* <img width={750} height={500} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${course.image}`} alt="image" /> */}
-                                             <Image src="/images/products/img2.jpg" alt="image" width={750} height={500} />
+                        {bookList.map((book, i) => (
+                            <div className="col-md-4 col-sm-6 col-12">
+                                <div className="single-products-box">
+                                    <div className="products-image">
+                                        <Link href={`/books/${book.slug}`}>
+                                            {/* <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`} className="main-image" alt="image" /> */}
+                                            <Image src="/images/products/img2.jpg" alt="image" width={670} height={800} className="main-image"/>
                                         </Link>
-                                        {/* <Link href="/courses/1" className="fav">
-                                            <FontAwesomeIcon icon={faHeart} /> <i className="flaticon-heart" />
-                                        </Link>
-                                        <div className="price shadow">$39</div> */}
                                     </div>
-                                    <div className="courses-content">
-                                        {/* <div className="course-author d-flex align-items-center">
-                                            <Image width={300} height={300} src="/images/user/user1.jpg" className="rounded-circle" alt="image" />
-                                            <span>Alex Morgan</span>
-                                        </div> */}
+                                    <div className="products-content">
                                         <h3>
-                                            <Link href="/courses/1">
-                                                {course.title}
-                                            </Link>
+                                            <Link href={`/books/${book.slug}`}>  {book.title}</Link>
                                         </h3>
-                                        <p>
-                                            {course.sub_title}
-                                        </p>
-                                        <Link href={`/courses/${course.slug}`} className="default-btn">
-                                            Enroll Now
+                                        <div className="price">
+                                            <p className="line-clamp-4" dangerouslySetInnerHTML={{ __html: book.description }}>
+
+                                            </p>
+                                            <p>
+                                                {book.author}
+                                            </p>
+                                        </div>
+                                        <Link href="/register-course" className="add-to-cart default-btn">
+                                            Buy Now <FontAwesomeIcon icon={faAngleRight} />
                                             <span />
                                         </Link>
-                                        {/* <ul className="courses-box-footer d-flex justify-content-between align-items-center">
-                                            <li>
-                                                <FontAwesomeIcon icon={faBookBookmark} /> 15 Lessons
-                                            </li>
-                                            <li>
-                                                <FontAwesomeIcon icon={faPeopleGroup} /> 145 Students
-                                            </li>
-                                        </ul> */}
                                     </div>
                                 </div>
                             </div>
                         ))}
-                       {button > 1 &&  <div className="col-lg-12 col-md-12">
+                        {button > 1 && <div className="col-lg-12 col-md-12">
                             <div className="pagination-area text-center">
                                 <button className="prev page-numbers" onClick={() => pagination(idx - 1)} style={{ border: 'none' }}>
                                     <FontAwesomeIcon icon={faAngleDoubleLeft} />

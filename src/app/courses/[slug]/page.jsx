@@ -8,6 +8,7 @@ export default async function Page({ params }) {
     let faqs = [];
     let reviews = []
     let instructor = []
+    let category;
     try {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses`, {
@@ -23,6 +24,7 @@ export default async function Page({ params }) {
             faqs = res.coursedetail.faqs;
             reviews = res.coursedetail.reviews;
             instructor = res.coursedetail.intstructor;
+            category=res.coursedetail.category
         }
 
     } catch (error) {
@@ -36,6 +38,6 @@ export default async function Page({ params }) {
 
 
     return (
-        <CoursePage courseDetail={courseDetail} faqs={faqs} reviews={reviews} instructor={instructor} />
+        <CoursePage courseDetail={courseDetail} faqs={faqs} reviews={reviews} instructor={instructor} category={category}/>
     );
 }

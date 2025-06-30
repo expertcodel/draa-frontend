@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Form from "./Form";
-export default function CoursePage({ courseDetail, faqs, reviews, instructor }) {
+export default function CoursePage({ courseDetail, faqs, reviews, instructor,category }) {
 
 
     const router = useRouter();
@@ -27,7 +27,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor }) 
     return (
         <>
             {/*Breadcrumb*/}
-            <Breadcrumb title="Course Category" />
+            <Breadcrumb title={category} />
 
             {/* Start Courses Details Area */}
             <div className="courses-details-area pb-100">
@@ -317,7 +317,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor }) 
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                         </div>
                         <div className="modal-body">
-                            <iframe src={`https://www.youtube.com/embed/${courseDetail.video_id}?autoplay=1`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe src={`https://www.youtube.com/embed/${courseDetail.video_id}?autoplay=0`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>

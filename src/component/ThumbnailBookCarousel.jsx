@@ -8,7 +8,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
-export default function ThumbnailBookCarousel() {
+export default function ThumbnailBookCarousel({bookList}) {
   return (
     <Swiper
       modules={[Autoplay, FreeMode]}
@@ -29,21 +29,21 @@ export default function ThumbnailBookCarousel() {
       }}
       className="book-slider customSwiper"
     >
-      {[...Array(10)].map((_, i) => (
+      {bookList.map((book, i) => (
         <SwiperSlide key={i}>
             <div className="single-products-box">
                 <div className="products-image">
-                    <Link href="/">
+                    <Link href={`/books/${book.slug}`}>
                         <Image width={670} height={800} src="/images/products/img1.jpg" className="main-image" alt="image" />
                     </Link>
                 </div>
                 <div className="products-content">
                     <h3>
-                        <Link href="/">Note Book Mockup</Link>
+                        <Link href={`/books/${book.slug}`}>{book.title}</Link>
                     </h3>
                     <div className="price">
                         <p>
-                            Learn crime scene analysis and applications of scientific methodologies to uncover the truth behind matters pertaining to law.
+                           {book.author}
                         </p>
                     </div>
                     <Link href="/register-course" className="add-to-cart default-btn">

@@ -14,7 +14,7 @@ import SingleBookCarousel from "@/component/SingleBookCarousel";
 import ThumbnailTestSeriesCarousel from "@/component/ThumbnailTestSeriesCarousel";
 import { formatToReadableDate } from '../utils/ReadableDate.js'
 import Tooltip from "./Tooltip.jsx";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 
 export default function Home({ blogList, bookList, testimoniallist, category, courselist }) {
@@ -22,7 +22,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
 
     const [courseList, setCourselist] = useState(courselist);
     const [message, setMessage] = useState(typeof window !== 'undefined' && sessionStorage.getItem('successMsg') ? sessionStorage.getItem('successMsg') : "")
-       useEffect(() => {
+    useEffect(() => {
 
 
 
@@ -370,10 +370,10 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                                     eLearniv training programs can bring you a super exciting experience of learning through online! You never face any negative experience while enjoying your classes virtually by sitting in your comfort zone. Our flexible learning initiatives will help
                                     you to learn better and quicker than the traditional ways of learning skills.
                                 </p>
-                                <a href="courses-1.html" className="default-btn">
+                                <Link href="/courses" className="default-btn">
                                     <i className="flaticon-agenda" /> View Courses
                                     <span />
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
@@ -401,7 +401,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                         <p>
                             Students friendly pricing for the certificate programs helps individuals to get their skill certificate easier than ever!
                         </p>
-                        <a href="membership-levels.html" className="default-btn">
+                        <a href="/courses" className="default-btn">
                             <i className="flaticon-user" /> Get Started Now
                             <span />
                         </a>

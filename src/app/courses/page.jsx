@@ -5,13 +5,13 @@ export default async function Page() {
     let courselist = [];
     let totalItems;
     let total;
-  
+
     const headersList = await headers();
     const path = headersList.get('x-pathname');
-  
+
     try {
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=1&name=&course_name=${path}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=1&name=&course_name=${path}&sort=${-1}`, {
 
             method: 'GET',
             cache: 'no-store'

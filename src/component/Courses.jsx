@@ -7,26 +7,27 @@ import { faFacebook, faInstagram, faLinkedin, faTwitter } from "@fortawesome/fre
 import SortingSelect from "@/component/SortingSelect";
 import { faAngleDoubleLeft, faAngleDoubleRight, faBarsStaggered, faBookBookmark, faHeart, faPeopleGroup, faSearch } from "@fortawesome/free-solid-svg-icons";
 import RangeSlider from "@/component/RangeSlider";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
+import FilterList from '../component/FilterList.jsx'
 export default function Courses({ courselist, totalItems, total, course_name }) {
 
     const [courseList, setcourselist] = useState(courselist);
     const [button, setButton] = useState(totalItems);
     const [idx, setIdx] = useState(1);
     const [name, setName] = useState("");
+    const [selected, setSelected] = useState(null);
 
     useEffect(() => {
-     
+
         setcourselist(courselist)
         setButton(totalItems)
-       
-    }, [courselist,total])
-    
+
+    }, [courselist, total])
 
     const pagination = async (idx) => {
 
         if (idx > 0 && idx <= button) {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${idx}&name=${name}&course_name=${course_name}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${idx}&name=${name}&course_name=${course_name}&sort=${selected}`);
             setIdx(idx);
             const res = await response.json();
             if (res.status) {
@@ -39,7 +40,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
     const searching = async (idx, name) => {
 
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${1}&name=${name}&course_name=${course_name}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${1}&name=${name}&course_name=${course_name}&sort=${selected}`);
         setName(name);
         setIdx(1);
         const res = await response.json();
@@ -63,6 +64,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
                 </form>
+                {name!=="" && <FilterList filtered={courseList}/>}
             </div>
 
             {/* Start Courses Area */}
@@ -78,7 +80,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                             <div className="select-box noBG">
                                 <label>Sort By:</label>
                                 <div className="nice-select">
-                                    <SortingSelect />
+                                    <SortingSelect  setcourselist={setcourselist} selected={selected} setSelected={setSelected} name={name} course_name={course_name} setIdx={setIdx} setButton={setButton} type={"courses"}/>
                                 </div>
                             </div>
                             <div className="customFilter">
@@ -94,9 +96,10 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                             <div className="col-md-4 col-sm-6 col-12" key={course.id}>
                                 <div className="single-courses-box">
                                     <div className="courses-image">
-                                        <Link href="/courses/1" className="d-block image">
+                                        <Link href={`/courses/${course.slug}`} className="d-block image">
+                                       
                                             {/* <img width={750} height={500} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${course.image}`} alt="image" /> */}
-                                             <Image src="/images/products/img2.jpg" alt="image" width={750} height={500} />
+                                            <Image src="/images/products/img2.jpg" alt="image" width={750} height={500} />
                                         </Link>
                                         {/* <Link href="/courses/1" className="fav">
                                             <FontAwesomeIcon icon={faHeart} /> <i className="flaticon-heart" />
@@ -109,7 +112,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                                             <span>Alex Morgan</span>
                                         </div> */}
                                         <h3>
-                                            <Link href="/courses/1">
+                                            <Link href={`/courses/${course.slug}`}>
                                                 {course.title}
                                             </Link>
                                         </h3>
@@ -132,7 +135,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                                 </div>
                             </div>
                         ))}
-                       {button > 1 &&  <div className="col-lg-12 col-md-12">
+                        {button > 1 && <div className="col-lg-12 col-md-12">
                             <div className="pagination-area text-center">
                                 <button className="prev page-numbers" onClick={() => pagination(idx - 1)} style={{ border: 'none' }}>
                                     <FontAwesomeIcon icon={faAngleDoubleLeft} />

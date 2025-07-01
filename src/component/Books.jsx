@@ -8,6 +8,7 @@ import SortingSelect from "@/component/SortingSelect";
 import { faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faBarsStaggered, faBookBookmark, faCartShopping, faHeart, faPeopleGroup, faSearch } from "@fortawesome/free-solid-svg-icons";
 import RangeSlider from "@/component/RangeSlider";
 import { useState, useEffect } from "react";
+import FilterList from '../component/FilterList.jsx'
 
 export default function Books({ booklist, totalItems, total, book_category }) {
 
@@ -15,6 +16,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     const [button, setButton] = useState(totalItems);
     const [idx, setIdx] = useState(1);
     const [name, setName] = useState("");
+    const [selected, setSelected] = useState(null);
 
     useEffect(() => {
 
@@ -27,7 +29,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     const pagination = async (idx) => {
 
         if (idx > 0 && idx <= button) {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${idx}&name=${name}&book_category=${book_category}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${idx}&name=${name}&book_category=${book_category}&sort=${selected}`);
             setIdx(idx);
             const res = await response.json();
             if (res.status) {
@@ -40,7 +42,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     const searching = async (idx, name) => {
 
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${book_category}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${book_category}&sort=${selected}`);
         setName(name);
         setIdx(1);
         const res = await response.json();
@@ -64,6 +66,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
                 </form>
+                {name !== "" && <FilterList filtered={bookList} />}
             </div>
 
             {/* Start books Area */}
@@ -79,7 +82,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                             <div className="select-box noBG">
                                 <label>Sort By:</label>
                                 <div className="nice-select">
-                                    <SortingSelect />
+                                    <SortingSelect  setcourselist={setbooklist} selected={selected} setSelected={setSelected} name={name} course_name={book_category} setIdx={setIdx} setButton={setButton} type={"books"}/>
                                 </div>
                             </div>
                             <div className="customFilter">
@@ -92,12 +95,12 @@ export default function Books({ booklist, totalItems, total, book_category }) {
 
                     <div className="row">
                         {bookList.map((book, i) => (
-                            <div className="col-md-4 col-sm-6 col-12">
+                            <div className="col-md-4 col-sm-6 col-12" key={i}>
                                 <div className="single-products-box">
                                     <div className="products-image">
                                         <Link href={`/books/${book.slug}`}>
                                             {/* <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`} className="main-image" alt="image" /> */}
-                                            <Image src="/images/products/img2.jpg" alt="image" width={670} height={800} className="main-image"/>
+                                            <Image src="/images/products/img2.jpg" alt="image" width={670} height={800} className="main-image" />
                                         </Link>
                                     </div>
                                     <div className="products-content">

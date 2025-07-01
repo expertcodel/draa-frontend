@@ -34,9 +34,9 @@ export default function ThumbnailPopularCourseCarousel({ courselist }) {
         <SwiperSlide key={i}>
           <div className="single-courses-box">
             <div className="courses-image">
-              <a href="single-course-1.html" className="d-block image">
+              <Link href={`/courses/${course.slug}`} className="d-block image">
                 <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${course.image}`} alt="image" />
-              </a>
+              </Link>
               {/* <a href="single-course-1.html" className="fav">
                         <FontAwesomeIcon icon={faHeart} /> <i className="flaticon-heart" />
                     </a>
@@ -48,9 +48,9 @@ export default function ThumbnailPopularCourseCarousel({ courselist }) {
                         <span>Alex Morgan</span>
                     </div> */}
               <h3>
-                <a href="single-course-1.html">
+                <Link href={`/courses/${course.slug}`}>
                   {course.title}
-                </a>
+                </Link>
               </h3>
               <p>
                 {course.sub_title}

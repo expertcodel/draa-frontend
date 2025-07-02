@@ -1,42 +1,56 @@
 "use client"
-import Breadcrumb from "@/component/Breadcrumb";
-import { faAngleLeft, faAngleRight, faBook, faCartShopping, faClock, faPhone, faPlay, faTag, faUserTie } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faSquareInstagram,
-    faSquareFacebook,
-    faSquareTwitter,
-    faLinkedin
-} from '@fortawesome/free-brands-svg-icons';
 import Image from "next/image";
-import Link from "next/link";
+import Link from 'next/link';
+import { faAngleLeft, faAngleRight, faBook, faCartShopping, faClock, faEye, faPhone, faPlay, faTag, faUserTie } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Breadcrumb from "@/component/Breadcrumb";
+import Form from "./Form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Form from "./Form";
-export default function CoursePage({ courseDetail, faqs, reviews, instructor,category }) {
-
-
-    const router = useRouter();
-    const [level, setLevel] = useState(sessionStorage.getItem('courseDetail') ? JSON.parse(sessionStorage.getItem('courseDetail')) : { level: "1", price: courseDetail.price_level_1 });
-    const setCoursedetail = () => {
-
-        sessionStorage.setItem('courseDetail', JSON.stringify({ level: level.level, price: level.price, title: courseDetail.title, course_id: courseDetail.id, mode_of_study: courseDetail.mode_of_study }));
-        router.push("/register-course");
-    }
+export default function TestSeriesPage({ courseDetail, faqs, reviews }) {
 
     return (
         <>
             {/*Breadcrumb*/}
-            <Breadcrumb title={category} />
+            <Breadcrumb title={`Test - ${courseDetail.title}`} />
 
             {/* Start Courses Details Area */}
             <div className="courses-details-area pb-100">
-                <div className="courses-details-image">
-                    <Image width={1920} height={500} src="/images/courses/course-details.jpg" alt="image" />
-                </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8 col-md-12">
+                            {/* <div className="single-courses-item mt-5">
+                                <div className="row align-items-center">
+                                    <div className="col-12">
+                                        <div className="courses-content helpDiv">
+                                            <h3>
+                                                <Link href="single-course-1.html">
+                                                    Agile Crash Course: Agile Project Management
+                                                </Link>
+                                            </h3>
+                                            <ul className="courses-content-footer d-flex justify-content-between align-items-center">
+                                                <li>
+                                                    <FontAwesomeIcon icon={faBook} /> 1088 Total Tests
+                                                </li>
+                                                <li>
+                                                    <FontAwesomeIcon icon={faClock} /> Last updated on May 28, 2025
+                                                </li>
+                                                <li>
+                                                    <FontAwesomeIcon icon={faEye} /> 2k Users
+                                                </li>
+                                                <li>
+                                                    <FontAwesomeIcon icon={faBook} /> <mark>3 Free Tests</mark>
+                                                </li>
+                                            </ul>
+                                            <a href="/" className="default-btn mt-4">
+                                                Add This Test Series
+                                                <span />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> */}
+
                             <div className="courses-details-desc">
                                 <h5>
                                     {courseDetail.title}
@@ -58,20 +72,15 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
                                         </button>
                                     </li>
                                     <li className="nav-item" role="presentation">
-                                        <button className="nav-link" id="Case-Studies-tab" data-bs-toggle="tab" data-bs-target="#Case-Studies" type="button" role="tab" aria-controls="Case-Studies" aria-selected="false">
-                                            Case Studies
-                                        </button>
-                                    </li>
-                                    <li className="nav-item" role="presentation">
-                                        <button className="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor" type="button" role="tab" aria-controls="instructor" aria-selected="false">
-                                            Instructor
-                                        </button>
-                                    </li>
-                                    <li className="nav-item" role="presentation">
                                         <button className="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">
                                             Reviews
                                         </button>
                                     </li>
+                                    {/* <li className="nav-item" role="presentation">
+                                        <button className="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor" type="button" role="tab" aria-controls="instructor" aria-selected="false">
+                                            3 Free Test
+                                        </button>
+                                    </li> */}
                                 </ul>
                                 <div className="tab-content" id="myTabContent">
                                     <div className="tab-pane fade show active" id="overview" role="tabpanel">
@@ -174,12 +183,12 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="tab-pane fade" id="Case-Studies" role="tabpanel">
+                                    {/* <div className="tab-pane fade" id="Case-Studies" role="tabpanel">
                                         <div className="courses-overview" dangerouslySetInnerHTML={{ __html: courseDetail.case_studies }}>
 
                                         </div>
-                                    </div>
-                                    <div className="tab-pane fade" id="instructor" role="tabpanel">
+                                    </div> */}
+                                    {/* <div className="tab-pane fade" id="instructor" role="tabpanel">
                                         <div className="courses-instructor">
                                             <div className="single-advisor-box">
                                                 {instructor.map((instructor) => <div className="row align-items-center" key={instructor.id}>
@@ -225,7 +234,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
                                                 </div>)}
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="tab-pane fade" id="reviews" role="tabpanel">
 
                                         <div className="courses-review-comments">
@@ -254,35 +263,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-12">
-                            <div className="courses-details-info">
-                                <div className="image">
-                                    <Image width={750} height={500} src="/images/courses/img1.jpg" alt="image" />
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" className="link-btn popup-youtube" />
-                                    {/* <a href="/" className="link-btn popup-youtube" /> */}
-                                    <div className="content">
-                                        <em><FontAwesomeIcon icon={faPlay} /></em>
-                                        <span>Course Preview</span>
-                                    </div>
-                                </div>
-                                <div className="btn-box order-details">
-                                    <div className="payment-box p-0 bg-blank">
-                                        <label className="mb-2">Select Course Level</label>
-                                        <div className="payment-method">
-                                            <p>
-                                                <input type="radio" id="Level1" name="radio-level" checked={level.level === "1" ? true : false} onChange={() => setLevel({ level: "1", price: courseDetail.price_level_1 })} />
-                                                <label htmlFor="Level1">Level-I</label>
-                                            </p>
-                                            <p>
-                                                <input type="radio" id="Level2" name="radio-level" checked={level.level === "2" ? true : false} onChange={() => setLevel({ level: "2", price: courseDetail.price_level_2 })} />
-                                                <label htmlFor="Level2">Level-II</label>
-                                            </p>
-                                            <p>
-                                                <input type="radio" id="Level3" name="radio-level" checked={level.level === "3" ? true : false} onChange={() => setLevel({ level: "3", price: courseDetail.price_level_3 })} />
-                                                <label htmlFor="Level3">Level-III</label>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="courses-details-info mt-5">
                                 <div className="btn-box">
                                     <span className="text-center d-block"><FontAwesomeIcon icon={faClock} /> Call for Assistance</span>
                                     <a href="tel:+44587154756" className="default-btn">
@@ -292,10 +273,10 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
                                 </div>
                                 <div className="btn-box">
                                     {/* <span>Registration is closed. We will open soon.</span> */}
-                                    <button onClick={setCoursedetail} className="default-btn w-100" type="button">
-                                        Register For Course <FontAwesomeIcon icon={faAngleRight} />
+                                    <Link href="/" className="default-btn">
+                                        Add This Test Series <FontAwesomeIcon icon={faAngleRight} />
                                         <span />
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
 
@@ -308,20 +289,6 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
                 </div>
             </div>
             {/* End Courses Details Area */}
-
-            {/* Modal */}
-            <div className="modal fade customVideoModal" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered modal-xl">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-                        </div>
-                        <div className="modal-body">
-                            <iframe src={`https://www.youtube.com/embed/${courseDetail.video_id}?autoplay=0`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </>
     );
 }

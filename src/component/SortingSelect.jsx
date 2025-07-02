@@ -32,6 +32,16 @@ export default function SortingSelect({ setcourselist, selected, setSelected, na
       }
 
     }
+    else if (type === "test-series") {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/test-series/?page=${1}&name=${name}&sort=${option.value === "date-newest" ? 1 : 0}`);
+     
+      setIdx(1);
+      const res = await response.json();
+      if (res.status) {
+        setcourselist(res.courselist);
+        setButton(Math.ceil(res.totalItems / 12));
+      }
+    }
     else {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${course_name}&sort=${option.value === "date-newest" ? 1 : 0}`);
       setIdx(1);

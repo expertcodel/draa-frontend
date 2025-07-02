@@ -756,8 +756,8 @@ Navbar Area CSS
   color: var(--blackColor);
   padding: 0;
   display: block;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
 }
 .elearniv-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .megamenu-submenu li a:hover, .elearniv-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .megamenu-submenu li a.active {
   color: var(--mainColor);
@@ -795,7 +795,7 @@ Navbar Area CSS
 }
 .elearniv-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .single-category-widget h3 {
   margin-bottom: 0;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 800;
 }
 .elearniv-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .single-category-widget .sub-title {
@@ -803,7 +803,7 @@ Navbar Area CSS
   margin-top: 5px;
   color: var(--mainColor);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
 }
 .elearniv-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .single-category-widget .link-btn {
   position: absolute;
@@ -4372,7 +4372,7 @@ Courses Details Area CSS
 }
 .courses-details-desc .nav .nav-item {
   margin-bottom: 0;
-  margin-right: 40px;
+  margin-right: 28px;
 }
 .courses-details-desc .nav .nav-item .nav-link {
   border-radius: 0;
@@ -4384,7 +4384,7 @@ Courses Details Area CSS
   position: relative;
   border-radius: 5px;
   color: var(--blackColor);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
 }
 .courses-details-desc .nav .nav-item .nav-link::before {
@@ -8405,8 +8405,8 @@ Blog Area CSS
 .single-blog-post .post-content h3 {
   margin-bottom: 12px;
   line-height: 1.3;
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 700; min-height: 42px;
 }
 .single-blog-post .post-content h3 a {
   display: inline-block;
@@ -19792,7 +19792,7 @@ Booking Popup Modal Area CSS
 
 /***** searchField *******/
 .searchField{
-  background: var(--bs-body-bg); margin-top: -21px; position: relative; z-index: 1; padding: 16px; width: 350px; margin: -24px auto 0;
+  background: var(--bs-body-bg); margin-top: -21px; position: relative; z-index: 2; padding: 16px; width: 350px; margin: -24px auto 0;
   border-radius: 10px; box-shadow: 0 0 12px rgba(0, 0, 0, 0.04);
 }
 .searchField .search-box{margin: 0; width: 100%;}
@@ -19815,3 +19815,16 @@ Booking Popup Modal Area CSS
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/********* customListShow *******/
+.customListShow{position: absolute; z-index: 99;}
+.customListShow ul.absolute{
+  padding: 8px 16px; max-height: 300px; min-height: 280px; overflow-y: auto; background: var(--bs-body-bg);
+  box-shadow: 0 2px 16px rgba(0,0,0,.15); margin-top: 4px;
+}
+.customListShow ul.absolute > *{margin: 0;}
+.customListShow ul.absolute > *:not(:last-child){margin-bottom: 8px;}
+.customListShow ul.absolute li a{
+  font-size: 14px; color: var(--blackColor); transition: ease all .5s; -webkit-transition: ease all .5s; display: inline-flex;
+}
+.customListShow ul.absolute li a:hover{color: var(--mainColor); padding-left: 8px;}

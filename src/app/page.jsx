@@ -8,6 +8,7 @@ export default async function Page() {
     let testimoniallist = [];
     let category = [];
     let courselist = [];
+    let testSerieslist = [];
     try {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/home`, {
@@ -23,6 +24,7 @@ export default async function Page() {
             testimoniallist = res.testimoniallist;
             category = res.category;
             courselist = res.courselist;
+            testSerieslist=res.testserieslist
         }
 
     } catch (error) {
@@ -35,6 +37,6 @@ export default async function Page() {
 
 
     return (
-      <Home blogList={blogList} bookList={bookList} testimoniallist={testimoniallist} category={category} courselist={courselist}/>
+      <Home blogList={blogList} bookList={bookList} testimoniallist={testimoniallist} category={category} courselist={courselist} testSerieslist={testSerieslist}/>
     );
 }

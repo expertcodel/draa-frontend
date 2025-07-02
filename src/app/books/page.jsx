@@ -8,7 +8,7 @@ export default async function Page() {
 
     const headersList = await headers();
     const path = headersList.get('x-pathname');
-    console.log(path, "patha");
+
 
     try {
 

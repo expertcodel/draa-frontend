@@ -56,6 +56,9 @@ export async function POST(request) {
             contentBase64 = blogdetail.content.toString('base64'); // convert blob to base64
         }
 
+        console.log(blogdetail);
+        
+
         return NextResponse.json({
             status: true,
             blogdetail: {

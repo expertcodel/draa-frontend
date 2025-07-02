@@ -16,12 +16,15 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     const [button, setButton] = useState(totalItems);
     const [idx, setIdx] = useState(1);
     const [name, setName] = useState("");
+    const [Total, setTotal] = useState(total);
     const [selected, setSelected] = useState(null);
 
     useEffect(() => {
 
         setbooklist(booklist)
         setButton(totalItems)
+        setTotal(total)
+        setName("")
 
     }, [booklist, total])
 
@@ -35,6 +38,8 @@ export default function Books({ booklist, totalItems, total, book_category }) {
             if (res.status) {
                 setbooklist(res.booklist);
                 setButton(Math.ceil(res.totalItems / 12));
+                setTotal(res.totalItems);
+
             }
         }
     }
@@ -49,6 +54,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
         if (res.status) {
             setbooklist(res.booklist);
             setButton(Math.ceil(res.totalItems / 12));
+            setTotal(res.totalItems);
         }
 
     }
@@ -56,12 +62,12 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     return (
         <>
             {/*Breadcrumb*/}
-            <Breadcrumb title="Books" />
+            <Breadcrumb title={book_category === 'null' ? "Books" : book_category.replace(/[^a-zA-Z0-9]/g, ' ') + " Books"} />
 
             {/*searchField*/}
             <div className="searchField">
                 <form className="search-box">
-                    <input type="text" className="input-search" placeholder="Waht do you want to learn?" onChange={(e) => searching(idx, e.target.value)} />
+                    <input type="text" className="input-search" placeholder="Waht do you want to learn?" onChange={(e) => searching(idx, e.target.value)} value={name} />
                     <button type="submit">
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
@@ -75,14 +81,14 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                     <div className="elearniv-grid-sorting row align-items-center">
                         <div className="col-md-8 col-sm-7 result-count">
                             <p>
-                                We found <span className="count">{total}</span> books available for you
+                                We found <span className="count">{Total}</span> books available for you
                             </p>
                         </div>
-                        <div className="col-md-4 col-sm-5 filterOption">
+                        {bookList.length > 0 && <div className="col-md-4 col-sm-5 filterOption">
                             <div className="select-box noBG">
                                 <label>Sort By:</label>
                                 <div className="nice-select">
-                                    <SortingSelect  setcourselist={setbooklist} selected={selected} setSelected={setSelected} name={name} course_name={book_category} setIdx={setIdx} setButton={setButton} type={"books"}/>
+                                    <SortingSelect setcourselist={setbooklist} selected={selected} setSelected={setSelected} name={name} course_name={book_category} setIdx={setIdx} setButton={setButton} type={"books"} />
                                 </div>
                             </div>
                             <div className="customFilter">
@@ -90,7 +96,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                                     <FontAwesomeIcon className="active" icon={faBarsStaggered} /> FIlter
                                 </button>
                             </div>
-                        </div>
+                        </div>}
                     </div>
 
                     <div className="row">

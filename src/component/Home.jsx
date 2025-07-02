@@ -15,9 +15,10 @@ import ThumbnailTestSeriesCarousel from "@/component/ThumbnailTestSeriesCarousel
 import { formatToReadableDate } from '../utils/ReadableDate.js'
 import Tooltip from "./Tooltip.jsx";
 import { useState, useEffect } from "react";
+import SearchForm from "./SearchForm.jsx";
 
 
-export default function Home({ blogList, bookList, testimoniallist, category, courselist }) {
+export default function Home({ blogList, bookList, testimoniallist, category, courselist, testSerieslist }) {
 
 
     const [courseList, setCourselist] = useState(courselist);
@@ -72,32 +73,15 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                 </p>
-                                <form>
-                                    <label>
-                                        <FontAwesomeIcon icon={faSearch} />
-                                    </label>
-                                    <input type="text" className="input-search" placeholder="What do you want to learn?" />
-                                    <button type="submit" className="default-btn">
-                                        Search Now
-                                        <span />
-                                    </button>
-                                </form>
+                                < SearchForm />
                                 <ul className="popular-search-list">
                                     <li>
                                         <span>Popular:</span>
                                     </li>
-                                    <li>
-                                        <Link href="/">Development</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/">Marketing</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/">Illustration</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/">UX/UI</Link>
-                                    </li>
+                                    {category.map((category, i) => i < 3 && <li key={i}>
+                                        <Link href={`/courses/?course_name=${category.slug}`}>{category.name}</Link>
+                                    </li>)}
+
                                 </ul>
                             </div>
                         </div>
@@ -219,7 +203,15 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <ThumbnailTestSeriesCarousel />
+                            <ThumbnailTestSeriesCarousel testSerieslist={testSerieslist} />
+                        </div>
+                    </div>
+                    <div className="col-lg-12 col-md-12">
+                        <div className="courses-info">
+                            <p>
+                                Enjoy the top notch learning methods and achieve next level skills! You are the creator of your own career &amp; we will guide you through that.{" "}
+                                <Link href="/test-series">View ALl</Link>.
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -9,6 +9,8 @@ import Link from "next/link";
 
 export default function BookPage({ bookDetail, bookList }) {
 
+    
+    
     return (
         <>
             {/*Breadcrumb*/}
@@ -17,7 +19,7 @@ export default function BookPage({ bookDetail, bookList }) {
                 <meta name="description" content={bookDetail.meta_description} />
                 <title>{bookDetail.seo_title}</title>
             </head>
-            <Breadcrumb title={bookDetail.title} />
+            <Breadcrumb title={bookDetail.title.replace(/[^a-zA-Z0-9]/g, ' ')} />
 
             {/* Start products Details Area */}
             <div className="products-details-area ptb-100">

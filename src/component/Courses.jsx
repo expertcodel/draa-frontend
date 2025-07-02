@@ -12,6 +12,7 @@ import FilterList from '../component/FilterList.jsx'
 export default function Courses({ courselist, totalItems, total, course_name }) {
 
     const [courseList, setcourselist] = useState(courselist);
+    const [Total, setTotal] = useState(total);
     const [button, setButton] = useState(totalItems);
     const [idx, setIdx] = useState(1);
     const [name, setName] = useState("");
@@ -21,6 +22,8 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
 
         setcourselist(courselist)
         setButton(totalItems)
+        setTotal(total)
+        setName("")
 
     }, [courselist, total])
 
@@ -33,6 +36,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
             if (res.status) {
                 setcourselist(res.courselist);
                 setButton(Math.ceil(res.totalItems / 12));
+                setTotal(res.totalItems);
             }
         }
     }
@@ -47,6 +51,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
         if (res.status) {
             setcourselist(res.courselist);
             setButton(Math.ceil(res.totalItems / 12));
+            setTotal(res.totalItems);
         }
 
     }
@@ -54,17 +59,17 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
     return (
         <>
             {/*Breadcrumb*/}
-            <Breadcrumb title="Courses" />
+            <Breadcrumb title={course_name === 'null' ? "Courses" : course_name} />
 
             {/*searchField*/}
             <div className="searchField">
                 <form className="search-box">
-                    <input type="text" className="input-search" placeholder="What do you want to learn?" onChange={(e) => searching(idx, e.target.value)} />
+                    <input type="text" className="input-search" placeholder="What do you want to learn?" onChange={(e) => searching(idx, e.target.value)} value={name} />
                     <button type="submit">
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
                 </form>
-                {name!=="" && <FilterList filtered={courseList}/>}
+                {name !== "" && <FilterList filtered={courseList} />}
             </div>
 
             {/* Start Courses Area */}
@@ -73,14 +78,14 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                     <div className="elearniv-grid-sorting row align-items-center">
                         <div className="col-md-8 col-sm-7 result-count">
                             <p>
-                                We found <span className="count">{total}</span> courses available for you
+                                We found <span className="count">{Total}</span> courses available for you
                             </p>
                         </div>
-                        <div className="col-md-4 col-sm-5 filterOption">
+                        {courseList.length > 0 && <div className="col-md-4 col-sm-5 filterOption">
                             <div className="select-box noBG">
                                 <label>Sort By:</label>
                                 <div className="nice-select">
-                                    <SortingSelect  setcourselist={setcourselist} selected={selected} setSelected={setSelected} name={name} course_name={course_name} setIdx={setIdx} setButton={setButton} type={"courses"}/>
+                                    <SortingSelect setcourselist={setcourselist} selected={selected} setSelected={setSelected} name={name} course_name={course_name} setIdx={setIdx} setButton={setButton} type={"courses"} />
                                 </div>
                             </div>
                             <div className="customFilter">
@@ -88,7 +93,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                                     <FontAwesomeIcon className="active" icon={faBarsStaggered} /> FIlter
                                 </button>
                             </div>
-                        </div>
+                        </div>}
                     </div>
 
                     <div className="row">
@@ -97,7 +102,7 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                                 <div className="single-courses-box">
                                     <div className="courses-image">
                                         <Link href={`/courses/${course.slug}`} className="d-block image">
-                                       
+
                                             {/* <img width={750} height={500} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${course.image}`} alt="image" /> */}
                                             <Image src="/images/products/img2.jpg" alt="image" width={750} height={500} />
                                         </Link>

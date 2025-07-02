@@ -8,7 +8,8 @@ import { faAngleDown, faShoppingCart, faUser } from "@fortawesome/free-solid-svg
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Header({ courselist, booklist, courses }) {
+export default function Header({ courselist, booklist, courses, testseries }) {
+
     const [isSticky, setIsSticky] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState({});
@@ -156,7 +157,7 @@ export default function Header({ courselist, booklist, courses }) {
                                     {courselist.map((widget, idx) => (
                                         <div
                                             key={`widget-${idx}`}
-                                            className="col-lg-2 col-sm-4 col-md-4 col-6 p-0"
+                                            className="col-12 p-0"
                                         >
                                             <div className="single-category-widget">
                                                 <div className="icon">
@@ -183,12 +184,17 @@ export default function Header({ courselist, booklist, courses }) {
                             "hide-dropdown": hideDropdown && !isMobileView,
                         })}
                     >
-                        {item.label === 'Books' ? booklist.map((child) =>
+                        {item.label === 'About' ? item.children.map((child) => renderNavItem(child, key)) : item.label === 'Books' ? booklist.map((child) =>
                             renderNavItem(
                                 { ...child, href: `/books/?book_category=${child.href}` },
                                 key
                             )
-                        ) : item.children.map((child) => renderNavItem(child, key))}
+                        ) : testseries.map((child) =>
+                            renderNavItem(
+                                { ...child, href: `/test-series/${child.href}` },
+                                key
+                            )
+                        )}
                     </ul>
                 )}
             </li>

@@ -39,7 +39,7 @@ export default function SingleBookCarousel({ bookList }) {
                 <div className="get-instant-courses-content ps-0">
                   <span className="sub-title">{book.author}</span>
                   <h2>{book.title}</h2>
-                  <p dangerouslySetInnerHTML={{__html:book.description}}>
+                  <p dangerouslySetInnerHTML={{__html:book.description}} className="line-clamp-4">
                     
                   </p>
                   <Link href="/books" className="default-btn me-2">

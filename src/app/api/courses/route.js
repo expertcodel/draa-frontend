@@ -12,13 +12,13 @@ export async function GET(request) {
   const sort = input.get('sort');
   const coursemodel = courseModel();
   const categorymodel = course_categoryModel();
- 
- 
+
+
 
   try {
 
     if (course_name === 'null') {
-      const { rows, count } = await coursemodel.findAndCountAll({ where: { status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0"? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
+      const { rows, count } = await coursemodel.findAndCountAll({ where: { status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
       return NextResponse.json({ status: true, courselist: rows, totalItems: count });
     }
     else {
@@ -116,7 +116,20 @@ LEFT JOIN course_reviews ON courses.id = course_reviews.course_id
 LEFT JOIN course_instructors ON courses.id = course_instructors.course_id
 
 WHERE courses.id = ${id}
-GROUP BY courses.id;
+GROUP BY courses.id, courses.id,
+  courses.title,
+  courses.sub_title,
+  courses.video_id,
+  courses.image,
+  courses.price_level_1,
+  courses.price_level_2,
+  courses.price_level_3,
+  courses.course_outline,
+  courses.case_studies,
+  courses.mode_of_study,
+  courses.seo_title,
+  courses.meta_keywords,
+  courses.meta_description;
 
 `, [id]);
 

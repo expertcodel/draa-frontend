@@ -80,7 +80,7 @@ export async function POST(request) {
   course_prospectuses.body_one,
   course_prospectuses.body_two,
   course_prospectuses.body_three,
-  course_prospectuses.prospectus_image,
+  
 
   CONCAT('[', GROUP_CONCAT(DISTINCT
     CONCAT(
@@ -110,7 +110,7 @@ export async function POST(request) {
   ), ']') AS instructors
 
 FROM courses
-JOIN course_prospectuses ON courses.id = course_prospectuses.course_id
+LEFT JOIN course_prospectuses ON courses.id = course_prospectuses.course_id
 LEFT JOIN course_faqs ON courses.id = course_faqs.course_id
 LEFT JOIN course_reviews ON courses.id = course_reviews.course_id
 LEFT JOIN course_instructors ON courses.id = course_instructors.course_id

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Breadcrumb({ title = "Page Title" }) {
+export default function Breadcrumb({ title  }) {
   return (
     <div className="page-title-area">
       <div className="container">

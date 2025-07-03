@@ -251,18 +251,18 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                         {blogList.map((blog) => <div className="col-lg-4 col-md-6" key={blog.id}>
                             <div className="single-blog-post">
                                 <div className="post-image">
-                                    <a href={`/blog/${blog.slug}`} className="d-block">
+                                    <Link href={`/blog/${blog.slug}`} className="d-block">
                                         <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/blogs/${blog.main_image}`} alt="image" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="post-content">
                                     {/* <a href="blog-1.html" className="category">
                     Education
                 </a> */}
                                     <h3>
-                                        <a href={`/blog/${blog.slug}`}>
+                                        <Link href={`/blog/${blog.slug}`}>
                                             {blog.title}
-                                        </a>
+                                        </Link>
                                     </h3>
                                     <ul className="post-content-footer d-flex justify-content-between align-items-center">
                                         <li>
@@ -341,7 +341,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                         <div className="col-lg-12 col-md-12">
                             <div className="blog-post-info">
                                 <p>
-                                    Get into details now?​ <a href="/blog">View all posts</a>
+                                    Get into details now?​ <Link href="/blog">View all posts</Link>
                                 </p>
                             </div>
                         </div>
@@ -393,10 +393,10 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                         <p>
                             Students friendly pricing for the certificate programs helps individuals to get their skill certificate easier than ever!
                         </p>
-                        <a href="/courses" className="default-btn">
+                        <Link href="/courses" className="default-btn">
                             <i className="flaticon-user" /> Get Started Now
                             <span />
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="shape3" data-speed="0.06" data-revert="true">

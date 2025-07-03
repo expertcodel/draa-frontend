@@ -140,10 +140,16 @@ GROUP BY courses.id,
 `, [id]);
 
     const row = { ...rows[0] };
-    const member_id = JSON.parse(rows[0].instructors).map((id) => parseInt(id.member_id))
-    const ids = JSON.stringify(member_id).substr(1, JSON.stringify(member_id).length - 2);
-    const intstructors = await connection.query(`SELECT id,name,rank,image,facebook,twitter,linkedin,instagram FROM members where id in(${ids})`)
-    return NextResponse.json({ status: true, coursedetail: { row, faqs: JSON.parse(rows[0].faqs), reviews: JSON.parse(rows[0].reviews), intstructor: intstructors[0], category: name } });
+    let intstructors = [];
+    if (rows[0].instructors && rows[0].instructors.length > 0) {
+
+      const member_id = JSON.parse(rows[0].instructors).map((id) => parseInt(id.member_id))
+      const ids = JSON.stringify(member_id).substr(1, JSON.stringify(member_id).length - 2);
+      intstructors = await connection.query(`SELECT id,name,rank,image,facebook,twitter,linkedin,instagram FROM members where id in(${ids})`)
+
+    }
+
+    return NextResponse.json({ status: true, coursedetail: { row, faqs: JSON.parse(rows[0].faqs), reviews: JSON.parse(rows[0].reviews), intstructor: intstructors.length > 0 ? intstructors[0] : intstructors, category: name } });
 
 
   } catch (error) {

@@ -256,7 +256,8 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
                         <div className="col-lg-4 col-md-12">
                             <div className="courses-details-info">
                                 <div className="image">
-                                    <Image width={750} height={500} src="/images/courses/img1.jpg" alt="image" />
+                                  
+                                     <img width={750} height={500} src={`https://img.youtube.com/vi/${courseDetail.video_id}/mqdefault.jpg`} alt="image" />
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" className="link-btn popup-youtube" />
                                     {/* <a href="/" className="link-btn popup-youtube" /> */}
                                     <div className="content">

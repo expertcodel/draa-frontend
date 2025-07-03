@@ -81,7 +81,6 @@ export async function POST(request) {
   course_prospectuses.body_two,
   course_prospectuses.body_three,
   
-
   CONCAT('[', GROUP_CONCAT(DISTINCT
     CONCAT(
       '{',
@@ -116,7 +115,7 @@ LEFT JOIN course_reviews ON courses.id = course_reviews.course_id
 LEFT JOIN course_instructors ON courses.id = course_instructors.course_id
 
 WHERE courses.id = ${id}
-GROUP BY courses.id, courses.id,
+GROUP BY courses.id,
   courses.title,
   courses.sub_title,
   courses.video_id,
@@ -129,7 +128,14 @@ GROUP BY courses.id, courses.id,
   courses.mode_of_study,
   courses.seo_title,
   courses.meta_keywords,
-  courses.meta_description;
+  courses.meta_description,
+  course_prospectuses.prospectus_image,
+  course_prospectuses.level_one,
+  course_prospectuses.level_two,
+  course_prospectuses.level_three,
+  course_prospectuses.body_one,
+  course_prospectuses.body_two,
+  course_prospectuses.body_three
 
 `, [id]);
 

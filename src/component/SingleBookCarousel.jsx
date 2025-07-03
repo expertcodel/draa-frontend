@@ -46,7 +46,7 @@ export default function SingleBookCarousel({ bookList }) {
                     Learn More <FontAwesomeIcon icon={faAngleRight} />
                     <span />
                   </Link>
-                  <Link href="/register-course" className="default-btn">
+                  <Link href={`/books/${book.slug}`} className="default-btn">
                     Buy Now <FontAwesomeIcon icon={faAngleRight} />
                     <span />
                   </Link>

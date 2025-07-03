@@ -55,7 +55,7 @@ export async function POST(request) {
 
         const category = await categorymodel.findOne({ where: { id: bookdetail.book_category_id }, attributes: ['name', 'slug'] })
         const booklist = await bookmodel.findAll({ order: [['created_at', 'DESC']], limit: 3, attributes: ['id', 'image', 'publish_date', 'title', 'slug', 'author'] });
-        console.log(bookdetail, "details");
+       
 
         return NextResponse.json({
             status: true,

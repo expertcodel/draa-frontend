@@ -33,7 +33,7 @@ export default function ThumbnailCourseCarousel() {
             </div>
             <h3>Learn the Latest Top Skills</h3>
             <p>Learning top skills can bring an extra-ordinary outcome in a career.</p>
-            <a href="profile-authentication.html" className="link-btn">Start Now!</a>
+            <a href="/" className="link-btn">Start Now!</a>
           </div>
         </SwiperSlide>
       ))}

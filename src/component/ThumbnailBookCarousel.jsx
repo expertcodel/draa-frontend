@@ -46,7 +46,7 @@ export default function ThumbnailBookCarousel({bookList}) {
                            {book.author}
                         </p>
                     </div>
-                    <Link href="/register-course" className="add-to-cart default-btn">
+                    <Link href={`/books/${book.slug}`} className="add-to-cart default-btn">
                         <FontAwesomeIcon icon={faCartShopping} /> Buy Now
                         <span />
                     </Link>

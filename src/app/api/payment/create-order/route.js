@@ -1,16 +1,19 @@
 
 import Razorpay from "razorpay";
 import { course_registrationModel } from "../../../models/course_registration.model";
-
+import { book_registrationModel } from "../../../models/book_registration.model";
 function generate13DigitNumber() {
   const min = 1e12; // 1000000000000
   const max = 9.999999999999e12; // Just under 10 trillion
   return String(Math.floor(Math.random() * (max - min + 1)) + min);
 }
 export async function POST(req) {
-  const { name, phone_number, email, dob, address, city, post_code, country, designation, college_name, gender, amount, level, course_id, mode_of_study } = await req.json();
+
+
+  const { name, phone_number, email, dob, address, city, post_code, country, designation, college_name, gender, amount, level, course_id, mode_of_study, path, book_id } = await req.json();
 
   const course_registrationmodel = course_registrationModel();
+  const book_registrationmodel = book_registrationModel();
 
   const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
@@ -26,12 +29,21 @@ export async function POST(req) {
   try {
 
     const order = await razorpay.orders.create(options);
-    const registration = await course_registrationmodel.create({
-      name, phone_number, email, dob, address, city, post_code, country, designation, college_name, gender, amount, level, course_id, mode_of_study, currency_code: 'INR', registration_number: generate13DigitNumber(), learning_type: 'course', created_at: new Date()
+    if (path === '/register-course') {
+      const registration = await course_registrationmodel.create({
+        name, phone_number, email, dob, address, city, post_code, country, designation, college_name, gender, amount, level, course_id, mode_of_study, currency_code: 'INR', registration_number: generate13DigitNumber(), learning_type: 'course', created_at: new Date(), actual_amount: amount
 
-    })
+      })
+      return Response.json({ order, id: registration.id });
+    }
+    else if (path === '/book-checkout') {
 
-    return Response.json({ order, id: registration.id });
+      const registration = await book_registrationmodel.create({
+        name, phone_number, email, address, city, post_code, country, amount, book_id, currency_code: 'INR', created_at: new Date()
+
+      })
+      return Response.json({ order, id: registration.id });
+    }
 
   } catch (err) {
 

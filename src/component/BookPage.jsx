@@ -6,11 +6,17 @@ import { faBook, faCartShopping, faClock, faPlay, faStar, faStarHalfStroke, faTa
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 export default function BookPage({ bookDetail, bookList }) {
 
-    
-    
+    const router = useRouter();
+    const setBookdetail = () => {
+
+        sessionStorage.setItem('BookDetail', JSON.stringify({ price: bookDetail.price, title: bookDetail.title, book_id: bookDetail.id }));
+        router.push("/book-checkout");
+    }
+
+
     return (
         <>
             {/*Breadcrumb*/}
@@ -69,12 +75,12 @@ export default function BookPage({ bookDetail, bookList }) {
                                     </span>
                                 </div>
                                 <div className="products-add-to-cart">
-                                    <button type="submit" className="default-btn">
+                                    <button type="button" className="default-btn" onClick={setBookdetail}>
                                         <FontAwesomeIcon icon={faCartShopping} /> Buy Now
                                         <span />
                                     </button>
                                 </div>
-                               
+
                             </div>
                         </div>
                         <div className="col-lg-12 col-md-12">

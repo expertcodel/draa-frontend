@@ -1,11 +1,16 @@
 import Blog from '../../component/Blog.jsx'
+import { headers } from 'next/headers';
 export default async function BlogPage() {
 
     let bloglist = [];
     let totalItems;
+
+    const headerlist=new headers();
+    const category=await headerlist.get('x-pathname');
+
     try {
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/blogs/?path=/blog&page=1`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/blogs/?category=${category}&page=1`, {
 
             method: 'GET',
             cache: 'no-store'
@@ -29,6 +34,6 @@ export default async function BlogPage() {
 
     return (
 
-        <Blog bloglist={bloglist} totalItems={totalItems}/>
+        <Blog bloglist={bloglist} totalItems={totalItems} category={category}/>
     );
 }

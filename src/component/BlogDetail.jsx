@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatToReadableDate } from '../utils/ReadableDate.js'
-export default function BlogDetail({ blogDetail, contentData, blogList }) {
+export default function BlogDetail({ blogDetail, contentData, blogList, categoryList }) {
 
 
     return (
@@ -47,7 +47,7 @@ export default function BlogDetail({ blogDetail, contentData, blogList }) {
                                     <div dangerouslySetInnerHTML={{ __html: contentData }} />
 
                                 </div>
-                                <div className="article-footer">
+                                {/* <div className="article-footer">
                                     <div className="article-tags">
                                         <span>
                                             <FontAwesomeIcon icon={faTag} />
@@ -83,7 +83,7 @@ export default function BlogDetail({ blogDetail, contentData, blogList }) {
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
 
                             </div>
                         </div>
@@ -113,31 +113,12 @@ export default function BlogDetail({ blogDetail, contentData, blogList }) {
                                 <div className="widget widget_categories">
                                     <h3 className="widget-title">Categories</h3>
                                     <ul>
-                                        <li>
-                                            <a href="single-blog-1.html">
-                                                Design <span className="post-count">(03)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="single-blog-1.html">
-                                                Lifestyle <span className="post-count">(05)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="single-blog-1.html">
-                                                Script <span className="post-count">(10)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="single-blog-1.html">
-                                                Device <span className="post-count">(08)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="single-blog-1.html">
-                                                Tips <span className="post-count">(01)</span>
-                                            </a>
-                                        </li>
+                                        {categoryList.map((category, index) => <li key={index}>
+                                            <Link href={`/blog/?category=${category.id}`}>
+                                                {category.name} <span className="post-count">({category.count})</span>
+                                            </Link>
+                                        </li>)}
+                                    
                                     </ul>
                                 </div>
                             </aside>

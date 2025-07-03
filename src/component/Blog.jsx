@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatToReadableDate } from '../utils/ReadableDate.js'
 import { useState } from "react";
-export default function Blog({ bloglist, totalItems }) {
+export default function Blog({ bloglist, totalItems,category }) {
 
    
     const [blogList, setBloglist] = useState(bloglist);
@@ -18,7 +18,7 @@ export default function Blog({ bloglist, totalItems }) {
     const pagination = async (idx) => {
 
         if (idx > 0 && idx <= button) {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/blogs/?path=/blog&page=${idx}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/blogs/?category=${category}&page=${idx}`);
             setIdx(idx);
             const res = await response.json();
             if (res.status) {

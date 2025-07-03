@@ -4,7 +4,8 @@ export default async function Page({ params }) {
     const { slug } = await params;
     let blogDetail = [];
     let  decodedHtml;
-    let blogList;
+    let blogList=[];
+    let categoryList=[];
     try {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/blogs`, {
@@ -18,6 +19,7 @@ export default async function Page({ params }) {
         if (res.status) {
             blogDetail = res.blogdetail;
             blogList=res.bloglist;
+            categoryList=res.categorylist;
             const mimeType = 'text/html';
             const base64 = blogDetail.content;
             const src = `data:${mimeType};base64,${base64}`;
@@ -34,6 +36,6 @@ export default async function Page({ params }) {
 
     return (
 
-        <BlogDetail blogDetail={blogDetail} contentData={decodedHtml} blogList={blogList}/>
+        <BlogDetail blogDetail={blogDetail} contentData={decodedHtml} blogList={blogList} categoryList={categoryList}/>
     );
 }

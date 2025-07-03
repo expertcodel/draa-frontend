@@ -26,7 +26,7 @@ export default function TestimonialOdometer({testimoniallist}) {
                                 <div className="feedback-info">
                                     <p>
                                         Not a member yet?​{" "}
-                                        <a href="profile-authentication.html">Register now</a>
+                                        <a href="/">Register now</a>
                                     </p>
                                 </div>
                             </div>

@@ -121,7 +121,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                                                 {book.author}
                                             </p>
                                         </div>
-                                        <Link href="/register-course" className="add-to-cart default-btn">
+                                        <Link href={`/books/${book.slug}`} className="add-to-cart default-btn">
                                             Buy Now <FontAwesomeIcon icon={faAngleRight} />
                                             <span />
                                         </Link>

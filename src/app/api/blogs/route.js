@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
 import { blogModel } from "../../models/blog.model";
-
+import { connectTodb } from "../../../utils/database";
 export async function GET(request) {
 
     const input = new URL(request.url).searchParams;
-    const path = input.get('path');
     const page = input.get('page');
+    const category = input.get('category');
     const blogmodel = blogModel();
+    
     try {
 
-        if (path === '/') {
+        if (category !== 'null') {
 
-            const bloglist = await blogmodel.findAll({ limit: 3, attributes: [`id`, `language_id`, `bcategory_id`, `title`, `slug`, `main_image`, `publish_date`, `author`, `serial_number`, `created_at`, `updated_at`], order: [['created_at', 'DESC']] });
-            return NextResponse.json({ status: true, bloglist });
+            const { rows, count } = await blogmodel.findAndCountAll({ where:{bcategory_id:category},offset: (page - 1) * 9, limit: 9, attributes: [`id`, `language_id`, `bcategory_id`, `title`, `slug`, `main_image`, `publish_date`, `author`, `serial_number`, `created_at`, `updated_at`], order: [['serial_number', 'ASC']] });
+            return NextResponse.json({ status: true, bloglist: rows, totalItems: count });
 
         }
         else {
@@ -36,9 +37,11 @@ export async function POST(request) {
 
     const { slug } = await request.json();
     const blogmodel = blogModel();
+    const connection = connectTodb();
+
     try {
 
-        
+
         const blogdetail = await blogmodel.findOne({
             where: { slug },
             attributes: [
@@ -48,7 +51,10 @@ export async function POST(request) {
             ]
         });
 
-        const bloglist=await blogmodel.findAll({order:[['created_at','DESC']],limit:3,attributes:['id','main_image','publish_date','title','slug']});
+        const bloglist = await blogmodel.findAll({ order: [['created_at', 'DESC']], limit: 3, attributes: ['id', 'main_image', 'publish_date', 'title', 'slug'] });
+
+        const categorylist = await connection.query(`SELECT bcategories.id,bcategories.name,COUNT(*) AS count FROM blogs INNER JOIN bcategories ON blogs.bcategory_id=bcategories.id GROUP BY bcategory_id ORDER BY bcategories.serial_number ASC`)
+
 
         let contentBase64 = null;
 
@@ -56,8 +62,8 @@ export async function POST(request) {
             contentBase64 = blogdetail.content.toString('base64'); // convert blob to base64
         }
 
-        console.log(blogdetail);
-        
+
+
 
         return NextResponse.json({
             status: true,
@@ -65,7 +71,8 @@ export async function POST(request) {
                 ...blogdetail.toJSON(),
                 content: contentBase64 // embed base64 inside blogdetail
             },
-            bloglist
+            bloglist,
+            categorylist: categorylist[0]
         });
 
 

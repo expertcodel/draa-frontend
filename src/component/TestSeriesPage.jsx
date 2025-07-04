@@ -9,9 +9,25 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 export default function TestSeriesPage({ courseDetail, faqs, reviews }) {
 
+
+    const router = useRouter();
+    const [level, setLevel] = useState(sessionStorage.getItem('testseriesDetail') ? JSON.parse(sessionStorage.getItem('testseriesDetail')) : { level: "1", price: courseDetail.price_level_1 });
+    const setCoursedetail = () => {
+
+        sessionStorage.setItem('testseriesDetail', JSON.stringify({ level: level.level, price: level.price, title: courseDetail.title, course_id: courseDetail.id, mode_of_study: courseDetail.mode_of_study }));
+        router.push("/test-series-checkout");
+    }
+
+
+
     return (
         <>
             {/*Breadcrumb*/}
+            <head>
+                <title>{courseDetail.seo_title}</title>
+                <meta name="keywords" content={courseDetail.meta_keywords} />
+                <meta name="description" content={courseDetail.meta_description} />
+            </head>
             <Breadcrumb title={`Test - ${courseDetail.title}`} />
 
             {/* Start Courses Details Area */}
@@ -273,10 +289,10 @@ export default function TestSeriesPage({ courseDetail, faqs, reviews }) {
                                 </div>
                                 <div className="btn-box">
                                     {/* <span>Registration is closed. We will open soon.</span> */}
-                                    <Link href="/" className="default-btn">
+                                    <button onClick={setCoursedetail} className="default-btn">
                                         Add This Test Series <FontAwesomeIcon icon={faAngleRight} />
                                         <span />
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
 

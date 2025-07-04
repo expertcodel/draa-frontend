@@ -4,7 +4,7 @@ export default async function Page() {
 
     let courselist = [];
     let totalItems;
-    let total;
+    let total=0;
 
     // const headersList = await headers();
     // const path = headersList.get('x-pathname');

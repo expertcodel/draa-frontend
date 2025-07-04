@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Form from "./Form";
-export default function CoursePage({ courseDetail, faqs, reviews, instructor,category }) {
+export default function CoursePage({ courseDetail, faqs, reviews, instructor, category }) {
 
 
     const router = useRouter();
@@ -27,6 +27,11 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
     return (
         <>
             {/*Breadcrumb*/}
+            <head>
+                <title>{courseDetail.seo_title}</title>
+                <meta name="keywords" content={courseDetail.meta_keywords} />
+                <meta name="description" content={courseDetail.meta_description} />
+            </head>
             <Breadcrumb title={category} />
 
             {/* Start Courses Details Area */}
@@ -256,8 +261,8 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor,cat
                         <div className="col-lg-4 col-md-12">
                             <div className="courses-details-info">
                                 <div className="image">
-                                  
-                                     <img width={750} height={500} src={`https://img.youtube.com/vi/${courseDetail.video_id}/mqdefault.jpg`} alt="image" />
+
+                                    <img width={750} height={500} src={`https://img.youtube.com/vi/${courseDetail.video_id}/mqdefault.jpg`} alt="image" />
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" className="link-btn popup-youtube" />
                                     {/* <a href="/" className="link-btn popup-youtube" /> */}
                                     <div className="content">

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import CommonSelect from "./CommonSelect";
 
-export default function CountrySelect() {
+export default function CountrySelect({countrylist}) {
   const [selected, setSelected] = useState(null);
 
   const options = [
@@ -17,7 +17,7 @@ export default function CountrySelect() {
 
   return (
     <CommonSelect
-      options={options}
+      options={countrylist}
       value={selected}
       onChange={setSelected}
       placeholder="Select a country"

@@ -7,7 +7,7 @@ import { faFacebook, faInstagram, faLinkedin, faTwitter } from "@fortawesome/fre
 import SortingSelect from "@/component/SortingSelect";
 import { faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faBarsStaggered, faBookBookmark, faCartShopping, faHeart, faPeopleGroup, faSearch } from "@fortawesome/free-solid-svg-icons";
 import RangeSlider from "@/component/RangeSlider";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FilterList from '../component/FilterList.jsx'
 
 export default function Books({ booklist, totalItems, total, book_category }) {
@@ -17,10 +17,19 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     const [idx, setIdx] = useState(1);
     const [name, setName] = useState("");
     const [Total, setTotal] = useState(total);
-    const [selected, setSelected] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [selected, setSelected] = useState(-1);
+    const [bsOffcanvas, setBsOffcanvas] = useState(null);
+    const offcanvasRef = useRef(null);
+    const [value, setValue] = useState([200, 500]);
 
     useEffect(() => {
 
+        import("bootstrap/dist/js/bootstrap.esm.min.js").then((module) => {
+            const { Offcanvas } = module;
+            const instance = Offcanvas.getInstance(offcanvasRef.current) || new Offcanvas(offcanvasRef.current);
+            setBsOffcanvas(instance);
+        });
         setbooklist(booklist)
         setButton(totalItems)
         setTotal(total)
@@ -59,6 +68,32 @@ export default function Books({ booklist, totalItems, total, book_category }) {
 
     }
 
+    const applyFilter = async (value) => {
+
+        setLoading(true);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${book_category}&sort=${selected}&value=${JSON.stringify(value)}`);
+        setName(name);
+        setIdx(1);
+        const res = await response.json();
+        setLoading(false);
+        if (res.status) {
+
+            setbooklist(res.booklist);
+            setButton(Math.ceil(res.totalItems / 12));
+            setTotal(res.totalItems);
+            if (bsOffcanvas) {
+                bsOffcanvas.hide();
+            }
+        }
+
+    }
+
+    const openOffcanvas = () => {
+        if (bsOffcanvas) {
+            bsOffcanvas.show();
+        }
+    };
+
     return (
         <>
             {/*Breadcrumb*/}
@@ -84,19 +119,24 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                                 We found <span className="count">{Total}</span> books available for you
                             </p>
                         </div>
-                        {bookList.length > 0 && <div className="col-md-4 col-sm-5 filterOption">
+                        <div className="col-md-4 col-sm-5 filterOption">
                             <div className="select-box noBG">
                                 <label>Sort By:</label>
                                 <div className="nice-select">
-                                    <SortingSelect setcourselist={setbooklist} selected={selected} setSelected={setSelected} name={name} course_name={book_category} setIdx={setIdx} setButton={setButton} type={"books"} />
+                                    <SortingSelect setcourselist={setbooklist} selected={selected} setSelected={setSelected} name={name} course_name={book_category} setIdx={setIdx} setButton={setButton} type={"books"} value={value} />
                                 </div>
                             </div>
                             <div className="customFilter">
-                                <button className="filterBtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                    <FontAwesomeIcon className="active" icon={faBarsStaggered} /> FIlter
+                                <button
+                                    className="filterBtn"
+                                    type="button"
+                                    onClick={openOffcanvas}
+                                    aria-controls="offcanvasRight"
+                                >
+                                    <FontAwesomeIcon className="active" icon={faBarsStaggered} /> Filter
                                 </button>
                             </div>
-                        </div>}
+                        </div>
                     </div>
 
                     <div className="row">
@@ -148,49 +188,35 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                 </div>
             </div>
 
-            <div className="offcanvas offcanvas-end filterMainSec" tabIndex={-1} id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div className="offcanvas offcanvas-end filterMainSec"
+                tabIndex={-1}
+                id="offcanvasRight"
+                aria-labelledby="offcanvasRightLabel"
+                ref={offcanvasRef}>
                 <div className="offcanvas-header">
-                    <h5 id="offcanvasRightLabel">Select Filter</h5>
+                    <h5 id="offcanvasRightLabel">Select Filter {(value[0]!==200 || value[1]!==500) && <small onClick={()=>[setValue([200,500]),applyFilter([200,500])]} style={{cursor:'pointer'}}>Reset</small>}</h5>
                     <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" />
                 </div>
                 <div className="offcanvas-body">
                     <div className="card">
-                        <div className="card-header">
-                            <h3 className="card-title">Skill Level</h3>
-                        </div>
-                        <div className="card-body">
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" id="level1" />
-                                <label className="form-check-label" htmlFor="level1">
-                                    Level-1
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" id="level2" />
-                                <label className="form-check-label" htmlFor="level2">
-                                    Level-2
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" id="level3" />
-                                <label className="form-check-label" htmlFor="level3">
-                                    Level-3
-                                </label>
-                            </div>
-                        </div>
+
                         <div className="card-header border-top">
                             <h3 className="card-title">Price Range</h3>
                         </div>
                         <div className="card-body">
                             <h6>
-                                <RangeSlider />
+                                <RangeSlider value={value} setValue={setValue} />
                             </h6>
                             {/* <div id="mySlider" /> */}
                         </div>
                         <div className="card-footer">
-                            <button type="submit" className="btn default-btn applyBtn">
-                                Apply Filter
-                                <span />
+                            <button type="button" className="btn default-btn applyBtn" onClick={() => applyFilter(value)}>
+                                {loading ? <div className="spinner-border text-white" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div> : <> Apply Filter
+                                    <span /> </>}
+
+
                             </button>
                         </div>
                     </div>

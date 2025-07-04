@@ -7,9 +7,9 @@ import CountrySelect from "@/component/CountrySelect";
 import Breadcrumb from "@/component/Breadcrumb";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-export default function RegisterCourse({countrylist}) {
+export default function RegisterTestSeries({countrylist}) {
 
-    const [courseData, setCoursedata] = useState(typeof (window) !== 'undefined' && sessionStorage.getItem('courseDetail') && JSON.parse(sessionStorage.getItem('courseDetail')))
+    const [testseriesData, settestseriesdata] = useState(typeof (window) !== 'undefined' && sessionStorage.getItem('testseriesDetail') && JSON.parse(sessionStorage.getItem('testseriesDetail')))
     const [loading, setLoading] = useState(false);
     const router = useRouter()
 
@@ -17,8 +17,8 @@ export default function RegisterCourse({countrylist}) {
 
     useEffect(() => {
 
-        if (!sessionStorage.getItem('courseDetail')) {
-            router.push('/courses');
+        if (!sessionStorage.getItem('testseriesDetail')) {
+            router.push('/test-series');
         }
 
     }, [])
@@ -227,7 +227,7 @@ export default function RegisterCourse({countrylist}) {
         if (flag) {
 
             const data = {
-                name, phone_number: number, email, dob: date, address, city, post_code: zip, country, designation: qualification, college_name: institute, gender: genderType, amount: courseData.price, level: courseData.level, course_id: courseData.course_id, mode_of_study: courseData.mode_of_study, path: '/register-course'
+                name, phone_number: number, email, dob: date, address, city, post_code: zip, country, designation: qualification, college_name: institute, gender: genderType, amount: testseriesData.price, level: testseriesData.level, course_id: testseriesData.course_id, mode_of_study: testseriesData.mode_of_study, path: '/test-series-checkout'
             }
             setLoading(true)
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment/create-order`, { method: 'POST', body: JSON.stringify(data) })
@@ -238,7 +238,7 @@ export default function RegisterCourse({countrylist}) {
                 amount: order.order.amount,
                 currency: "INR",
                 name: "Draa.in",
-                description: "Course Payment",
+                description: "testseries Payment",
                 order_id: order.order.id,
                 handler: async (response) => {
                     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment/verify`, {
@@ -247,13 +247,13 @@ export default function RegisterCourse({countrylist}) {
 
                             ...response,
                             id: order.id,
-                            path: '/register-course'
+                            path: '/test-series-checkout'
                         }),
 
                     });
 
-                    sessionStorage.removeItem('courseDetail');
-                    sessionStorage.setItem('successMsg', 'Course Registered Successfully');
+                    sessionStorage.removeItem('testseriesDetail');
+                    sessionStorage.setItem('successMsg', 'Test Series Registered Successfully');
                     router.push('/')
 
 
@@ -277,7 +277,7 @@ export default function RegisterCourse({countrylist}) {
     return (
         <>
             {/*Breadcrumb*/}
-            <Breadcrumb title="Register Course" />
+            <Breadcrumb title="Register Test Series" />
 
             {/* Start Checkout Area */}
             <div className="checkout-area ptb-100">
@@ -285,13 +285,13 @@ export default function RegisterCourse({countrylist}) {
                     <div className="user-actions">
                         <ul className="list-unstyled courseOrderDetails">
                             <li>
-                                Course Title : <span>{courseData?.title}</span>
+                                Test Series Title : <span>{testseriesData?.title}</span>
                             </li>
                             <li>
-                                Course Price : <span>₹ {courseData?.price}</span>
+                                Test Series Price : <span>₹ {testseriesData?.price}</span>
                             </li>
                             <li>
-                                Course Level : <span>Level-{courseData?.level}</span>
+                                Test Series Level : <span>Level-{testseriesData?.level}</span>
                             </li>
                         </ul>
                     </div>
@@ -299,7 +299,7 @@ export default function RegisterCourse({countrylist}) {
                         <div className="row">
                             <div className="col-12">
                                 <div className="billing-details">
-                                    <h3 className="title">Register for Course</h3>
+                                    <h3 className="title">Register for Test Series</h3>
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="form-group">

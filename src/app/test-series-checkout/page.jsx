@@ -1,5 +1,4 @@
-import RegisterCourse from "../../component/RegisterCourse";
-
+import RegisterTestSeries from "../../component/RegisterTestSeries";
 export default async function Page() {
 
     let countrylist = [];
@@ -25,7 +24,8 @@ export default async function Page() {
 
     }
 
+
     return (
-        <RegisterCourse countrylist={countrylist}/>
+       <RegisterTestSeries countrylist={countrylist}/>
     );
 }

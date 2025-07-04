@@ -2,7 +2,9 @@
 import nodemailer from 'nodemailer'
 import { NextResponse } from 'next/server'
 import { contact_queryModel } from '../../models/contact_query.model'
-
+import { generateEmailHeader } from '../../../utils/emailHeader.js'
+import { generateEmailFooter } from '../../../utils/emailFooter.js'
+import { generateWelcomeContent } from '../../../utils/emailContent.js'
 
 const transport = nodemailer.createTransport({
 
@@ -23,55 +25,55 @@ const sendMail = async (name, email, number, inquiries) => {
 
     from: { name: "draa.in", address: 'rohitkumarchau656@gmail.com' },
     to: email,
-    subject: "welcome from draa.in",
-    html: `<div style="/* justify-content: center; */font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;max-width:600px;display:block;margin:0 auto;padding:20px;/* display: flex; *//* align-items: center; */"><div class="adM">
-                                            </div><table width="100%" cellpadding="0" cellspacing="0" style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;border-radius:3px;margin:0;border:none">
-                                                <tbody><tr style="font-family:'Roboto',sans-serif;font-size:14px;margin:0">
-                                                    <td style="font-family:'Roboto',sans-serif;box-sizing:border-box;color:#495057;font-size:14px;vertical-align:top;margin:0;padding:30px;border-radius:7px;background-color:#fff" valign="top">
-                                                        
-                                                        <table width="100%" cellpadding="0" cellspacing="0" style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0">
-                                                            <tbody><tr style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0;width: 100%;">
-                                                                <td style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;vertical-align:top;margin:0;padding:0 0 20px" valign="top">
-                                                                    <div style="text-align:center;margin-bottom:15px">
-                                                                        <img src="https://bizanalyticsystems.com/assets/images/logo.png" alt="" height="100" width="100" class="CToWUd" data-bit="iit">
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0">
-                                                                <td style="font-family:'Roboto',sans-serif;box-sizing:border-box;line-height:1.5;font-size:24px;vertical-align:top;margin:0;padding:0 0 10px;text-align:center;font-weight:500" valign="top">
-                                                                    Thankyou for your inquiry 
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="align-items: center;font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0;display: flex;/* align-content: center; */">
-                                                                <td style="font-family:'Roboto',sans-serif;color:#878a99;line-height:1.5;box-sizing:border-box;font-size:15px;vertical-align:top;margin:0;padding:0 0 24px;text-align:center" valign="top">
-                                                                   biz analytics is being with a vision to create a Build tailored AI solutions for unique business challenges Develop comprehensive AI strategies aligned with business objectives
+    subject: "Thankyou for contacting draa.in",
+    html: `<!doctype html>
+<html lang="en">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome Emailer</title>
+</head>
 
-                                                                </td>
-                                                            </tr>
-                                                           
+<body>
+    <div style="width:100%;font-family:arial,'helvetica neue',helvetica,sans-serif;padding:0;Margin:0">
+        <div style="background-color:#fff">
+            <table cellpadding="0" cellspacing="0"
+                style="border-collapse:collapse;border-spacing:0;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#fff"
+                width="100%">
+                <tbody>
+                    <tr>
+                        <td style="padding:0;Margin:0" valign="top">
+                            <table cellpadding="0" cellspacing="0"
+                                style="border-collapse:collapse;border-spacing:0;table-layout:fixed!important;width:100%"
+                                align="center">
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:0;Margin:0;background-color:#f7f7f7" align="center"
+                                            bgcolor="#f7f7f7">
+                                            <table cellpadding="0" cellspacing="0"
+                                                style="border-collapse:collapse;border-spacing:0;background-color:transparent;width:600px"
+                                                align="center">
+                                                <tbody>
+                                                    ${generateEmailHeader()}
+                                                    ${generateWelcomeContent(name)}
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            ${generateEmailFooter()}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
 
-                                                            <tr style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0;border-top:1px solid #e9ebec;display: flex;">
-                                                                <td style="color:#878a99;text-align:center;font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;vertical-align:top;margin:0;padding:0;padding-top:15px" valign="top">
-                                                                   <p> Our Headquarter </p>
-                                           <p>70,Edgewood Ln, Glastonbury, CT 06033, United States of America</p>
-                                                                </td>
-                                                                <td style="color:#878a99;text-align:center;font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;vertical-align:top;margin:0;padding:0;padding-top:15px" valign="top">
-                                                                   <p> Call Center </p>
-                                                                <p>+1-201-681-3725</p>
-                                                                
-                                                                </td>
-                                                                <td style="color:#878a99;text-align:center;font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;vertical-align:top;margin:0;padding:0;padding-top:15px" valign="top">
-                                                                   <p> Contact Email </p>
-                                                                 <p> <a href="mailto:biz@bizanalyticsystems.com" target="_blank">biz@bizanalyticsystems.com</a></p>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                            </tbody></table><div class="yj6qo"></div><div class="adL">
-                                           
-                                        </div></div>`
+</html>`
+
   }
 
   try {
@@ -101,14 +103,9 @@ const sendMailtoReciever = async (name, email, number, country, inquiries) => {
                                                 <tbody><tr style="font-family:'Roboto',sans-serif;font-size:14px;margin:0">
                                                     <td style="font-family:'Roboto',sans-serif;box-sizing:border-box;color:#495057;font-size:14px;vertical-align:top;margin:0;padding:30px;border-radius:7px;background-color:#fff" valign="top">
                                                         
-                                                        <table width="100%" cellpadding="0" cellspacing="0" style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0">
-                                                            <tbody><tr style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0;width: 100%;">
-                                                                <td style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;vertical-align:top;margin:0;padding:0 0 20px" valign="top">
-                                                                    <div style="text-align:center;margin-bottom:15px">
-                                                                        <img src="	https://bizanalyticsystems.com/assets/images/logo.png" alt="" height="100" width="100" class="CToWUd" data-bit="iit">
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                      <table width="100%" cellpadding="0" cellspacing="0"   style="font-family:'Roboto',sans-serif;box-sizing:border-box; font-size:14px;margin:0">
+                                                            <tbody>
+                                                             ${generateEmailHeader()}
                                                             <tr style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0">
                                                                 <td style="font-family:'Roboto',sans-serif;box-sizing:border-box;line-height:1.5;font-size:24px;vertical-align:top;margin:0;padding:0 0 10px;text-align:center;font-weight:500" valign="top">
                                                                    Inquiry From ${name.charAt(0).toUpperCase() + name.slice(1, name.length)}
@@ -148,21 +145,7 @@ const sendMailtoReciever = async (name, email, number, country, inquiries) => {
                                                             </tr>
                                                            
 
-                                                            <tr style="font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;margin:0;border-top:1px solid #e9ebec;display: flex;">
-                                                                <td style="color:#878a99;text-align:center;font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;vertical-align:top;margin:0;padding:0;padding-top:15px" valign="top">
-                                                                   <p> Our Headquarter </p>
-                                           <p>70,Edgewood Ln, Glastonbury, CT 06033, United States of America</p>
-                                                                </td>
-                                                                <td style="color:#878a99;text-align:center;font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;vertical-align:top;margin:0;padding:0;padding-top:15px" valign="top">
-                                                                   <p> Call Center </p>
-                                                                <p>+1-201-681-3725</p>
-                                                                
-                                                                </td>
-                                                                <td style="color:#878a99;text-align:center;font-family:'Roboto',sans-serif;box-sizing:border-box;font-size:14px;vertical-align:top;margin:0;padding:0;padding-top:15px" valign="top">
-                                                                   <p> Contact Email </p>
-                                                                 <p> <a href="mailto:biz@bizanalyticsystems.com" target="_blank">biz@bizanalyticsystems.com</a></p>
-                                                                </td>
-                                                            </tr>
+                                                             ${generateEmailFooter()}
                                                         </tbody></table>
                                                     </td>
                                                 </tr>
@@ -218,10 +201,5 @@ export async function POST(request) {
     return NextResponse.json({ status: false, message: "some error occured!" });
 
   }
-
-
-
-
-
 
 }

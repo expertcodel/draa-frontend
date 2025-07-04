@@ -81,7 +81,7 @@ export default function TestSeries({ courselist, totalItems, total }) {
                                 We found <span className="count">{Total}</span> Test available for you
                             </p>
                         </div>
-                        {courseList.length > 0 && <div className="col-md-4 col-sm-5 filterOption">
+                         <div className="col-md-4 col-sm-5 filterOption">
                             <div className="select-box noBG">
                                 <label>Sort By:</label>
                                 <div className="nice-select">
@@ -93,7 +93,7 @@ export default function TestSeries({ courselist, totalItems, total }) {
                                     <FontAwesomeIcon className="active" icon={faBarsStaggered} /> FIlter
                                 </button>
                             </div>
-                        </div>}
+                        </div>
                     </div>
                     <div className="row">
                         {

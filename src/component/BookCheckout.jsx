@@ -7,18 +7,18 @@ import CountrySelect from "@/component/CountrySelect";
 import Breadcrumb from "@/component/Breadcrumb";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-export default function RegisterCourse({countrylist}) {
+export default function BookCheckout({countrylist}) {
 
-    const [courseData, setCoursedata] = useState(typeof (window) !== 'undefined' && sessionStorage.getItem('courseDetail') && JSON.parse(sessionStorage.getItem('courseDetail')))
+    const [BookData, setBookdata] = useState(typeof (window) !== 'undefined' && sessionStorage.getItem('BookDetail') && JSON.parse(sessionStorage.getItem('BookDetail')))
     const [loading, setLoading] = useState(false);
     const router = useRouter()
 
-    const [message, setMessage] = useState({ name: "", number: "", email: "", date: "", institute: "", qualification: "", city: "", country: "", zip: "", address: "", gender: "", terms: "" })
+    const [message, setMessage] = useState({ name: "", number: "", email: "", city: "", country: "", zip: "", address: "" })
 
     useEffect(() => {
 
-        if (!sessionStorage.getItem('courseDetail')) {
-            router.push('/courses');
+        if (!sessionStorage.getItem('BookDetail')) {
+            router.push('/books');
         }
 
     }, [])
@@ -60,16 +60,10 @@ export default function RegisterCourse({countrylist}) {
         const name = e.target.name.value.trim();
         const email = e.target.email.value.trim();
         const number = e.target.number.value.trim();
-        const date = e.target.date.value.trim();
-        const institute = e.target.institute.value.trim();
-        const qualification = e.target.qualification.value.trim();
         const city = e.target.city.value.trim();
         const country = e.target.country.value.trim();
         const zip = e.target.zip.value.trim();
         const address = e.target.address.value.trim();
-        const gender = Array.from(e.target.radiogender);
-        let genderType;
-        const terms = e.target.terms.checked;
         const updateMessage = { ...message };
         let flag = true;
         if (name === "") {
@@ -120,35 +114,7 @@ export default function RegisterCourse({countrylist}) {
 
         }
 
-        if (date === "") {
 
-            updateMessage['date'] = 'The date of birth field is required.'
-            flag = false;
-        }
-        else {
-
-            updateMessage['date'] = ""
-        }
-
-        if (institute === "") {
-
-            updateMessage['institute'] = 'The institution name field is required.'
-            flag = false;
-        }
-        else {
-
-            updateMessage['institute'] = ""
-        }
-
-        if (qualification === "") {
-
-            updateMessage['qualification'] = 'The qualification field is required.'
-            flag = false;
-        }
-        else {
-
-            updateMessage['qualification'] = ""
-        }
 
         if (city === "") {
 
@@ -191,43 +157,11 @@ export default function RegisterCourse({countrylist}) {
             updateMessage['address'] = ""
         }
 
-        if (gender[0].checked || gender[1].checked || gender[2].checked) {
-
-            updateMessage['gender'] = ""
-            if (gender[0].checked) {
-                genderType = 'Male'
-            }
-
-            if (gender[1].checked) {
-                genderType = 'Female'
-            }
-
-            if (gender[2].checked) {
-                genderType = 'Others'
-            }
-
-        }
-        else {
-
-            updateMessage['gender'] = 'The gender field is required.'
-            flag = false;
-        }
-
-        if (!terms) {
-
-            updateMessage['terms'] = 'The terms and conditions field is required.'
-            flag = false;
-        }
-        else {
-
-            updateMessage['terms'] = ""
-        }
-
         setMessage(updateMessage);
         if (flag) {
 
             const data = {
-                name, phone_number: number, email, dob: date, address, city, post_code: zip, country, designation: qualification, college_name: institute, gender: genderType, amount: courseData.price, level: courseData.level, course_id: courseData.course_id, mode_of_study: courseData.mode_of_study, path: '/register-course'
+                name, phone_number: number, email, address, city, post_code: zip, country, amount: BookData.price, book_id: BookData.book_id,path:'/book-checkout'
             }
             setLoading(true)
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment/create-order`, { method: 'POST', body: JSON.stringify(data) })
@@ -238,7 +172,7 @@ export default function RegisterCourse({countrylist}) {
                 amount: order.order.amount,
                 currency: "INR",
                 name: "Draa.in",
-                description: "Course Payment",
+                description: "Book Payment",
                 order_id: order.order.id,
                 handler: async (response) => {
                     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment/verify`, {
@@ -247,13 +181,13 @@ export default function RegisterCourse({countrylist}) {
 
                             ...response,
                             id: order.id,
-                            path: '/register-course'
+                            path:'/book-checkout'
                         }),
 
                     });
 
-                    sessionStorage.removeItem('courseDetail');
-                    sessionStorage.setItem('successMsg', 'Course Registered Successfully');
+                    sessionStorage.removeItem('BookDetail');
+                    sessionStorage.setItem('successMsg', 'Book Purchased Successfully');
                     router.push('/')
 
 
@@ -277,7 +211,7 @@ export default function RegisterCourse({countrylist}) {
     return (
         <>
             {/*Breadcrumb*/}
-            <Breadcrumb title="Register Course" />
+            <Breadcrumb title="Purchase Book" />
 
             {/* Start Checkout Area */}
             <div className="checkout-area ptb-100">
@@ -285,21 +219,21 @@ export default function RegisterCourse({countrylist}) {
                     <div className="user-actions">
                         <ul className="list-unstyled courseOrderDetails">
                             <li>
-                                Course Title : <span>{courseData?.title}</span>
+                                Book Title : <span>{BookData?.title}</span>
                             </li>
                             <li>
-                                Course Price : <span>₹ {courseData?.price}</span>
+                                Book Price : <span>₹ {BookData?.price}</span>
                             </li>
-                            <li>
-                                Course Level : <span>Level-{courseData?.level}</span>
-                            </li>
+                            {/* <li>
+                                Book Level : <span>Level-{BookData?.level}</span>
+                            </li> */}
                         </ul>
                     </div>
                     <form className="customForm" onSubmit={submitFormData}>
                         <div className="row">
                             <div className="col-12">
                                 <div className="billing-details">
-                                    <h3 className="title">Register for Course</h3>
+                                    <h3 className="title">Purchase Book</h3>
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="form-group">
@@ -337,15 +271,7 @@ export default function RegisterCourse({countrylist}) {
                                                 <span style={{ color: 'red' }}>{message.address !== "" && message.address}</span>
                                             </div>
                                         </div>
-                                        <div className="col-md-4">
-                                            <div className="form-group">
-                                                <label>
-                                                    Date of Birth <span className="required">*</span>
-                                                </label>
-                                                <input type="date" className="form-control" placeholder="DD-MM-YY" name="date" />
-                                                <span style={{ color: 'red' }}>{message.date !== "" && message.date}</span>
-                                            </div>
-                                        </div>
+
                                         <div className="col-md-4">
                                             <div className="form-group">
                                                 <label>
@@ -360,7 +286,7 @@ export default function RegisterCourse({countrylist}) {
                                                 <label>
                                                     Country <span className="required">*</span>
                                                 </label>
-                                                <CountrySelect countrylist={countrylist}/>
+                                                <CountrySelect countrylist={countrylist} />
                                                 <span style={{ color: 'red' }}>{message.country !== "" && message.country}</span>
                                             </div>
                                         </div>
@@ -373,72 +299,15 @@ export default function RegisterCourse({countrylist}) {
                                                 <span style={{ color: 'red' }}>{message.zip !== "" && message.zip}</span>
                                             </div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label>Qualification</label>
-                                                <input type="text" className="form-control" placeholder="Last qualification" name="qualification" />
-                                                <span style={{ color: 'red' }}>{message.qualification !== "" && message.qualification}</span>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label>Institution Name</label>
-                                                <input type="text" className="form-control" placeholder="Last institution name" name="institute" />
-                                                <span style={{ color: 'red' }}>{message.institute !== "" && message.institute}</span>
-                                            </div>
-                                        </div>
 
-                                        <div className="col-12 order-details">
-                                            <div className="payment-box">
-                                                <label>Gender</label>
-                                                <div className="payment-method">
-                                                    <p>
-                                                        <input type="radio" id="genderMale" name="radiogender" />
-                                                        <label htmlFor="genderMale">Male</label>
-                                                    </p>
-                                                    <p>
-                                                        <input type="radio" id="genderFemale" name="radiogender" />
-                                                        <label htmlFor="genderFemale">Female</label>
-                                                    </p>
-                                                    <p>
-                                                        <input type="radio" id="genderOthers" name="radiogender" />
-                                                        <label htmlFor="genderOthers">Others</label>
-                                                    </p>
-                                                </div>
-                                                <span style={{ color: 'red' }}>{message.gender !== "" && message.gender}</span>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-check">
-                                                <input type="checkbox" className="form-check-input" id="create-an-account" name="terms" />
-                                                <label className="form-check-label" htmlFor="create-an-account">
-                                                    <p>
-                                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                                    </p>
-                                                    <p>
-                                                        Terms and Condition
-                                                    </p>
-                                                    <ol>
-                                                        <li>
-                                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                        </li>
-                                                        <li>
-                                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                        </li>
-                                                        <li>
-                                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                        </li>
-                                                    </ol>
-                                                </label>
-                                            </div>
-                                            <span style={{ color: 'red' }}>{message.terms !== "" && message.terms}</span>
-                                        </div>
+
+
 
                                         <div className="col-12 courseBtn">
                                             <button type="submit" className="default-btn">
                                                 {loading ? <div className="spinner-border text-white" role="status">
                                                     <span className="visually-hidden">Loading...</span>
-                                                </div> : <>Register  <FontAwesomeIcon icon={faAngleRight} />
+                                                </div> : <>Submit  <FontAwesomeIcon icon={faAngleRight} />
                                                     <span /> </>}
 
                                             </button>

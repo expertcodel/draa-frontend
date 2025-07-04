@@ -3,12 +3,13 @@ import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { course_registrationModel } from "../../../models/course_registration.model";
 import { book_registrationModel } from "../../../models/book_registration.model";
+import { testseries_registrationModel } from "../../../models/test-series_registration.model";
 export async function POST(req) {
 
     const body = await req.json();
     const course_registrationmodel = course_registrationModel();
     const book_registrationmodel = book_registrationModel();
-
+    const testseries_registrationmodel = testseries_registrationModel();
     const {
         razorpay_order_id,
         razorpay_payment_id,
@@ -36,6 +37,10 @@ export async function POST(req) {
         }
         else if (path === '/book-checkout') {
             await book_registrationmodel.update({ is_paid: 1, updated_at: new Date() }, { where: { id } });
+            return NextResponse.json({ status: true });
+        }
+        else {
+            await testseries_registrationmodel.update({ is_paid: 1, updated_at: new Date() }, { where: { id } });
             return NextResponse.json({ status: true });
         }
     } catch (err) {

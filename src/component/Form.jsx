@@ -196,7 +196,7 @@ export default function Form() {
 
             const option = {
                 method: "POST",
-                url: 'api/sendMail',
+                url: `${process.env.NEXT_PUBLIC_BASE_URL}/sendMail`,
                 data: {
                     name: data.name, email: data.email, contact_number: data.number, details: data.inquiries, address: data.address
                 }
@@ -206,8 +206,7 @@ export default function Form() {
             const response = await axios.request(option);
             setLoading(false);
             setMessage(response.data.message);
-            if(response.data.status)
-            {
+            if (response.data.status) {
                 setData({ name: "", number: "", email: "", inquiries: "", address: "" });
             }
             setTimeout(() => {
@@ -233,14 +232,14 @@ export default function Form() {
                 </div>
                 <div className="col-lg-12 col-md-6">
                     <div className="form-group mb-3">
-                        <input type="email" name="email" id="email" required="" data-error="Please enter your email" placeholder="Your email address" onChange={(e) => handleChange(e)} value={data.email}/>
+                        <input type="email" name="email" id="email" required="" data-error="Please enter your email" placeholder="Your email address" onChange={(e) => handleChange(e)} value={data.email} />
                         {/* <div className="help-block with-errors" /> */}
                         <span>{validation.email !== "" && validation.email !== "-1" && validation.email}</span>
                     </div>
                 </div>
                 <div className="col-lg-12 col-md-12">
                     <div className="form-group mb-3">
-                        <input type="text" name="number" id="phone_number" required="" data-error="Please enter your phone number" placeholder="Your phone number" onChange={(e) => handleChange(e)} value={data.number}/>
+                        <input type="text" name="number" id="phone_number" required="" data-error="Please enter your phone number" placeholder="Your phone number" onChange={(e) => handleChange(e)} value={data.number} />
                         {/* <div className="help-block with-errors" /> */}
                         <span>{validation.number !== "" && validation.number !== "-1" && validation.number}</span>
                     </div>
@@ -254,7 +253,7 @@ export default function Form() {
                 </div>
                 <div className="col-lg-12 col-md-12">
                     <div className="form-group mb-3">
-                        <textarea name="inquiries" id="message" cols={30} rows={5} required="" data-error="Please enter your message" placeholder="Write your message..." defaultValue={""} onChange={(e) => handleChange(e)} value={data.inquiries}/>
+                        <textarea name="inquiries" id="message" cols={30} rows={5} required="" data-error="Please enter your message" placeholder="Write your message..." defaultValue={""} onChange={(e) => handleChange(e)} value={data.inquiries} />
                         {/* <div className="help-block with-errors" /> */}
                         <span>{validation.inquiries !== "" && validation.inquiries !== "-1" && validation.inquiries}</span>
                     </div>

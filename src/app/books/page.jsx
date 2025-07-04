@@ -4,7 +4,7 @@ export default async function Page() {
 
     let booklist = [];
     let totalItems;
-    let total;
+    let total=0;
 
     const headersList = await headers();
     const path = headersList.get('x-pathname');
@@ -12,7 +12,7 @@ export default async function Page() {
 
     try {
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=1&name=&book_category=${path}&sort=${-1}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=1&name=&book_category=${path}&sort=${-1}&value=${JSON.stringify([0,1000])}`, {
 
             method: 'GET',
             cache: 'no-store'

@@ -2,6 +2,7 @@
 import Razorpay from "razorpay";
 import { course_registrationModel } from "../../../models/course_registration.model";
 import { book_registrationModel } from "../../../models/book_registration.model";
+import { testseries_registrationModel } from "../../../models/test-series_registration.model";
 function generate13DigitNumber() {
   const min = 1e12; // 1000000000000
   const max = 9.999999999999e12; // Just under 10 trillion
@@ -14,6 +15,7 @@ export async function POST(req) {
 
   const course_registrationmodel = course_registrationModel();
   const book_registrationmodel = book_registrationModel();
+  const testseries_registrationmodel = testseries_registrationModel();
 
   const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
@@ -40,6 +42,14 @@ export async function POST(req) {
 
       const registration = await book_registrationmodel.create({
         name, phone_number, email, address, city, post_code, country, amount, book_id, currency_code: 'INR', created_at: new Date()
+
+      })
+      return Response.json({ order, id: registration.id });
+    }
+    else {
+
+      const registration = await testseries_registrationmodel.create({
+        name, phone_number, email, dob, address, city, post_code, country, designation, college_name, gender, amount, level, course_id, mode_of_study, currency_code: 'INR', registration_number: generate13DigitNumber(), learning_type: 'course', created_at: new Date(), actual_amount: amount
 
       })
       return Response.json({ order, id: registration.id });

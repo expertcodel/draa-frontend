@@ -2,7 +2,7 @@
 import { useState } from "react";
 import CommonSelect from "./CommonSelect";
 
-export default function SortingSelect({ setcourselist, selected, setSelected, name, course_name, setIdx, setButton, type }) {
+export default function SortingSelect({ setcourselist, selected, setSelected, name, course_name, setIdx, value,setButton, type,hours }) {
   // const [selected, setSelected] = useState(null);
 
   const sortOptions = [
@@ -23,7 +23,7 @@ export default function SortingSelect({ setcourselist, selected, setSelected, na
 
     if (type === "courses") {
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${1}&name=${name}&course_name=${course_name}&sort=${option.value === "date-newest" ? 1 : 0}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${1}&name=${name}&course_name=${course_name}&sort=${option.value === "date-newest" ? 1 : 0}&hours=${hours}`);
       setIdx(1);
       const res = await response.json();
       if (res.status) {
@@ -43,7 +43,7 @@ export default function SortingSelect({ setcourselist, selected, setSelected, na
       }
     }
     else {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${course_name}&sort=${option.value === "date-newest" ? 1 : 0}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${course_name}&sort=${option.value === "date-newest" ? 1 : 0}&value=${JSON.stringify(value)}`);
       setIdx(1);
       const res = await response.json();
       if (res.status) {

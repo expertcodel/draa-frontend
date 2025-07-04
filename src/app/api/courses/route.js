@@ -10,6 +10,7 @@ export async function GET(request) {
   const page = input.get('page');
   const course_name = input.get('course_name');
   const sort = input.get('sort');
+  const hours = input.get('hours');
   const coursemodel = courseModel();
   const categorymodel = course_categoryModel();
 
@@ -18,13 +19,13 @@ export async function GET(request) {
   try {
 
     if (course_name === 'null') {
-      const { rows, count } = await coursemodel.findAndCountAll({ where: { status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
+      const { rows, count } = await coursemodel.findAndCountAll({ where: { status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } }, duration: { [Op.gt]: hours } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
       return NextResponse.json({ status: true, courselist: rows, totalItems: count });
     }
     else {
 
       const { id } = await categorymodel.findOne({ where: { slug: course_name }, attributes: ['id'] })
-      const { rows, count } = await coursemodel.findAndCountAll({ where: { course_category_id: id, status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
+      const { rows, count } = await coursemodel.findAndCountAll({ where: { course_category_id: id,  duration: { [Op.gt]: hours },status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
       return NextResponse.json({ status: true, courselist: rows, totalItems: count });
 
     }

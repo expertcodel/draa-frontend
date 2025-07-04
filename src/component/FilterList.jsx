@@ -29,12 +29,13 @@ export default function FilterList({ filtered }) {
 
 
             {courseList.length > 0 && (
-                <ul className="absolute" style={{ listStyle: 'none' }}>
+                <ul className="absolute ">
                     {courseList.map((item, index) => (
                         <li
                             key={index}
+                            style={{listStyle:'none'}}
                         >
-                            <Link href={`${path==='/'?'courses':path}/${item.slug}`}>{item.title}</Link>
+                            <Link href={`${path === '/' ? 'courses' : path}/${item.slug}`}>{item.title}</Link>
                         </li>
                     ))}
                 </ul>
@@ -42,3 +43,4 @@ export default function FilterList({ filtered }) {
         </div>
     );
 }
+

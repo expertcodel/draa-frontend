@@ -25,6 +25,9 @@ export default async function Page({ params }) {
             reviews = res.coursedetail.reviews;
             instructor = res.coursedetail.intstructor;
             category=res.coursedetail.category
+
+           
+            
         }
 
     } catch (error) {

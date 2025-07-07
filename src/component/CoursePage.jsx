@@ -187,7 +187,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor, ca
                                     <div className="tab-pane fade" id="instructor" role="tabpanel">
                                         <div className="courses-instructor">
                                             <div className="single-advisor-box">
-                                                {instructor.map((instructor) => <div className="row align-items-center" key={instructor.id}>
+                                                {instructor && instructor.map((instructor) => <div className="row align-items-center" key={instructor.id}>
                                                     <div className="col-lg-4 col-md-4">
                                                         <div className="advisor-image">
                                                             <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/members/${instructor.image}`} alt="image" />

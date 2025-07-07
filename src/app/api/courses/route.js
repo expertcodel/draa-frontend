@@ -49,8 +49,7 @@ export async function POST(request) {
   const categorymodel = course_categoryModel();
   try {
 
-
-    const { id, course_category_id } = await coursemodel.findOne({
+       const { id, course_category_id } = await coursemodel.findOne({
       where: { slug },
       attributes: [
         'id', 'course_category_id'
@@ -58,8 +57,12 @@ export async function POST(request) {
     });
 
     const { name } = await categorymodel.findOne({ where: { id: course_category_id }, attributes: ['name'] })
-    const [rows] = await connection.query(`
- SELECT 
+   await connection.query("SET SESSION group_concat_max_len = 1000000");
+
+const [rows] = await connection.query(
+  
+  
+` SELECT 
   courses.id,
   courses.title,
   courses.sub_title,
@@ -139,20 +142,47 @@ WHERE courses.id = ${id}
 
 `, [id]);
 
-    const row = { ...rows[0] };
-    let intstructors = [];
-    if (rows[0].instructors && rows[0].instructors.length > 0) {
+if (!rows || !rows[0]) {
+  return NextResponse.json({ status: false, message: 'Course not found' });
+}
 
-      const member_id = JSON.parse(rows[0].instructors).map((id) => parseInt(id.member_id))
-      const ids = JSON.stringify(member_id).substr(1, JSON.stringify(member_id).length - 2);
-      intstructors = await connection.query(`SELECT id,name,\`rank\`,image,facebook,twitter,linkedin,instagram FROM members where id in(${ids})`)
+function safeJsonParse(str, fallback = []) {
+  try {
+    return JSON.parse(str);
+  } catch {
+    return fallback;
+  }
+}
 
-    }
+const row = { ...rows[0] };
 
-    console.log(row, JSON.parse(rows[0].faqs), JSON.parse(rows[0].reviews),intstructors[0],"data");
-    
+const faqs = safeJsonParse(rows[0].faqs);
+const reviews = safeJsonParse(rows[0].reviews);
+const instructorsRaw = safeJsonParse(rows[0].instructors);
 
-    return NextResponse.json({ status: true, coursedetail: { row, faqs: JSON.parse(rows[0].faqs), reviews: JSON.parse(rows[0].reviews), intstructor: intstructors.length > 0 ? intstructors[0] : intstructors, category: name } });
+let instructors = [];
+if (instructorsRaw.length > 0) {
+  const member_ids = instructorsRaw.map(obj => parseInt(obj.member_id));
+  const ids = member_ids.join(',');
+  const [instRows] = await connection.query(
+    `SELECT id, name, \`rank\`, image, facebook, twitter, linkedin, instagram FROM members WHERE id IN (${ids})`
+  );
+  instructors = instRows;
+}
+
+
+
+return NextResponse.json({
+  status: true,
+  coursedetail: {
+    row,
+    faqs,
+    reviews,
+    intstructor: instructors.length > 0 ? instructors : [],
+    category: name,
+  }
+});
+
 
 
   } catch (error) {
@@ -162,3 +192,111 @@ WHERE courses.id = ${id}
 
   }
 }
+
+
+
+//  await connection.query("SET SESSION group_concat_max_len = 1000000");
+
+//     const { id, course_category_id } = await coursemodel.findOne({
+//       where: { slug },
+//       attributes: [
+//         'id', 'course_category_id'
+//       ]
+//     });
+
+//     const { name } = await categorymodel.findOne({ where: { id: course_category_id }, attributes: ['name'] })
+//     const [rows] = await connection.query(`
+//  SELECT 
+//   courses.id,
+//   courses.title,
+//   courses.sub_title,
+//   courses.video_id,
+//   courses.image,
+//   courses.price_level_1,
+//   courses.price_level_2,
+//   courses.price_level_3,
+//   courses.course_outline,
+//   courses.case_studies,
+//   courses.mode_of_study,
+//   courses.seo_title,
+//   courses.meta_keywords,
+//   courses.meta_description,
+//   course_prospectuses.prospectus_image,
+//   course_prospectuses.level_one,
+//   course_prospectuses.level_two,
+//   course_prospectuses.level_three,
+//   course_prospectuses.body_one,
+//   course_prospectuses.body_two,
+//   course_prospectuses.body_three,
+  
+//   CONCAT('[', GROUP_CONCAT(DISTINCT
+//     CONCAT(
+//      '{',
+//   '"question":', JSON_QUOTE(IFNULL(course_faqs.question, '')), ',',
+//   '"answer":', JSON_QUOTE(IFNULL(course_faqs.answer, '')),
+//   '}'
+//     )
+//   ), ']') AS faqs,
+
+//   CONCAT('[', GROUP_CONCAT(DISTINCT
+//     CONCAT(
+//       '{',
+//       '"name":', JSON_QUOTE(IFNULL(course_reviews.student_name, '')), ',',
+//       '"rating":', IFNULL(course_reviews.star, 0), ',',
+//       '"comment":', JSON_QUOTE(IFNULL(course_reviews.review, '')),
+//       '}'
+//     )
+//   ), ']') AS reviews,
+
+//   CONCAT('[', GROUP_CONCAT(DISTINCT
+//     CONCAT(
+//       '{',
+//       '"member_id":', JSON_QUOTE(IFNULL(course_instructors.member_id, '')),
+//       '}'
+//     )
+//   ), ']') AS instructors
+
+// FROM courses
+// LEFT JOIN course_prospectuses ON courses.id = course_prospectuses.course_id
+// LEFT JOIN course_faqs ON courses.id = course_faqs.course_id
+// LEFT JOIN course_reviews ON courses.id = course_reviews.course_id
+// LEFT JOIN course_instructors ON courses.id = course_instructors.course_id
+// WHERE courses.id = ${id}
+//   GROUP BY courses.id,
+//   courses.title,
+//   courses.sub_title,
+//   courses.video_id,
+//   courses.image,
+//   courses.price_level_1,
+//   courses.price_level_2,
+//   courses.price_level_3,
+//   courses.course_outline,
+//   courses.case_studies,
+//   courses.mode_of_study,
+//   courses.seo_title,
+//   courses.meta_keywords,
+//   courses.meta_description,
+//   course_prospectuses.prospectus_image,
+//   course_prospectuses.level_one,
+//   course_prospectuses.level_two,
+//   course_prospectuses.level_three,
+//   course_prospectuses.body_one,
+//   course_prospectuses.body_two,
+//   course_prospectuses.body_three
+
+// `, [id]);
+
+//     const row = { ...rows[0] };
+//     let intstructors = [];
+//     if (rows[0].instructors && rows[0].instructors.length > 0) {
+
+//       const member_id = JSON.parse(rows[0].instructors).map((id) => parseInt(id.member_id))
+//       const ids = JSON.stringify(member_id).substr(1, JSON.stringify(member_id).length - 2);
+//       intstructors = await connection.query(`SELECT id,name,\`rank\`,image,facebook,twitter,linkedin,instagram FROM members where id in(${ids})`)
+
+//     }
+
+//     console.log(row, JSON.parse(rows[0].faqs), JSON.parse(rows[0].reviews), intstructors[0], "data");
+
+
+//     return NextResponse.json({ status: true, coursedetail: { row, faqs: JSON.parse(rows[0].faqs), reviews: JSON.parse(rows[0].reviews), intstructor: intstructors.length > 0 ? intstructors[0] : intstructors, category: name } });

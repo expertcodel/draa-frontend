@@ -25,7 +25,7 @@ export async function GET(request) {
     else {
 
       const { id } = await categorymodel.findOne({ where: { slug: course_name }, attributes: ['id'] })
-      const { rows, count } = await coursemodel.findAndCountAll({ where: { course_category_id: id,  duration: { [Op.gt]: hours },status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
+      const { rows, count } = await coursemodel.findAndCountAll({ where: { course_category_id: id, duration: { [Op.gt]: hours }, status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
       return NextResponse.json({ status: true, courselist: rows, totalItems: count });
 
     }
@@ -84,19 +84,19 @@ export async function POST(request) {
   
   CONCAT('[', GROUP_CONCAT(DISTINCT
     CONCAT(
-      '{',
-      '"question":', JSON_QUOTE(course_faqs.question), ',',
-      '"answer":', JSON_QUOTE(course_faqs.answer),
-      '}'
+     '{',
+  '"question":', JSON_QUOTE(IFNULL(course_faqs.question, '')), ',',
+  '"answer":', JSON_QUOTE(IFNULL(course_faqs.answer, '')),
+  '}'
     )
   ), ']') AS faqs,
 
   CONCAT('[', GROUP_CONCAT(DISTINCT
     CONCAT(
       '{',
-      '"name":', JSON_QUOTE(course_reviews.student_name), ',',
-      '"rating":', course_reviews.star, ',',
-      '"comment":', JSON_QUOTE(course_reviews.review),
+      '"name":', JSON_QUOTE(IFNULL(course_reviews.student_name, '')), ',',
+      '"rating":', IFNULL(course_reviews.star, 0), ',',
+      '"comment":', JSON_QUOTE(IFNULL(course_reviews.review, '')),
       '}'
     )
   ), ']') AS reviews,
@@ -104,7 +104,7 @@ export async function POST(request) {
   CONCAT('[', GROUP_CONCAT(DISTINCT
     CONCAT(
       '{',
-      '"member_id":', JSON_QUOTE(course_instructors.member_id),
+      '"member_id":', JSON_QUOTE(IFNULL(course_instructors.member_id, '')),
       '}'
     )
   ), ']') AS instructors
@@ -148,6 +148,9 @@ WHERE courses.id = ${id}
       intstructors = await connection.query(`SELECT id,name,\`rank\`,image,facebook,twitter,linkedin,instagram FROM members where id in(${ids})`)
 
     }
+
+    console.log(row, JSON.parse(rows[0].faqs), JSON.parse(rows[0].reviews),intstructors[0],"data");
+    
 
     return NextResponse.json({ status: true, coursedetail: { row, faqs: JSON.parse(rows[0].faqs), reviews: JSON.parse(rows[0].reviews), intstructor: intstructors.length > 0 ? intstructors[0] : intstructors, category: name } });
 

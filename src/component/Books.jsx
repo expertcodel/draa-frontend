@@ -9,7 +9,7 @@ import { faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faBarsStaggered, f
 import RangeSlider from "@/component/RangeSlider";
 import { useState, useEffect, useRef } from "react";
 import FilterList from '../component/FilterList.jsx'
-
+import { useRouter } from "next/navigation";
 export default function Books({ booklist, totalItems, total, book_category }) {
 
     const [bookList, setbooklist] = useState(booklist);
@@ -22,6 +22,12 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     const [bsOffcanvas, setBsOffcanvas] = useState(null);
     const offcanvasRef = useRef(null);
     const [value, setValue] = useState([200, 500]);
+    const router = useRouter();
+    const setBookdetail = (bookDetail) => {
+
+        sessionStorage.setItem('BookDetail', JSON.stringify({ price: bookDetail.price, title: bookDetail.title, book_id: bookDetail.id }));
+        router.push("/book-checkout");
+    }
 
     useEffect(() => {
 
@@ -145,8 +151,8 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                                 <div className="single-products-box">
                                     <div className="products-image">
                                         <Link href={`/books/${book.slug}`}>
-                                            {/* <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`} className="main-image" alt="image" /> */}
-                                            <Image src="/images/products/img2.jpg" alt="image" width={670} height={800} className="main-image" />
+                                            <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`} className="main-image" alt="image" />
+                                            {/* <Image src="/images/products/img2.jpg" alt="image" width={670} height={800} className="main-image" /> */}
                                         </Link>
                                     </div>
                                     <div className="products-content">
@@ -157,14 +163,20 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                                             <p className="line-clamp-4" dangerouslySetInnerHTML={{ __html: book.description }}>
 
                                             </p>
-                                            <p>
+                                            {/* <p>
                                                 {book.author}
-                                            </p>
+                                            </p> */}
                                         </div>
-                                        <Link href={`/books/${book.slug}`} className="add-to-cart default-btn">
-                                            Buy Now <FontAwesomeIcon icon={faAngleRight} />
-                                            <span />
-                                        </Link>
+                                        <div className="position-relative w-100 d-flex align-items-center">
+                                            <Link href={`/books/${book.slug}`} className="default-btn me-2">
+                                                View more <FontAwesomeIcon icon={faAngleRight} />
+                                                <span />
+                                            </Link>
+                                            <button onClick={() => setBookdetail(book)} className="default-btn">
+                                                Buy Now <FontAwesomeIcon icon={faAngleRight} />
+                                                <span />
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +206,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                 aria-labelledby="offcanvasRightLabel"
                 ref={offcanvasRef}>
                 <div className="offcanvas-header">
-                    <h5 id="offcanvasRightLabel">Select Filter {(value[0]!==200 || value[1]!==500) && <small onClick={()=>[setValue([200,500]),applyFilter([200,500])]} style={{cursor:'pointer'}}>Reset</small>}</h5>
+                    <h5 id="offcanvasRightLabel">Select Filter {(value[0] !== 200 || value[1] !== 500) && <small onClick={() => [setValue([200, 500]), applyFilter([200, 500])]} style={{ cursor: 'pointer' }}>Reset</small>}</h5>
                     <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" />
                 </div>
                 <div className="offcanvas-body">

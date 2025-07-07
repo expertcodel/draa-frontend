@@ -11276,7 +11276,7 @@ Products Area CSS
   margin-top: 13px;
   transition: var(--transition);
   font-size: var(--fontSize);
-  font-weight: 800;
+  font-weight: 800; margin-bottom: 16px;
 }
 .single-products-box .products-content .price .old-price {
   text-decoration: line-through;
@@ -11312,11 +11312,11 @@ Products Area CSS
   color: var(--mainColor);
 }
 
-.single-products-box .products-content .add-to-cart.default-btn:hover{color: var(--whiteColor);}
+/* .single-products-box .products-content .add-to-cart.default-btn:hover{color: var(--whiteColor);}
 .single-products-box:hover .products-content .price {
   opacity: 0;
   visibility: hidden;
-}
+} */
 .single-products-box:hover .products-content .add-to-cart {
   transform: translateX(0);
   opacity: 1;
@@ -19771,6 +19771,7 @@ Booking Popup Modal Area CSS
   justify-content: space-between;
 }
 .filterMainSec .offcanvas-header > *{margin: 0;}
+.filterMainSec .offcanvas-header h5 small{font-size: 14px; color: var(--mainColor); margin-left: 4px;}
 .filterMainSec .offcanvas-body{padding: 8px 0 48px;}
 .filterMainSec .offcanvas-body .card{border: none;}
 .filterMainSec .offcanvas-body .card .card-header{padding: 8px 24px 8px 16px; border-bottom: 1px solid #e8ebf3; background: transparent;}

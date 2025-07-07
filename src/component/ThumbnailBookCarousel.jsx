@@ -34,7 +34,8 @@ export default function ThumbnailBookCarousel({bookList}) {
             <div className="single-products-box">
                 <div className="products-image">
                     <Link href={`/books/${book.slug}`}>
-                        <Image width={670} height={800} src="/images/products/img1.jpg" className="main-image" alt="image" />
+                        {/* <Image width={670} height={800} src="/images/products/img1.jpg" className="main-image" alt="image" /> */}
+                         <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`} className="main-image" alt="image" />
                     </Link>
                 </div>
                 <div className="products-content">

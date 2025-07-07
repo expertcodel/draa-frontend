@@ -289,7 +289,7 @@ export default function TestSeriesPage({ courseDetail, faqs, reviews }) {
                                 </div>
                                 <div className="btn-box">
                                     {/* <span>Registration is closed. We will open soon.</span> */}
-                                    <button onClick={setCoursedetail} className="default-btn">
+                                    <button onClick={setCoursedetail} className="default-btn w-100">
                                         Add This Test Series <FontAwesomeIcon icon={faAngleRight} />
                                         <span />
                                     </button>

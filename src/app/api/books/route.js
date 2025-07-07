@@ -17,14 +17,14 @@ export async function GET(request) {
 
         if (book_category === 'null') {
 
-            const { rows, count } = await bookmodel.findAndCountAll({ where: { [Op.or]: { title: { [Op.like]: `%${name}%` } }, price: { [Op.between]: value } }, offset: (page - 1) * 12, limit: 12, attributes: [`id`, `description`, `title`, `image`, `publish_date`, `author`, `slug`], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']] });
+            const { rows, count } = await bookmodel.findAndCountAll({ where: { [Op.or]: { title: { [Op.like]: `%${name}%` } }, price: { [Op.between]: value } }, offset: (page - 1) * 12, limit: 12, attributes: [`id`, `description`, `title`, `image`, `publish_date`, `author`, `slug`,`price`], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']] });
             return NextResponse.json({ status: true, booklist: rows, totalItems: count });
 
         }
         else {
 
             const { id } = await categorymodel.findOne({ where: { slug: book_category }, attributes: ['id'] })
-            const { rows, count } = await bookmodel.findAndCountAll({ where: { book_category_id: id, [Op.or]: { title: { [Op.like]: `%${name}%` } }, price: { [Op.between]: value } }, offset: (page - 1) * 12, limit: 12, attributes: [`id`, `description`, `title`, `image`, `publish_date`, `author`, `slug`], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']] });
+            const { rows, count } = await bookmodel.findAndCountAll({ where: { book_category_id: id, [Op.or]: { title: { [Op.like]: `%${name}%` } }, price: { [Op.between]: value } }, offset: (page - 1) * 12, limit: 12, attributes: [`id`, `description`, `title`, `image`, `publish_date`, `author`, `slug`,`price`], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']] });
             return NextResponse.json({ status: true, booklist: rows, totalItems: count });
 
         }

@@ -150,8 +150,8 @@ export default function Courses({ courselist, totalItems, total, course_name }) 
                                     <div className="courses-image">
                                         <Link href={`/courses/${course.slug}`} className="d-block image">
 
-                                            {/* <img width={750} height={500} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${course.image}`} alt="image" /> */}
-                                            <Image src="/images/products/img2.jpg" alt="image" width={750} height={500} />
+                                            <img width={750} height={500} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${course.image}`} alt="image" />
+                                            {/* <Image src="/images/products/img2.jpg" alt="image" width={750} height={500} /> */}
                                         </Link>
                                         {/* <Link href="/courses/1" className="fav">
                                             <FontAwesomeIcon icon={faHeart} /> <i className="flaticon-heart" />

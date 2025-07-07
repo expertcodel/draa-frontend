@@ -139,7 +139,7 @@ export default function Header({ courselist, booklist, courses, testseries }) {
                     >
                         <li className="nav-item">
                             <div className="container">
-                                <div className="row">
+                                {/* <div className="row">
                                     {courses?.map((column, colIdx) => (
                                         <div className="col" key={`column-${colIdx}`}>
                                             <ul className="megamenu-submenu">
@@ -152,14 +152,14 @@ export default function Header({ courselist, booklist, courses, testseries }) {
                                             </ul>
                                         </div>
                                     ))}
-                                </div>
+                                </div> */}
                                 <div className="row m-0">
                                     {courselist.map((widget, idx) => (
                                         <div
                                             key={`widget-${idx}`}
                                             className="col-12 p-0"
                                         >
-                                            <div className="single-category-widget">
+                                            <div className="single-category-widget border-0 m-0 p-0">
                                                 <div className="icon">
                                                     {/* <i className={`bx ${widget.icon}`} /> */}
                                                 </div>

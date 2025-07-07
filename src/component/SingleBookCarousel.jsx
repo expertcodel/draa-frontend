@@ -7,8 +7,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-
+import { useRouter } from "next/navigation";
 export default function SingleBookCarousel({ bookList }) {
+
+  const router = useRouter();
+  const setBookdetail = (bookDetail) => {
+
+    sessionStorage.setItem('BookDetail', JSON.stringify({ price: bookDetail.price, title: bookDetail.title, book_id: bookDetail.id }));
+    router.push("/book-checkout");
+  }
+
   return (
     <Swiper
       modules={[Autoplay, Pagination]}
@@ -31,7 +39,7 @@ export default function SingleBookCarousel({ bookList }) {
       }}
       className="singleBook-slider customSwiper"
     >
-      {bookList.length > 0 && bookList.map((book,i) => (
+      {bookList.length > 0 && bookList.map((book, i) => (
         <SwiperSlide key={i}>
           <div className="get-instant-courses-inner-area bg-blank">
             <div className="row align-items-center">
@@ -39,22 +47,24 @@ export default function SingleBookCarousel({ bookList }) {
                 <div className="get-instant-courses-content ps-0">
                   <span className="sub-title">{book.author}</span>
                   <h2>{book.title}</h2>
-                  <p dangerouslySetInnerHTML={{__html:book.description}} className="line-clamp-4">
-                    
+                  <p dangerouslySetInnerHTML={{ __html: book.description }} className="line-clamp-4">
+
                   </p>
-                  <Link href="/books" className="default-btn me-2">
-                    Learn More <FontAwesomeIcon icon={faAngleRight} />
-                    <span />
-                  </Link>
-                  <Link href={`/books/${book.slug}`} className="default-btn">
-                    Buy Now <FontAwesomeIcon icon={faAngleRight} />
-                    <span />
-                  </Link>
+                  <div className="position-relative w-100 d-flex align-items-center">
+                    <Link href={`/books/${book.slug}`} className="default-btn me-2">
+                      View more <FontAwesomeIcon icon={faAngleRight} />
+                      <span />
+                    </Link>
+                    <button onClick={() => setBookdetail(book)} className="default-btn">
+                      Buy Now <FontAwesomeIcon icon={faAngleRight} />
+                      <span />
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="col-lg-4 col-md-12">
                 <div className="get-instant-courses-image">
-                  <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`}className="main-image" alt="image" />
+                  <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`} className="main-image" alt="image" />
                   <div className="shape7" data-speed="0.06" data-revert="true">
                     <img src="/images/shape/shape4.png" alt="image" />
                   </div>
@@ -71,7 +81,7 @@ export default function SingleBookCarousel({ bookList }) {
         </SwiperSlide>
       ))}
 
-      
+
     </Swiper>
   );
 }

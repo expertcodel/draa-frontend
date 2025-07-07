@@ -19,7 +19,7 @@ export async function GET(request) {
   try {
 
     if (course_name === 'null') {
-      const { rows, count } = await coursemodel.findAndCountAll({ where: { status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } }, duration: { [Op.gt]: hours } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
+      const { rows, count } = await coursemodel.findAndCountAll({ where: { status: 1, [Op.or]: { title: { [Op.like]: `%${name}%` } }, duration: { [Op.gte]: hours } }, offset: (page - 1) * 12, limit: 12, attributes: ['id', 'image', 'slug', 'title', 'sub_title'], order: sort === "1" ? [['created_at', 'DESC']] : sort === "0" ? [['created_at', 'ASC']] : [['serial_number', 'ASC']], });
       return NextResponse.json({ status: true, courselist: rows, totalItems: count });
     }
     else {
@@ -114,9 +114,8 @@ LEFT JOIN course_prospectuses ON courses.id = course_prospectuses.course_id
 LEFT JOIN course_faqs ON courses.id = course_faqs.course_id
 LEFT JOIN course_reviews ON courses.id = course_reviews.course_id
 LEFT JOIN course_instructors ON courses.id = course_instructors.course_id
-
 WHERE courses.id = ${id}
-GROUP BY courses.id,
+  GROUP BY courses.id,
   courses.title,
   courses.sub_title,
   courses.video_id,
@@ -146,7 +145,7 @@ GROUP BY courses.id,
 
       const member_id = JSON.parse(rows[0].instructors).map((id) => parseInt(id.member_id))
       const ids = JSON.stringify(member_id).substr(1, JSON.stringify(member_id).length - 2);
-      intstructors = await connection.query(`SELECT id,name,rank,image,facebook,twitter,linkedin,instagram FROM members where id in(${ids})`)
+      intstructors = await connection.query(`SELECT id,name,\`rank\`,image,facebook,twitter,linkedin,instagram FROM members where id in(${ids})`)
 
     }
 

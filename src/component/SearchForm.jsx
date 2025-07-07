@@ -25,7 +25,7 @@ export default function SearchForm() {
 
     const searching = async (name) => {
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${1}&name=${name}&course_name=null&sort=${1}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/courses/?page=${1}&name=${name}&course_name=null&sort=${1}&hours=${0}`);
         setName(name);
         const res = await response.json();
         if (res.status) {

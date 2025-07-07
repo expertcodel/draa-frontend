@@ -9,8 +9,7 @@ export default function FilterList({ filtered }) {
     const wrapperRef = useRef(null);
     const [courseList, setcourselist] = useState(filtered)
     useEffect(() => {
-       
-        setcourselist(filtered)
+       setcourselist(filtered)
         const handleClickOutside = (event) => {
             if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
                 setcourselist([]);

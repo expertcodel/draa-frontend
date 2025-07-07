@@ -7,7 +7,7 @@ export async function GET() {
 
     try {
 
-        const data = await Promise.all([connection.query(`SELECT course_categories.slug,course_categories.name , COUNT(*) AS count FROM courses JOIN course_categories on course_categories.id=courses.course_category_id  GROUP BY courses.course_category_id LIMIT 5`), connection.query(`SELECT name AS label , slug AS href , id from book_categories where status=1 order by serial_number limit 6`), connection.query(`SELECT 
+        const data = await Promise.all([connection.query(`SELECT course_categories.slug,course_categories.name , COUNT(*) AS count FROM courses JOIN course_categories on course_categories.id=courses.course_category_id where courses.status=1 AND course_categories.status=1 GROUP BY courses.course_category_id LIMIT 5`), connection.query(`SELECT name AS label , slug AS href , id from book_categories where status=1 order by serial_number limit 6`), connection.query(`SELECT 
   cc.name AS category_name,
   cc.id AS id,
   CONCAT(

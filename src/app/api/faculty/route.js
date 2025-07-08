@@ -9,7 +9,7 @@ export async function GET() {
     }
 
     try {
-        const memberlist = await connection.query(`SELECT id,name,rank,image,linkedin,instagram,twitter,facebook,slug,education FROM members WHERE status=1 ORDER BY id ASC`)
+        const memberlist = await connection.query(`SELECT id,name,\`rank\`,image,linkedin,instagram,twitter,facebook,slug,education FROM members WHERE status=1 ORDER BY id ASC`)
 
         return NextResponse.json({ status: true, memberlist: memberlist[0] });
 
@@ -30,7 +30,7 @@ export async function POST(request) {
     }
 
     try {
-        const memberdetail = await connection.query(`SELECT id,name,rank,image,linkedin,instagram,twitter,facebook,slug,about,email FROM members WHERE slug='${slug}' AND status=1 LIMIT 1`)
+        const memberdetail = await connection.query(`SELECT id,name,\`rank\`,image,linkedin,instagram,twitter,facebook,slug,about,email FROM members WHERE slug='${slug}' AND status=1 LIMIT 1`)
         const memberdata=memberdetail[0][0]
    
         let contentBase64 = null;

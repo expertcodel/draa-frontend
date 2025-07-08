@@ -73,7 +73,7 @@ export default async function RootLayout({ children }) {
           {/* Render the page content */}
           {children}
 
-          <Footer />
+          <Footer courses={courses} />
         </main>
 
         <Script src="https://checkout.razorpay.com/v1/checkout.js" />

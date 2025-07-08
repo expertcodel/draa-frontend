@@ -37,7 +37,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor, ca
             {/* Start Courses Details Area */}
             <div className="courses-details-area pb-100">
                 <div className="courses-details-image">
-                    <Image width={1920} height={500} src="/images/courses/course-details.jpg" alt="image" />
+                    <Image width={1920} height={500} src="/images/courses/course-details.webp" alt="image" />
                 </div>
                 <div className="container">
                     <div className="row">

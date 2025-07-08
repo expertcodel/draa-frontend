@@ -6,7 +6,8 @@ import { faEnvelope, faEnvelopeOpen, faMapLocation, faPaperPlane, faPhone, faPho
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
-export default  function Footer() {
+export default function Footer({ courses }) {
+    const topCategories = courses.slice(0, 4);
     return (
         <>
             {/* Start Footer Area */}
@@ -16,7 +17,7 @@ export default  function Footer() {
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <div className="single-footer-widget">
                                 <Link href="/" className="logo">
-                                    <Image width={140} height={40} src="/images/logo-2.png" alt="logo" />
+                                    <Image width={90} height={80} src="/images/logo.png" alt="logo" />
                                 </Link>
                                 <p>
                                     Our guiding principles are Teaching, Tutoring and Training. Doing Research Assessment & Analysis (DRAA) (OPC) Pvt Ltd, bring education, technology, innovation, and AI together to transform learning experiences.
@@ -71,21 +72,20 @@ export default  function Footer() {
                             <div className="single-footer-widget">
                                 <h3>Courses</h3>
                                 <ul className="footer-links-list">
-                                    <li>
-                                        <Link href="/courses">Development</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/courses">Photgraphy</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/courses">Design</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/courses">Language</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/courses">IT</Link>
-                                    </li>
+                                    {topCategories.map((cat, i) => {
+                                        const courses = JSON.parse(cat.courses);
+                                        const firstCourse = courses[0];
+
+                                        if (!firstCourse) return null;
+
+                                        return (
+                                            <li key={i}>
+                                                <Link href={`/courses/?course_name=${firstCourse.slug}`}>
+                                                    {cat.category_name}
+                                                </Link>
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             </div>
                         </div>

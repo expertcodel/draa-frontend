@@ -2,7 +2,7 @@
 import Image from "next/image";
 // import styles from "./page.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faAngleUp, faBookBookmark, faClockRotateLeft, faDesktop, faGlobe, faHeart, faNoteSticky, faPeopleGroup, faSearch, faTimes, faTimesCircle, faUser, faUserCheck, faUserFriends } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faAngleUp, faBookBookmark, faCalendar, faClockRotateLeft, faDesktop, faGlobe, faHeart, faNoteSticky, faPeopleGroup, faSearch, faTimes, faTimesCircle, faUser, faUserCheck, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { faViadeo } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import ThumbnailCourseCarousel from "@/component/ThumbnailCourseCarousel";
@@ -248,96 +248,38 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                         </p>
                     </div>
                     <div className="row justify-content-center">
-                        {blogList.map((blog) => <div className="col-lg-4 col-md-6" key={blog.id}>
-                            <div className="single-blog-post">
-                                <div className="post-image">
-                                    <Link href={`/blog/${blog.slug}`} className="d-block">
-                                        <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/blogs/${blog.main_image}`} alt="image" />
-                                    </Link>
-                                </div>
-                                <div className="post-content">
-                                    {/* <a href="blog-1.html" className="category">
-                    Education
-                </a> */}
-                                    <h3>
-                                        <Link href={`/blog/${blog.slug}`}>
-                                            {blog.title}
-                                        </Link>
-                                    </h3>
-                                    <ul className="post-content-footer d-flex justify-content-between align-items-center">
-                                        <li>
-                                            <div className="post-author d-flex align-items-center">
-                                                <img src="/images/user/user1.jpg" className="rounded-circle" alt="image" />
-                                                <span>{blog.author}</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <i className="flaticon-calendar" /> {formatToReadableDate(blog.publish_date)}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>)}
-                        {/* <div className="col-lg-4 col-md-6">
-                        <div className="single-blog-post">
-                            <div className="post-image">
-                                <a href="single-blog-1.html" className="d-block">
-                                    <img src="/images/blog/img2.jpg" alt="image" />
-                                </a>
-                            </div>
-                            <div className="post-content">
-                                <a href="blog-1.html" className="category">
-                    Online
-                </a>
-                                <h3>
-                    <a href="single-blog-1.html">
-                    Online Learning Can Prepare Students For A Fast-Changing
-                    </a>
-                </h3>
-                                <ul className="post-content-footer d-flex justify-content-between align-items-center">
-                                    <li>
-                                        <div className="post-author d-flex align-items-center">
-                                            <img src="/images/user/user2.jpg" className="rounded-circle" alt="image" />
-                                            <span>Sarah Taylor</span>
+                        {
+                            blogList.map((blog) => 
+                                <div className="col-lg-4 col-md-6" key={blog.id}>
+                                    <div className="single-blog-post">
+                                        <div className="post-image">
+                                            <Link href={`/blog/${blog.slug}`} className="d-block">
+                                                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/blogs/${blog.main_image}`} alt={blog.title} />
+                                            </Link>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <i className="flaticon-calendar" /> April 29, 2025
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="single-blog-post">
-                            <div className="post-image">
-                                <a href="single-blog-1.html" className="d-block">
-                                    <img src="/images/blog/img3.jpg" alt="image" />
-                                </a>
-                            </div>
-                            <div className="post-content">
-                                <a href="blog-1.html" className="category">
-                    Learning
-                </a>
-                                <h3>
-                    <a href="single-blog-1.html">
-                    As Learning Moves Online, Trigger Warnings Must Too
-                    </a>
-                </h3>
-                                <ul className="post-content-footer d-flex justify-content-between align-items-center">
-                                    <li>
-                                        <div className="post-author d-flex align-items-center">
-                                            <img src="/images/user/user3.jpg" className="rounded-circle" alt="image" />
-                                            <span>David Warner</span>
+                                        <div className="post-content">
+                                            <h3>
+                                                <Link href={`/blog/${blog.slug}`}>
+                                                    {blog.title}
+                                                </Link>
+                                            </h3>
+                                            <ul className="post-content-footer d-flex justify-content-between align-items-center">
+                                                <li>
+                                                    <div className="post-author d-flex align-items-center">
+                                                        <img src="/images/user/user1.jpg" className="rounded-circle" alt="image" />
+                                                        <span>{blog.author}</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <FontAwesomeIcon icon={faCalendar} /> {formatToReadableDate(blog.publish_date)}
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <i className="flaticon-calendar" /> April 28, 2025
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> */}
+                                    </div>
+                                </div>
+                            )
+                        }
+
                         <div className="col-lg-12 col-md-12">
                             <div className="blog-post-info">
                                 <p>
@@ -351,16 +293,15 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
             {/* End Blog Area */}
 
             {/* Start View All Courses Area */}
-            <div className="view-all-courses-area bg-fef8ef">
-                <div className="container-fluid">
+            <div className="view-all-courses-area bg-fef8ef pt-0">
+                <div className="container-fluid px-md-0">
                     <div className="row align-items-center">
                         <div className="col-lg-6 col-md-12">
                             <div className="view-all-courses-content">
                                 <span className="sub-title">Distance learning</span>
                                 <h2>Feel Like You Are Attending Your Classes Physically!</h2>
                                 <p>
-                                    eLearniv training programs can bring you a super exciting experience of learning through online! You never face any negative experience while enjoying your classes virtually by sitting in your comfort zone. Our flexible learning initiatives will help
-                                    you to learn better and quicker than the traditional ways of learning skills.
+                                    eLearniv training programs can bring you a super exciting experience of learning through online! You never face any negative experience while enjoying your classes virtually by sitting in your comfort zone.
                                 </p>
                                 <Link href="/courses" className="default-btn">
                                     <i className="flaticon-agenda" /> View Courses
@@ -370,7 +311,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                         </div>
                         <div className="col-lg-6 col-md-12">
                             <div className="view-all-courses-image">
-                                <img src="/images/man-with-laptop.png" alt="image" />
+                                <img src="/images/man-with-laptop.webp" alt="Banner" />
                             </div>
                         </div>
                     </div>

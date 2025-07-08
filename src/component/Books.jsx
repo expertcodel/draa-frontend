@@ -10,6 +10,7 @@ import RangeSlider from "@/component/RangeSlider";
 import { useState, useEffect, useRef } from "react";
 import FilterList from '../component/FilterList.jsx'
 import { useRouter } from "next/navigation";
+import DOMPurify from 'dompurify';
 export default function Books({ booklist, totalItems, total, book_category }) {
 
     const [bookList, setbooklist] = useState(booklist);
@@ -146,7 +147,11 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                     </div>
 
                     <div className="row">
-                        {bookList.map((book, i) => (
+                        {bookList.map((book, i) => {
+                            const cleanDescription = DOMPurify.sanitize(book.description, {
+                                FORBID_ATTR: ['style'], // remove inline styles
+                            });
+                            return (
                             <div className="col-md-4 col-sm-6 col-12" key={i}>
                                 <div className="single-products-box">
                                     <div className="products-image">
@@ -160,7 +165,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                                             <Link href={`/books/${book.slug}`}>  {book.title}</Link>
                                         </h3>
                                         <div className="price">
-                                            <p className="line-clamp-4" dangerouslySetInnerHTML={{ __html: book.description }}>
+                                            <p className="line-clamp-4" dangerouslySetInnerHTML={{ __html: cleanDescription }}>
 
                                             </p>
                                             {/* <p>
@@ -180,7 +185,8 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                            )
+                        })}
                         {button > 1 && <div className="col-lg-12 col-md-12">
                             <div className="pagination-area text-center">
                                 <button className="prev page-numbers" onClick={() => pagination(idx - 1)} style={{ border: 'none' }}>

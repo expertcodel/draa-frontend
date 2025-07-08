@@ -19,22 +19,22 @@ export default  function AboutSection({ bgClass="" }) {
                                 <div className="row">
                                     <div className="col-lg-6 col-sm-6 col-md-6 col-6">
                                         <div className="image wow animate__animated animate__fadeInLeft">
-                                            <img src="/images/about/about-img1.png" alt="image" />
+                                            <img src="/images/about/about-img1.webp" alt="About Us" />
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-sm-6 col-md-6 col-6">
                                         <div className="image wow animate__animated animate__fadeInDown">
-                                            <img src="/images/about/about-img2.png" alt="image" />
+                                            <img src="/images/about/about-img2.webp" alt="About Us" />
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-sm-6 col-md-6 col-6">
                                         <div className="image wow animate__animated animate__fadeInUp">
-                                            <img src="/images/about/about-img3.png" alt="image" />
+                                            <img src="/images/about/about-img3.webp" alt="About Us" />
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-sm-6 col-md-6 col-6">
                                         <div className="image wow animate__animated animate__fadeInRight">
-                                            <img src="/images/about/about-img4.png" alt="image" />
+                                            <img src="/images/about/about-img4.webp" alt="About Us" />
                                         </div>
                                     </div>
                                 </div>

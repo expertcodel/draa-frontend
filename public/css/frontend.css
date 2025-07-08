@@ -4368,7 +4368,7 @@ Courses Details Area CSS
   border: none;
   border-radius: 5px;
   padding-left: 30px;
-  padding-right: 30px; display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden;
+  padding-right: 30px; display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; justify-content: space-between;
 }
 .courses-details-desc .nav .nav-item {
   margin-bottom: 0;
@@ -8405,7 +8405,7 @@ Blog Area CSS
 .single-blog-post .post-content h3 {
   margin-bottom: 12px;
   line-height: 1.3;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700; min-height: 42px;
 }
 .single-blog-post .post-content h3 a {
@@ -8436,7 +8436,8 @@ Blog Area CSS
   font-weight: 600;
   font-size: 15px;
 }
-.single-blog-post .post-content .post-content-footer li i {
+.single-blog-post .post-content .post-content-footer li i,
+.single-blog-post .post-content .post-content-footer li svg {
   color: var(--mainColor);
   position: absolute;
   left: 7px;
@@ -9596,7 +9597,7 @@ View All Courses Area CSS
   margin-left: auto;
   position: relative;
   z-index: 1;
-  max-width: 600px;
+  max-width: 600px; padding: 40px 16px 16px 0;
 }
 .view-all-courses-content .sub-title {
   display: block;
@@ -9608,7 +9609,7 @@ View All Courses Area CSS
 }
 .view-all-courses-content h2 {
   margin-bottom: 0;
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 800;
 }
 .view-all-courses-content p {
@@ -9619,7 +9620,7 @@ View All Courses Area CSS
 }
 
 .view-all-courses-image {
-  margin-left: -270px;
+  /* margin-left: -270px; */
   text-align: center;
 }
 .view-all-courses-image img {
@@ -11276,7 +11277,7 @@ Products Area CSS
   margin-top: 13px;
   transition: var(--transition);
   font-size: var(--fontSize);
-  font-weight: 800; margin-bottom: 16px;
+  font-weight: 600; margin-bottom: 16px;
 }
 .single-products-box .products-content .price .old-price {
   text-decoration: line-through;

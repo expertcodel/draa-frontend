@@ -1,8 +1,9 @@
 import { faViadeo } from "@fortawesome/free-brands-svg-icons";
-import { faAngleUp, faClockRotateLeft, faUser, faUserCheck } from "@fortawesome/free-solid-svg-icons";
+import { faAngleUp, faClockRotateLeft, faPlay, faUser, faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import TestimonialsCarousel from "./TestimonialsCarousel";
+import AnimatedCounter from "./AnimatedCounter";
 
 
 export default function TestimonialOdometer({testimoniallist}) {
@@ -23,12 +24,12 @@ export default function TestimonialOdometer({testimoniallist}) {
                                     continue to study wherever you go.
                                 </p>
                                 <TestimonialsCarousel testimoniallist={testimoniallist}/>
-                                <div className="feedback-info">
+                                {/* <div className="feedback-info">
                                     <p>
                                         Not a member yet?​{" "}
                                         <a href="/">Register now</a>
                                     </p>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
@@ -37,41 +38,33 @@ export default function TestimonialOdometer({testimoniallist}) {
                                     <div className="col-lg-6 col-md-6 col-sm-6">
                                         <div className="single-funfacts-box">
                                             <h3>
-                            <span className="odometer" data-count={1926}>
-                            00
-                            </span>
-                        </h3>
+                                                <AnimatedCounter target={1926} />
+                                            </h3>
                                             <p>Finished Sessions</p>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-md-6 col-sm-6">
                                         <div className="single-funfacts-box">
                                             <h3>
-                            <span className="odometer" data-count={3279}>
-                            00
-                            </span>
-                        </h3>
+                                                <AnimatedCounter target={3279} />
+                                            </h3>
                                             <p>Enrolled Learners</p>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-md-6 col-sm-6">
                                         <div className="single-funfacts-box">
                                             <h3>
-                            <span className="odometer" data-count={250}>
-                            00
-                            </span>
-                        </h3>
+                                                <AnimatedCounter target={250} />
+                                            </h3>
                                             <p>Online Instructors</p>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-md-6 col-sm-6">
                                         <div className="single-funfacts-box">
                                             <h3>
-                            <span className="odometer" data-count={100}>
-                            00
-                            </span>
-                            %
-                        </h3>
+                                                <AnimatedCounter target={100} />
+                                                %
+                                            </h3>
                                             <p>Satisfaction Rate</p>
                                         </div>
                                     </div>
@@ -81,10 +74,10 @@ export default function TestimonialOdometer({testimoniallist}) {
                         <div className="col-lg-12 col-md-12">
                             <div className="video-box">
                                 <div className="image">
-                                    <img src="/images/video-img1.jpg" className="shadow" alt="image" />
+                                    <img src="/images/video-img1.webp" className="shadow" alt="image" />
                                 </div>
-                                <a href="https://www.youtube.com/watch?v=PWvPbGWVRrU" className="video-btn popup-youtube">
-                                    <i className="flaticon-play" />
+                                <a href="#" target="_blank" className="video-btn popup-youtube">
+                                    <FontAwesomeIcon icon={faPlay} />
                                 </a>
                                 <div className="shape10" data-speed="0.06" data-revert="true">
                                     <img src="/images/shape/shape9.png" alt="image" />

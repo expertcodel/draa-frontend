@@ -44,7 +44,8 @@ export default async function Faculty() {
                                     <div className="row align-items-center">
                                         <div className="col-lg-4 col-md-4">
                                             <div className="advisor-image">
-                                                <Image width={230} height={340} src="/images/advisor/img1.jpg" alt="image" />
+                                              <img width={390} height={400} src={`/members/${process.env.NEXT_PUBLIC_IMAGE_URL}/${member.image}`} alt="image" />
+                                                {/* <Image width={230} height={340} src="/images/advisor/img1.jpg" alt="image" /> */}
                                             </div>
                                         </div>
                                         <div className="col-lg-8 col-md-8">

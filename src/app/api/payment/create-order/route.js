@@ -36,7 +36,7 @@ export async function POST(req) {
         name, phone_number, email, dob, address, city, post_code, country, designation, college_name, gender, amount, level, course_id, mode_of_study, currency_code: 'INR', registration_number: generate13DigitNumber(), learning_type: 'course', created_at: new Date(), actual_amount: amount
 
       })
-      return Response.json({ order, id: registration.id });
+      return Response.json({ order, id: registration.id,status:true});
     }
     else if (path === '/book-checkout') {
 
@@ -44,7 +44,7 @@ export async function POST(req) {
         name, phone_number, email, address, city, post_code, country, amount, book_id, currency_code: 'INR', created_at: new Date()
 
       })
-      return Response.json({ order, id: registration.id });
+      return Response.json({ order, id: registration.id,status:true});
     }
     else {
 
@@ -52,7 +52,7 @@ export async function POST(req) {
         name, phone_number, email, dob, address, city, post_code, country, designation, college_name, gender, amount, level, course_id, mode_of_study, currency_code: 'INR', registration_number: generate13DigitNumber(), learning_type: 'course', created_at: new Date(), actual_amount: amount
 
       })
-      return Response.json({ order, id: registration.id });
+      return Response.json({ order, id: registration.id,status:true});
     }
 
   } catch (err) {
@@ -60,7 +60,7 @@ export async function POST(req) {
     console.log(err);
 
     return new Response(
-      JSON.stringify({ error: "Order creation failed", details: err.message }),
+      JSON.stringify({ error: "Order creation failed", details: err.message,status:false}),
       { status: 500 }
     );
   }

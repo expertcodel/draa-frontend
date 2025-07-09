@@ -1,17 +1,20 @@
 import { NextResponse } from "next/server";
 import { connectTodb } from '../../../utils/database';
-export async function GET() {
+export async function GET(request) {
 
-
-    const connection = connectTodb();
+    const input = new URL(request.url).searchParams;
+    const page = parseInt(input.get('page'));
+     const connection = connectTodb();
+   
     if (!connection) {
         return NextResponse.json({ status: false, message: "database error occured" });
     }
 
     try {
-        const memberlist = await connection.query(`SELECT id,name,\`rank\`,image,linkedin,instagram,twitter,facebook,slug,education FROM members WHERE status=1 ORDER BY id ASC`)
 
-        return NextResponse.json({ status: true, memberlist: memberlist[0] });
+        const [totalItems]=await connection.query(`SELECT COUNT(*) AS total from members`);
+        const memberlist = await connection.query(`SELECT id,name,\`rank\`,image,linkedin,instagram,twitter,facebook,slug,education FROM members WHERE status=1  ORDER BY id ASC LIMIT 12 OFFSET ${(page-1)*12}`)
+        return NextResponse.json({ status: true, memberlist: memberlist[0],totalItems:totalItems[0].total});
 
     } catch (error) {
 

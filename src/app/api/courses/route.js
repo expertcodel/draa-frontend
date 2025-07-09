@@ -159,16 +159,21 @@ const row = { ...rows[0] };
 const faqs = safeJsonParse(rows[0].faqs);
 const reviews = safeJsonParse(rows[0].reviews);
 const instructorsRaw = safeJsonParse(rows[0].instructors);
-
 let instructors = [];
 if (instructorsRaw.length > 0) {
   const member_ids = instructorsRaw.map(obj => parseInt(obj.member_id));
   const ids = member_ids.join(',');
+ 
+  if(ids!=='NaN')
+  {
   const [instRows] = await connection.query(
     `SELECT id, name, \`rank\`, image, facebook, twitter, linkedin, instagram FROM members WHERE id IN (${ids})`
   );
+
   instructors = instRows;
 }
+}
+
 
 
 

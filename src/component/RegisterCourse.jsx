@@ -7,19 +7,22 @@ import CountrySelect from "@/component/CountrySelect";
 import Breadcrumb from "@/component/Breadcrumb";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-export default function RegisterCourse({countrylist}) {
+
+export default function RegisterCourse({ countrylist }) {
 
     const [courseData, setCoursedata] = useState(typeof (window) !== 'undefined' && sessionStorage.getItem('courseDetail') && JSON.parse(sessionStorage.getItem('courseDetail')))
     const [loading, setLoading] = useState(false);
     const router = useRouter()
-
     const [message, setMessage] = useState({ name: "", number: "", email: "", date: "", institute: "", qualification: "", city: "", country: "", zip: "", address: "", gender: "", terms: "" })
 
     useEffect(() => {
 
+        console.log(global.statusKey, "hello");
+
         if (!sessionStorage.getItem('courseDetail')) {
             router.push('/courses');
         }
+
 
     }, [])
 
@@ -233,39 +236,59 @@ export default function RegisterCourse({countrylist}) {
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment/create-order`, { method: 'POST', body: JSON.stringify(data) })
             const order = await response.json();
             setLoading(false);
+
+
+
             const options = {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-                amount: order.order.amount,
+                amount: order.amount,
                 currency: "INR",
                 name: "Draa.in",
                 description: "Course Payment",
                 order_id: order.order.id,
-                handler: async (response) => {
-                    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment/verify`, {
+                handler: async function (response) {
+                    // Successful payment
+                    await fetch("/api/payment/verify", {
                         method: "POST",
                         body: JSON.stringify({
-
                             ...response,
-                            id: order.id,
-                            path: '/register-course'
+                            id: order.id,      // registration ID
+                            path: "/register-course"  // or your context path
                         }),
-
                     });
 
                     sessionStorage.removeItem('courseDetail');
-                    sessionStorage.setItem('successMsg', 'Course Registered Successfully');
-                    router.push('/')
+                    document.cookie = "statusKey=" + response.razorpay_signature + "; path=/";
+                    router.push(`/success/?token=${response.razorpay_signature}`);
+                },
+                modal: {
+                    // 👇 Handle payment cancel/close
+                    ondismiss: function () {
 
-
+                        sessionStorage.removeItem('courseDetail');
+                        document.cookie = "statusKey=" + `AFsdfdx636378hHYDYU4747^^gdhdjvdbhbsc` + "; path=/";
+                        router.push(`/failed/?token=AFsdfdx636378hHYDYU4747^^gdhdjvdbhbsc`)
+                    },
                 },
                 prefill: {
-                    name,
-                    email
+                    name: name,
+                    email: email,
+                    contact: number,
+                },
+                theme: {
+                    color: "#3399cc",
                 },
             };
 
-            const razorpay = new window.Razorpay(options);
-            razorpay.open();
+            if (!order.status) {
+
+                router.push(`/failed/?token=AFsdfdx636378hHYDYU4747^^gdhdjvdbhbsc`)
+            }
+            else {
+                const razorpay = new window.Razorpay(options);
+                razorpay.open();
+            }
+
 
         }
 
@@ -277,9 +300,10 @@ export default function RegisterCourse({countrylist}) {
     return (
         <>
             {/*Breadcrumb*/}
+
             <Breadcrumb title="Register Course" />
 
-            {/* Start Checkout Area */}
+
             <div className="checkout-area ptb-100">
                 <div className="container">
                     <div className="user-actions">
@@ -360,7 +384,7 @@ export default function RegisterCourse({countrylist}) {
                                                 <label>
                                                     Country <span className="required">*</span>
                                                 </label>
-                                                <CountrySelect countrylist={countrylist}/>
+                                                <CountrySelect countrylist={countrylist} />
                                                 <span style={{ color: 'red' }}>{message.country !== "" && message.country}</span>
                                             </div>
                                         </div>
@@ -451,7 +475,8 @@ export default function RegisterCourse({countrylist}) {
                     </form>
                 </div>
             </div>
-            {/* End Checkout Area */}
+
+
         </>
     );
 }

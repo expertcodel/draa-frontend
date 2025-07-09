@@ -9,77 +9,77 @@ import { faFacebook, faInstagram, faLinkedin, faTwitter } from "@fortawesome/fre
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ThumbnailCourseAdvisor() {
-  return (
-    <Swiper
-        modules={[Autoplay, FreeMode, Pagination]}
-        autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-        }}
-        freeMode={true}
-        grabCursor={true}
-        loop={true}
-        spaceBetween={16}
-        slidesPerView={2}
-        pagination={{
-            clickable: true,
-            dynamicBullets: true, // Optional: animated bullets
-        }}
-        breakpoints={{
-            320: { slidesPerView: 1, spaceBetween: 10 },
-            768: { slidesPerView: 3, spaceBetween: 8 },
-            1280: { slidesPerView: 2, spaceBetween: 16 },
-        }}
-        className="courseAdvisor-slider customSwiper"
-    >
-      {[...Array(5)].map((_, i) => (
-        <SwiperSlide key={i}>
-            <div className="single-advisor-box">
-                <div className="row align-items-center">
-                    <div className="col-lg-4 col-md-4">
-                        <div className="advisor-image">
-                            <Image width={230} height={340} src="/images/advisor/img1.jpg" alt="image" />
+export default function ThumbnailCourseAdvisor({ memberlist }) {
+    return (
+        <Swiper
+            modules={[Autoplay, FreeMode, Pagination]}
+            autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            }}
+            freeMode={true}
+            grabCursor={true}
+            loop={true}
+            spaceBetween={16}
+            slidesPerView={2}
+            pagination={{
+                clickable: true,
+                dynamicBullets: true, // Optional: animated bullets
+            }}
+            breakpoints={{
+                320: { slidesPerView: 1, spaceBetween: 10 },
+                768: { slidesPerView: 3, spaceBetween: 8 },
+                1280: { slidesPerView: 2, spaceBetween: 16 },
+            }}
+            className="courseAdvisor-slider customSwiper"
+        >
+            {memberlist.map((member, i) => (
+                <SwiperSlide key={i}>
+                    <div className="single-advisor-box">
+                        <div className="row align-items-center">
+                            <div className="col-lg-4 col-md-4">
+                                <div className="advisor-image">
+                                      <img width={390} height={400} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/members/${member.image}`} alt="image" />
+                                </div>
+                            </div>
+                            <div className="col-lg-8 col-md-8">
+                                <div className="advisor-content">
+                                    <h3>
+                                        <Link href={`/faculty/${member.slug}`}>{member.name}</Link>
+                                    </h3>
+                                    <span className="sub-title">{member.rank}</span>
+                                    <p>
+                                        {member.education}
+                                    </p>
+                                    <ul className="social-link">
+                                        {member.facebook && <li>
+                                            <Link href={member.facebook} className="d-block" target="_blank">
+                                                <FontAwesomeIcon icon={faFacebook} />
+                                            </Link>
+                                        </li>}
+                                        {member.twitter && <li>
+                                            <Link href={member.twitter} className="d-block" target="_blank">
+                                                <FontAwesomeIcon icon={faTwitter} />
+                                            </Link>
+                                        </li>}
+                                        {member.instagram && <li>
+                                            <Link href={member.instagram} className="d-block" target="_blank">
+                                                <FontAwesomeIcon icon={faInstagram} />
+                                            </Link>
+                                        </li>}
+                                        {member.linkedin && <li>
+                                            <Link href={member.linkedin} className="d-block" target="_blank">
+                                                <FontAwesomeIcon icon={faLinkedin} />
+                                            </Link>
+                                        </li>}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-lg-8 col-md-8">
-                        <div className="advisor-content">
-                            <h3>
-                                <Link href="/">William James</Link>
-                            </h3>
-                            <span className="sub-title">Project Management Expert</span>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dol aliqua.
-                            </p>
-                            <ul className="social-link">
-                                <li>
-                                    <Link href="/" className="d-block" target="_blank">
-                                        <FontAwesomeIcon icon={faFacebook} />
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/" className="d-block" target="_blank">
-                                        <FontAwesomeIcon icon={faTwitter} />
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/" className="d-block" target="_blank">
-                                        <FontAwesomeIcon icon={faInstagram} />
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/" className="d-block" target="_blank">
-                                        <FontAwesomeIcon icon={faLinkedin} />
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  );
+                </SwiperSlide>
+            ))}
+        </Swiper>
+    );
 }

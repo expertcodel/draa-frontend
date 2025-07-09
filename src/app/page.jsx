@@ -25,6 +25,7 @@ export default async function Page() {
             category = res.category;
             courselist = res.courselist;
             testSerieslist=res.testserieslist
+            
         }
 
     } catch (error) {

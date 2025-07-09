@@ -4,6 +4,26 @@ import TestimonialOdometer from "@/component/TestimonialOdometer";
 import ThumbnailCourseAdvisor from "@/component/ThumbnailCourseAdvisor";
 
 export default async function AboutUs() {
+
+    let memberlist = [];
+    
+    try {
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/faculty/?page=1`, {
+
+            method: 'GET',
+            cache: 'no-store'
+        })
+
+        const res = await response.json();
+        if (res.status) {
+            memberlist = res.memberlist;
+          
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
     return (
         <>
             {/*Breadcrumb*/}
@@ -23,7 +43,7 @@ export default async function AboutUs() {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
                     </div>
-                    <ThumbnailCourseAdvisor />
+                    <ThumbnailCourseAdvisor memberlist={memberlist}/>
                 </div>
             </div>
             {/* End Advisor Area */}

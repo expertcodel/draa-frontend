@@ -17,35 +17,32 @@ export async function POST(req) {
         id, path
     } = body;
 
-
-
-
-    const generatedSignature = crypto
+ const generatedSignature = crypto
         .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
         .update(`${razorpay_order_id}|${razorpay_payment_id}`)
         .digest("hex");
 
     if (generatedSignature !== razorpay_signature) {
-        return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+        return NextResponse.json({ error: "Invalid signature",status:false }, { status: 400 });
     }
 
 
     try {
         if (path === '/register-course') {
             await course_registrationmodel.update({ is_paid: 1, updated_at: new Date() }, { where: { id } });
-            return NextResponse.json({ status: true });
+            return NextResponse.json({ status: true, razorpay_signature });
         }
         else if (path === '/book-checkout') {
             await book_registrationmodel.update({ is_paid: 1, updated_at: new Date() }, { where: { id } });
-            return NextResponse.json({ status: true });
+            return NextResponse.json({ status: true, razorpay_signature });
         }
         else {
             await testseries_registrationmodel.update({ is_paid: 1, updated_at: new Date() }, { where: { id } });
-            return NextResponse.json({ status: true });
+            return NextResponse.json({ status: true, razorpay_signature });
         }
     } catch (err) {
         console.log(err, "error");
 
-        return NextResponse.json({ error: err.message }, { status: 500 });
+        return NextResponse.json({ error: err.message,status:false }, { status: 500 });
     }
 }

@@ -64,7 +64,7 @@ export default function SingleBookCarousel({ bookList }) {
               </div>
               <div className="col-lg-4 col-md-12">
                 <div className="get-instant-courses-image">
-                  <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`} className="main-image" alt="image" />
+                  <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/book/featured/${book.image}`} className="main-image" alt="image" />
                   <div className="shape7" data-speed="0.06" data-revert="true">
                     <img src="/images/shape/shape4.png" alt="image" />
                   </div>

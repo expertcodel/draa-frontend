@@ -156,7 +156,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
                                 <div className="single-products-box">
                                     <div className="products-image">
                                         <Link href={`/books/${book.slug}`}>
-                                            <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${book.image}`} className="main-image" alt="image" />
+                                            <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/book/featured/${book.image}`} className="main-image" alt="image" />
                                             {/* <Image src="/images/products/img2.jpg" alt="image" width={670} height={800} className="main-image" /> */}
                                         </Link>
                                     </div>

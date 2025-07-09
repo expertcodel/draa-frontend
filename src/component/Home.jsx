@@ -23,10 +23,12 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
 
     const [courseList, setCourselist] = useState(courselist);
     const [message, setMessage] = useState(typeof window !== 'undefined' && sessionStorage.getItem('successMsg') ? sessionStorage.getItem('successMsg') : "")
+    
     useEffect(() => {
 
 
-
+      console.log(category,"category");
+    
         if (message !== "") {
             const timer = setTimeout(() => {
                 setMessage("");

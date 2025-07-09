@@ -73,15 +73,11 @@ export default function Footer({ courses }) {
                                 <h3>Courses</h3>
                                 <ul className="footer-links-list">
                                     {topCategories.map((cat, i) => {
-                                        const courses = JSON.parse(cat.courses);
-                                        const firstCourse = courses[0];
-
-                                        if (!firstCourse) return null;
-
+                                      
                                         return (
                                             <li key={i}>
-                                                <Link href={`/courses/?course_name=${firstCourse.slug}`}>
-                                                    {cat.category_name}
+                                                <Link href={`/courses/?course_name=${cat.slug}`}>
+                                                    {cat.name}
                                                 </Link>
                                             </li>
                                         );

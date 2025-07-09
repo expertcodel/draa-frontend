@@ -10,7 +10,7 @@ export async function GET(request) {
     try {
 
 
-        const courselist = await coursemodel.findAll({where:{course_category_id},attributes:['id', 'image', 'slug', 'title', 'sub_title'], order: [['serial_number', 'ASC']],limit:15});
+        const courselist = await coursemodel.findAll({where:{status:1,course_category_id},attributes:['id', 'image', 'slug', 'title', 'sub_title'], order: [['serial_number', 'ASC']],limit:15});
         return NextResponse.json({ status: true, courselist});
 
 

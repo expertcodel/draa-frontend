@@ -46,6 +46,7 @@ export default async function RootLayout({ children }) {
       courselist = res.courselist;
       courses=res.courses;
       testseries=res.testseries;
+      
     }
 
   } catch (error) {
@@ -73,7 +74,7 @@ export default async function RootLayout({ children }) {
           {/* Render the page content */}
           {children}
 
-          <Footer courses={courses} />
+          <Footer courses={courselist} />
         </main>
 
         <Script src="https://checkout.razorpay.com/v1/checkout.js" />

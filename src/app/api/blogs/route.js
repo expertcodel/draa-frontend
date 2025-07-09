@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import { blogModel } from "../../models/blog.model";
 import { connectTodb } from "../../../utils/database";
+
+
+const random=(total)=>{
+
+    return Math.floor((Math.random()*total+1));
+}
+
+
 export async function GET(request) {
 
     const input = new URL(request.url).searchParams;
@@ -51,7 +59,9 @@ export async function POST(request) {
             ]
         });
 
-        const bloglist = await blogmodel.findAll({ order: [['created_at', 'DESC']], limit: 3, attributes: ['id', 'main_image', 'publish_date', 'title', 'slug'] });
+        const {count}=await blogmodel.findAndCountAll({attributes:['id']});
+        const value=random(count-3);
+        const bloglist = await blogmodel.findAll({ offset:value,order: [['created_at', 'DESC']], limit: 3, attributes: ['id', 'main_image', 'publish_date', 'title', 'slug'] });
 
         const categorylist = await connection.query(`SELECT bcategories.id,bcategories.name,COUNT(*) AS count FROM blogs INNER JOIN bcategories ON blogs.bcategory_id=bcategories.id GROUP BY bcategory_id ORDER BY bcategories.serial_number ASC`)
 

@@ -33,11 +33,10 @@ export default function BookPage({ bookDetail, bookList }) {
                     <div className="row">
                         <div className="col-lg-5 col-md-12">
                             <div className="products-details-image">
-                                <a href="/images/products/img2.jpg" className="popup-btn">
-                                    {/* <Image width={670} height={800} src="/images/products/img2.jpg" alt="image" /> 
-                                    */}
-                                     <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/course/featured/${bookDetail.image}`} className="main-image" alt="image" />
-                                </a>
+                                <Link href={`${process.env.NEXT_PUBLIC_IMAGE_URL}/book/featured/${bookDetail.image}`} className="popup-btn">
+                                
+                                     <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/book/featured/${bookDetail.image}`} className="main-image" alt="image" />
+                                </Link>
                             </div>
                         </div>
                         <div className="col-lg-7 col-md-12">

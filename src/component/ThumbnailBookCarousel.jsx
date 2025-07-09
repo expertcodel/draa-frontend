@@ -6,9 +6,9 @@ import "swiper/css/free-mode";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-
-export default function ThumbnailBookCarousel({bookList}) {
+import DOMPurify from 'dompurify';
+import { faAngleRight, faBook, faCartShopping, faClock, faPlay, faStar, faStarHalfStroke, faTag, faUserTie } from "@fortawesome/free-solid-svg-icons";
+export default function ThumbnailBookCarousel({ bookList }) {
   return (
     <Swiper
       modules={[Autoplay, FreeMode]}
@@ -29,32 +29,44 @@ export default function ThumbnailBookCarousel({bookList}) {
       }}
       className="book-slider customSwiper"
     >
-      {bookList.map((book, i) => (
-        <SwiperSlide key={i}>
-            <div className="single-products-box">
-                <div className="products-image">
-                    <Link href={`/books/${book.slug}`}>
-                        {/* <Image width={670} height={800} src="/images/products/img1.jpg" className="main-image" alt="image" /> */}
-                         <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/book/featured/${book.image}`} className="main-image" alt="image" />
-                    </Link>
-                </div>
-                <div className="products-content">
-                    <h3>
-                        <Link href={`/books/${book.slug}`}>{book.title}</Link>
-                    </h3>
-                    <div className="price">
-                        <p>
-                           {book.author}
-                        </p>
-                    </div>
-                    <Link href={`/books/${book.slug}`} className="add-to-cart default-btn">
-                        <FontAwesomeIcon icon={faCartShopping} /> Buy Now
-                        <span />
-                    </Link>
-                </div>
+      {bookList.map((book, i) => {
+
+        const cleanDescription = DOMPurify.sanitize(book.description, {
+          FORBID_ATTR: ['style'], // remove inline styles
+        });
+
+        return (<SwiperSlide key={i}>
+          <div className="single-products-box">
+            <div className="products-image">
+              <Link href={`/books/${book.slug}`}>
+                {/* <Image width={670} height={800} src="/images/products/img1.jpg" className="main-image" alt="image" /> */}
+                <img width={670} height={800} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/book/featured/${book.image}`} className="main-image" alt="image" />
+              </Link>
             </div>
-        </SwiperSlide>
-      ))}
+            <div className="products-content">
+              <h3>
+                <Link href={`/books/${book.slug}`}>{book.title}</Link>
+              </h3>
+              <div className="price">
+                <p className="line-clamp-4" dangerouslySetInnerHTML={{ __html: cleanDescription }}>
+
+                </p>
+              </div>
+              <div className="position-relative w-100 d-flex align-items-center">
+                <Link href={`/books/${book.slug}`} className="default-btn me-2">
+                  View more <FontAwesomeIcon icon={faAngleRight} />
+                  <span />
+                </Link>
+                <button onClick={() => setBookdetail(book)} className="default-btn">
+                  Buy Now <FontAwesomeIcon icon={faAngleRight} />
+                  <span />
+                </button>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>)
+      }
+      )}
     </Swiper>
   );
 }

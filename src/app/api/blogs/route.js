@@ -60,8 +60,8 @@ export async function POST(request) {
         });
 
         const {count}=await blogmodel.findAndCountAll({attributes:['id']});
-        const value=random(count-3);
-        const bloglist = await blogmodel.findAll({ offset:value,order: [['created_at', 'DESC']], limit: 3, attributes: ['id', 'main_image', 'publish_date', 'title', 'slug'] });
+        
+        const bloglist = await blogmodel.findAll({ offset: count > 3 ? random(count - 3) : 0,order: [['created_at', 'DESC']], limit: 3, attributes: ['id', 'main_image', 'publish_date', 'title', 'slug'] });
 
         const categorylist = await connection.query(`SELECT bcategories.id,bcategories.name,COUNT(*) AS count FROM blogs INNER JOIN bcategories ON blogs.bcategory_id=bcategories.id GROUP BY bcategory_id ORDER BY bcategories.serial_number ASC`)
 

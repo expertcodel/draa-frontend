@@ -19830,3 +19830,37 @@ Booking Popup Modal Area CSS
   font-size: 14px; color: var(--blackColor); transition: ease all .5s; -webkit-transition: ease all .5s; display: inline-flex;
 }
 .customListShow ul.absolute li a:hover{color: var(--mainColor); padding-left: 8px;}
+
+/****** thankYou page css ********/
+.thankyouPage{margin: 0; padding: 80px 0;}
+.thankyouPage .wrapper-1{
+  background: var(--bs-body-bg); width: 100%; display: flex; flex-direction: column; margin: 0 auto;
+  box-shadow: 4px 8px 40px 8px rgba(0, 0, 0, 0.1); border-radius: 8px;
+}
+.thankyouPage .wrapper-2{padding: 30px; text-align: center; background: var(--white);}
+.thankyouPage .wrapper-2 > *{margin: 0;}
+.thankyouPage .wrapper-2 > *:not(:last-child){margin-bottom: 16px;}
+.thankyouPage .wrapper-2 h1{
+    font-family: 'Kaushan Script', cursive; font-size: 4em; letter-spacing: 3px; color: var(--mainColor2);
+}
+.thankyouPage .wrapper-2.failedContent h1{color: var(--mainColor);}
+.thankyouPage .wrapper-2 h4 {
+    font-size: 1.3em; color: var(--bs-black); font-family: 'Source Sans Pro', sans-serif; letter-spacing: 1px;
+    font-weight: 600;
+}
+.thankyouPage .wrapper-2 p {
+    color: var(--bs-body-color); font-family: 'Source Sans Pro', sans-serif; letter-spacing: 1px; font-size: 18px;
+}
+@keyframes bounceUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.thankyouPage .wrapper-2 .bounceIcon {
+  animation: bounceUpDown 1s infinite ease-in-out; font-size: 48px; margin: 0; color: var(--mainColor2);
+}
+.thankyouPage .wrapper-2.failedContent .bounceIcon{color: var(--mainColor);}
+

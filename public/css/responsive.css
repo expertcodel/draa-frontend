@@ -4197,6 +4197,10 @@
   .searchField{
     width: calc(100% - 32px);
   }
+  .thankyouPage .wrapper-2 h1{
+    font-size:2.5em;
+  }
+  .thankyouPage .wrapper-2 .bounceIcon{font-size: 1.5rem;}
 }
 /* Min width 576px to Max width 767px */
 @media only screen and (min-width: 576px) and (max-width: 767px) {
@@ -8984,6 +8988,22 @@
   /* End navbar-area */
   /* End Online Photography Home */
 }/*# sourceMappingURL=responsive.css.map */
+
+@media (min-width:768px){
+  .thankyouPage .wrapper-2 h1{
+    font-size:4.5em;
+  }
+}
+
+@media (min-width:600px){
+    .thankyouPage .content{
+        max-width: 1000px; margin: 0 auto;
+    }
+    .thankyouPage .wrapper-1{
+        height: initial; max-width: 620px;
+    }
+    
+}
 
 @media (max-width: 499px) {
   .elearniv-nav .navbar .navbar-nav .nav-item.megamenu .container .row > *:not(:last-child){

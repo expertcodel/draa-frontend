@@ -61,7 +61,7 @@ export async function POST(request) {
 
         const category = await categorymodel.findOne({ where: { id: bookdetail.book_category_id }, attributes: ['name', 'slug'] })
         const { count } = await bookmodel.findAndCountAll({ attributes: ['id'] });
-        const booklist = await bookmodel.findAll({ offset: random(count - 3), order: [['created_at', 'DESC']], limit: 3, attributes: ['id', 'image', 'publish_date', 'title', 'slug', 'author', 'description'] });
+        const booklist = await bookmodel.findAll({ offset: count > 3 ? random(count - 3) : 0, order: [['created_at', 'DESC']], limit: 3, attributes: ['id', 'image', 'publish_date', 'title', 'slug', 'author', 'description'] });
 
 
         return NextResponse.json({

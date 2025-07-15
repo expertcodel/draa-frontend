@@ -18,8 +18,9 @@ export default function FacultyPage({ memberdetail,about}) {
                         <div className="row">
                             <div className="col-lg-4 col-md-4">
                                 <div className="image">
+                                    <img width={390} height={400} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/members/${memberdetail.image}`} alt="image" />
                                     {/* <Image width={390} height={400} src="/images/advisor/img10.jpg" alt="image" /> */}
-                                    <img width={390} height={400} src={`/members/${process.env.NEXT_PUBLIC_IMAGE_URL}/${memberdetail.image}`} alt="image" />
+                                    
                                 </div>
                             </div>
                             <div className="col-lg-8 col-md-8">

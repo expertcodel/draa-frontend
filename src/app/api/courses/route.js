@@ -158,6 +158,8 @@ const row = { ...rows[0] };
 
 const faqs = safeJsonParse(rows[0].faqs);
 const reviews = safeJsonParse(rows[0].reviews);
+
+
 const instructorsRaw = safeJsonParse(rows[0].instructors);
 let instructors = [];
 if (instructorsRaw.length > 0) {
@@ -182,7 +184,7 @@ return NextResponse.json({
   coursedetail: {
     row,
     faqs,
-    reviews,
+    reviews:reviews[0].name!==""?reviews:[],
     intstructor: instructors.length > 0 ? instructors : [],
     category: name,
   }

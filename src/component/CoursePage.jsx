@@ -235,7 +235,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor, ca
 
                                         <div className="courses-review-comments">
                                             <h3>{reviews.length} Reviews</h3>
-                                            {reviews.map((review, i) => <div className="user-review">
+                                            {reviews.map((review, i) => <div className="user-review" key={i}>
                                                 <img src="/images/user/user1.jpg" alt="image" />
                                                 <div className="review-rating">
                                                     <div className="review-stars">
@@ -247,7 +247,7 @@ export default function CoursePage({ courseDetail, faqs, reviews, instructor, ca
                                                     </div>
                                                     <span className="d-inline-block">{review.name}</span>
                                                 </div>
-                                                <span className="d-block sub-comment">{review.rating} <i class="fa-solid fa-star" style={{ color: 'green' }} /></span>
+                                                <span className="d-block sub-comment">{review.rating} <i className="fa-solid fa-star" style={{ color: 'green' }} /></span>
                                                 <p dangerouslySetInnerHTML={{ __html: review.comment }}>
 
                                                 </p>

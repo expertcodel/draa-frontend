@@ -48,7 +48,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     const pagination = async (idx) => {
 
         if (idx > 0 && idx <= button) {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${idx}&name=${name}&book_category=${book_category}&sort=${selected}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${idx}&name=${name}&book_category=${book_category}&sort=${selected}&value=${JSON.stringify(value)}`);
             setIdx(idx);
             const res = await response.json();
             if (res.status) {
@@ -63,7 +63,7 @@ export default function Books({ booklist, totalItems, total, book_category }) {
     const searching = async (idx, name) => {
 
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${book_category}&sort=${selected}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/books/?page=${1}&name=${name}&book_category=${book_category}&sort=${selected}&value=${JSON.stringify(value)}`);
         setName(name);
         setIdx(1);
         const res = await response.json();

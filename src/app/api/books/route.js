@@ -10,7 +10,6 @@ export async function GET(request) {
     const book_category = input.get('book_category');
     const sort = input.get('sort');
     const value = JSON.parse(input.get('value'));
-
     const bookmodel = bookModel();
     const categorymodel = book_categoryModel();
     try {

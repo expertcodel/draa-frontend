@@ -68,6 +68,7 @@ export default async function RootLayout({ children }) {
       <head>
         <meta name="robots" content="noindex, nofollow" />
         <link rel="icon" type="image/ico" href="/images/favicon.ico" />
+        
         {/* custom Css*/}
         <link href="/css/frontend.css" rel="stylesheet" type="text/css" />
         <link href="/css/responsive.css" rel="stylesheet" type="text/css" />

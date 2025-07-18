@@ -19864,9 +19864,10 @@ Booking Popup Modal Area CSS
 }
 .thankyouPage .wrapper-2.failedContent .bounceIcon{color: var(--mainColor);}
 
-/********** hero-slider *********/
-.hero-slider .heroSearchSec{
-  position:  absolute; bottom: 54px; z-index: 9;
+/********** heroSlider *********/
+.heroSlider.container{position: relative;}
+.heroSlider .heroSearchSec{
+  position:  absolute; bottom: 190px; z-index: 9;
 }
-.hero-slider .row > *:first-child{padding-bottom: 80px;}
+/* .heroSlider .row > *:first-child{padding-bottom: 80px;} */
 

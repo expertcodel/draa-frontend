@@ -6,21 +6,16 @@ import "swiper/css/free-mode";
 import Link from "next/link";
 import Image from "next/image";
 import heroBanner from "../utils/heroBanner";
-import SearchForm from "./SearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-export default function HeroSilderCarousel({ category }) {
+export default function HeroSilderCarousel() {
   return (
     <Swiper
-      modules={[Autoplay, Pagination, EffectFade]}
+      modules={[Autoplay, Pagination]}
       autoplay={{
-        delay: 5000000,
+        delay: 5000,
         disableOnInteraction: false,
         pauseOnMouseEnter: false
-      }}
-      effect="fade"
-      fadeEffect={{
-        crossFade: true,
       }}
       pagination={{
         clickable: true,
@@ -74,18 +69,6 @@ export default function HeroSilderCarousel({ category }) {
                 </div>
             </SwiperSlide>
         ))}
-        <div className="banner-wrapper-content heroSearchSec">
-            <SearchForm />
-            <ul className="popular-search-list">
-                <li>
-                    <span>Popular:</span>
-                </li>
-                {category.map((category, i) => i < 3 && <li key={i}>
-                    <Link href={`/courses/?course_name=${category.slug}`}>{category.name}</Link>
-                </li>)}
-
-            </ul>
-        </div>
     </Swiper>
   );
 }

@@ -16,7 +16,7 @@ import { formatToReadableDate } from '../utils/ReadableDate.js'
 import Tooltip from "./Tooltip.jsx";
 import { useState, useEffect } from "react";
 import HeroSilderCarousel from "./HeroSilderCarousel.jsx";
-
+import SearchForm from './SearchForm';
 
 export default function Home({ blogList, bookList, testimoniallist, category, courselist, testSerieslist }) {
 
@@ -67,8 +67,20 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
 
                     message !== "" && <Tooltip message={message} />
                 }
-                <div className="container">
-                    <HeroSilderCarousel category={category} />
+                <div className="container heroSlider">
+                    <HeroSilderCarousel />
+                    <div className="banner-wrapper-content heroSearchSec">
+                        <SearchForm />
+                        <ul className="popular-search-list">
+                            <li>
+                                <span>Popular:</span>
+                            </li>
+                            {category.map((category, i) => i < 3 && <li key={i}>
+                                <Link href={`/courses/?course_name=${category.slug}`}>{category.name}</Link>
+                            </li>)}
+
+                        </ul>
+                    </div>
                     <div className="banner-inner-area">
                         <div className="row justify-content-center">
                             <div className="col-lg-4 col-md-12">

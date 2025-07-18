@@ -49,13 +49,12 @@
 }
 
 @media only screen and (max-width: 991px) {
-  .hero-slider.swiper{padding-bottom: 160px;}
-  .hero-slider.swiper .swiper-pagination{bottom: 128px;}
-  .hero-slider .heroSearchSec{bottom: 8px; left: 50%; transform: translateX(-50%); width: 100%;}
+  .hero-slider.swiper{padding-bottom: 48px;}
   .hero-slider .row > *:first-child{padding-bottom: 16px;}
   .banner-wrapper-content div[class*="position-"] {
     justify-content: center;
   }
+  .heroSlider .heroSearchSec{position: relative; bottom: 0;}
 }
 
 /* Max width 767px */

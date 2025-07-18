@@ -15,7 +15,7 @@ import ThumbnailTestSeriesCarousel from "@/component/ThumbnailTestSeriesCarousel
 import { formatToReadableDate } from '../utils/ReadableDate.js'
 import Tooltip from "./Tooltip.jsx";
 import { useState, useEffect } from "react";
-import SearchForm from "./SearchForm.jsx";
+import HeroSilderCarousel from "./HeroSilderCarousel.jsx";
 
 
 export default function Home({ blogList, bookList, testimoniallist, category, courselist, testSerieslist }) {
@@ -68,43 +68,10 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                     message !== "" && <Tooltip message={message} />
                 }
                 <div className="container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-6 col-md-12">
-                            <div className="banner-wrapper-content">
-                                <h1>Build Skills With Experts Any Time, Anywhere</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                < SearchForm />
-                                <ul className="popular-search-list">
-                                    <li>
-                                        <span>Popular:</span>
-                                    </li>
-                                    {category.map((category, i) => i < 3 && <li key={i}>
-                                        <Link href={`/courses/?course_name=${category.slug}`}>{category.name}</Link>
-                                    </li>)}
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-md-12">
-                            <div className="banner-wrapper-image">
-                                <Image width={550} height={620} src="/images/banner/banner-img2.png" alt="image" />
-                                <div className="banner-shape8" data-speed="0.06" data-revert="true">
-                                    <img src="/images/shape/banner-shape8.png" alt="image" />
-                                </div>
-                                <div className="banner-shape9" data-speed="0.06" data-revert="true">
-                                    <img src="/images/shape/banner-shape9.png" alt="image" />
-                                </div>
-                                <div className="banner-shape10" data-speed="0.06" data-revert="true">
-                                    <img src="/images/shape/banner-shape10.png" alt="image" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <HeroSilderCarousel category={category} />
                     <div className="banner-inner-area">
                         <div className="row justify-content-center">
-                            <div className="col-lg-4 col-md-6 col-sm-6">
+                            <div className="col-lg-4 col-md-12">
                                 <div className="single-banner-box">
                                     <div className="icon">
                                         <FontAwesomeIcon icon={faDesktop} />
@@ -113,7 +80,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                                     <p>Lorem ipsum dolor sit amet consectets.</p>
                                 </div>
                             </div>
-                            <div className="col-lg-4 col-md-6 col-sm-6">
+                            <div className="col-lg-4 col-md-12">
                                 <div className="single-banner-box">
                                     <div className="icon">
                                         <FontAwesomeIcon icon={faUserFriends} />
@@ -122,7 +89,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                                     <p>Lorem ipsum dolor sit amet consectets.</p>
                                 </div>
                             </div>
-                            <div className="col-lg-4 col-md-6 col-sm-6">
+                            <div className="col-lg-4 col-md-12">
                                 <div className="single-banner-box">
                                     <div className="icon">
                                         <FontAwesomeIcon icon={faGlobe} />
@@ -326,67 +293,6 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                 </div>
             </div>
             {/* End View All Courses Area */}
-
-            {/* Start Premium Access Area */}
-            <div className="premium-access-area ptb-100">
-                <div className="container">
-                    <div className="premium-access-content">
-                        <span className="sub-title">Affordable Certification</span>
-                        <h2>Get Your Quality Skills Certificate Through Online Exam</h2>
-                        <p>
-                            Students friendly pricing for the certificate programs helps individuals to get their skill certificate easier than ever!
-                        </p>
-                        <Link href="/courses" className="default-btn">
-                            <i className="flaticon-user" /> Get Started Now
-                            <span />
-                        </Link>
-                    </div>
-                </div>
-                <div className="shape3" data-speed="0.06" data-revert="true">
-                    <img src="/images/shape/shape3.png" alt="image" />
-                </div>
-                <div className="shape4" data-speed="0.06" data-revert="true">
-                    <img src="/images/shape/shape4.png" alt="image" />
-                </div>
-                <div className="shape8" data-speed="0.06" data-revert="true">
-                    <img src="/images/shape/shape7.png" alt="image" />
-                </div>
-            </div>
-            {/* End Premium Access Area */}
-
-            {/* Start Subscribe Area */}
-            <div className="subscribe-area bg-f9f9f9 ptb-100">
-                <div className="container">
-                    <div className="subscribe-content">
-                        <span className="sub-title">Go At Your Own Pace</span>
-                        <h2>Subscribe To Our Newsletter</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
-                        <form className="newsletter-form" data-toggle="validator">
-                            <input type="text" className="input-newsletter" placeholder="Enter your email address" name="EMAIL" required="" autoComplete="off" />
-                            <button type="submit" className="default-btn">
-                                <i className="flaticon-user" /> Subscribe Now
-                                <span />
-                            </button>
-                            <div id="validator-newsletter" className="form-result" />
-                        </form>
-                    </div>
-                </div>
-                <div className="shape4" data-speed="0.06" data-revert="true">
-                    <img src="/images/shape/shape4.png" alt="image" />
-                </div>
-                <div className="shape13" data-speed="0.06" data-revert="true">
-                    <img src="/images/shape/shape12.png" alt="image" />
-                </div>
-                <div className="shape14" data-speed="0.06" data-revert="true">
-                    <img src="/images/shape/shape13.png" alt="image" />
-                </div>
-                <div className="shape15" data-speed="0.06" data-revert="true">
-                    <img src="/images/shape/shape14.png" alt="image" />
-                </div>
-            </div>
-            {/* End Subscribe Area */}
 
         </>
     );

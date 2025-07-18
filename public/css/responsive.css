@@ -9,6 +9,11 @@
     transition: opacity 0.3s ease, visibility 0.3s ease;
   }
 }
+
+@media (max-width: 1280px) {
+  /********** hero-slider *********/
+  .banner-wrapper-content h1{font-size: 32px;}
+}
 @media (max-width: 1199px) {
   /******** customHeader ******/
   .customHeader .elearniv-nav .navbar .navbar-collapse{
@@ -40,6 +45,16 @@
   }
   .elearniv-nav .navbar .navbar-nav .nav-item.megamenu .container .row{
     grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .hero-slider.swiper{padding-bottom: 160px;}
+  .hero-slider.swiper .swiper-pagination{bottom: 128px;}
+  .hero-slider .heroSearchSec{bottom: 8px; left: 50%; transform: translateX(-50%); width: 100%;}
+  .hero-slider .row > *:first-child{padding-bottom: 16px;}
+  .banner-wrapper-content div[class*="position-"] {
+    justify-content: center;
   }
 }
 
@@ -4524,7 +4539,7 @@
     font-size: 40px;
   }
   .banner-inner-area .col-lg-4:nth-child(2) .single-banner-box {
-    border-right: none;
+    border-right: none; border-top: 1px solid #eeeeee;
   }
   .banner-inner-area .col-lg-4:nth-child(3) .single-banner-box {
     border-top: 1px solid #eeeeee;

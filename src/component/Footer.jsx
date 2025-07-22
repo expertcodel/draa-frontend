@@ -11,8 +11,9 @@ import Tooltip from './Tooltip';
 export default function Footer({ courses }) {
     const topCategories = courses.slice(0, 4);
     const [message, setMessage] = useState({ succMsg: "", failedMsg: "" });
+    const [data, setData] = useState({ email: "" });
     const [loading, setLoading] = useState(false);
-    const [validation, setValidation] = useState({ email: -1 })
+    const [validation, setValidation] = useState({ email: "-1" })
     const validateEmail = (email) => {
         return String(email)
             .toLowerCase()
@@ -21,55 +22,81 @@ export default function Footer({ courses }) {
             );
     };
 
-    const submitForm = async (e) => {
+    const handleChange = (e) => {
 
-        e.preventDefault();
-        let valid = true;
-        const email = e.target.email.value.trim();
+        const { name, value } = e.target;
+        const updatedData = { ...data };
+        updatedData[name] = value;
+        const updateValidation = { ...validation };
 
-        if (email === "") {
-            valid = false;
-            setMessage({ failedMsg: "this field can't be blank",succMsg:"" });
-            setTimeout(() => {
-                setMessage({ failedMsg: "" ,succMsg:""});
-            }, 3000);
-        }
 
-        else if (!validateEmail(email)) {
-            valid = false;
-            setMessage({ failedMsg: "Please fill valid email",succMsg:"" });
-            setTimeout(() => {
-                setMessage({ failedMsg: "",succMsg:"" });
-            }, 3000);
-        }
+        if (value === "") {
 
-        if (valid) {
-
-            setValidation({ email: 1 })
-            setLoading(true)
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/createNewsletter`, { method: "POST", body: JSON.stringify({ email }), headers: { 'Content-Type': 'application/json' } });
-            const res = await response.json();
-            setLoading(false)
-            if (res.status) {
-                setMessage({ succMsg: res.message ,failedMsg:""});
-                e.target.email.value = ""
-                setTimeout(() => {
-                    setMessage({ succMsg: "" ,failedMsg:""});
-                }, 3000);
-            }
-            else {
-                setMessage({ failedMsg: res.message ,succMsg:""});
-                setTimeout(() => {
-                    setMessage({ failedMsg: "",succMsg:"" });
-                }, 3000);
-            }
-
+            updateValidation['email'] = "This field can't be blank";
 
         }
         else {
-            setValidation({ email: 0 })
+
+            if (!validateEmail(value)) {
+
+                updateValidation['email'] = "Please fill valid email";
+
+            }
+            else {
+
+                updateValidation['email'] = "";
+            }
 
         }
+
+
+
+        setValidation(updateValidation);
+        setData(updatedData);
+    }
+
+    const submitForm = async (e) => {
+
+        e.preventDefault();
+        let updateValidation = { ...validation }
+        let valid = true;
+        if (validation['email'] === "-1") {
+            valid = false;
+            updateValidation['email'] = 'The email field is required.'
+        }
+        else if (validation['email'] !== "") {
+
+            valid = false;
+        }
+
+        setValidation(updateValidation)
+
+
+
+        if (valid) {
+
+
+            setLoading(true)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/createNewsletter`, { method: "POST", body: JSON.stringify({ email:data.email }), headers: { 'Content-Type': 'application/json' } });
+            const res = await response.json();
+            setLoading(false)
+            if (res.status) {
+
+                setMessage({ failedMsg: "", succMsg: res.message });
+                setData({ email: "" });
+            }
+            else {
+                setMessage({ failedMsg: res.message, succMsg: "" });
+
+            }
+
+            setTimeout(() => {
+                setMessage({ failedMsg: "", succMsg: "" });
+            }, 3000);
+
+
+        }
+
 
 
     }
@@ -87,7 +114,7 @@ export default function Footer({ courses }) {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
                         <form className="newsletter-form" data-toggle="validator" onSubmit={submitForm}>
-                            <input type="text" className="input-newsletter" placeholder="Enter your email address" name="email" required="" autoComplete="off" style={{ border: validation.email === 0 && '1px solid red' }} />
+                            <input type="text" className="input-newsletter" placeholder="Enter your email address" name="email" required="" autoComplete="off" style={{ border: validation.email === 0 && '1px solid red' }} onChange={(e) => handleChange(e)} value={data.email} />
                             <button type="submit" className="default-btn">
                                 {loading ? <div style={{ display: 'flex', justifyContent: 'center' }}><div className="spinner-border text-success" role="status">
                                     <span className="sr-only">Loading...</span>
@@ -96,7 +123,10 @@ export default function Footer({ courses }) {
                             </button>
 
                             {
-                                message.failedMsg !== "" && <div style={{ color: 'red' }}>{message.failedMsg}</div>
+                                <span style={{ color: 'red' }}>{validation.email !== "" && validation.email !== "-1" && validation.email}</span>
+                            }
+                            {
+                                message.failedMsg !== "" && <span style={{ color: 'red' }}>{message.failedMsg}</span>
                             }
 
                             <div id="validator-newsletter" className="form-result" />

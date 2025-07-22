@@ -186,7 +186,7 @@ export default function Form() {
             flag = false;
         }
 
-        console.log(data, 'h');
+    
 
         setValidation(updateValidation)
 

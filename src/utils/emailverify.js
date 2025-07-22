@@ -33,7 +33,7 @@ export function emailVerify(email) {
                                                 align="left">
                                                 <p
                                                     style="Margin:0;font-family:arial,'helvetica neue',helvetica,sans-serif;line-height:21px;color:#333;font-size:14px">
-                                                 Thank you for subscribing to the newsletter at draa.in! To make sure it's really you, please confirm your subscription by clicking the button below::
+                                                 Thank you for subscribing to the newsletter at draa.in! To make sure it's really you, please confirm your subscription by clicking the button below:
                                                     <a href="https://draa.in/?email=${email}"
                                                         style="text-decoration:none;color:#1650e2;font-size:14px"
                                                         target="_blank">verify</a>

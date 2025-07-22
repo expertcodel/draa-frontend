@@ -14,7 +14,7 @@ export async function GET() {
        
         const memberlist = await connection.query(`SELECT id,name,\`rank\`,image,linkedin,instagram,twitter,facebook,slug,education FROM members WHERE status=1  ORDER BY id ASC LIMIT 12`)
       
-        const aboutdetail = await connection.query(`SELECT id,body FROM dynamic_pages WHERE slug='about' AND status=1 LIMIT 1`)
+        const aboutdetail = await connection.query(`SELECT id,body,meta_keywords,meta_description,seo_title FROM dynamic_pages WHERE slug='about' AND status=1 LIMIT 1`)
         const aboutdata = aboutdetail[0][0]
         let contentBase64 = null;
 
@@ -24,7 +24,7 @@ export async function GET() {
 
          return NextResponse.json({
             status: true, aboutdata: {
-             
+                ...aboutdata,
                 about: contentBase64 // embed base64 inside blogdetail
             },
             memberlist: memberlist[0]

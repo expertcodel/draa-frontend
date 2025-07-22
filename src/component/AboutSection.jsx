@@ -4,12 +4,39 @@ import { faAngleUp, faChalkboardTeacher, faClockRotateLeft, faGamepad, faLightbu
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-
-export default  function AboutSection({ aboutDetail }) {
+import DOMPurify from 'dompurify';
+import { useMemo } from 'react';
+export default function AboutSection({ aboutDetail }) {
     const pathname = usePathname();
-    const aboutSection1=aboutDetail.substr(0,aboutDetail.length/2);
-    const aboutSection2=aboutDetail.substr(aboutDetail.length/2,aboutDetail.length/2);
+  function splitHtmlIntoTwoParts(htmlString) {
+    if (!htmlString) return ['', ''];
+
+    const container = document.createElement('div');
+    container.innerHTML = htmlString;
+
+    const elements = Array.from(container.childNodes);
+    const total = elements.length;
+
+    const splitIndex = Math.floor(total * 0.30); 
+
+    const firstPart = elements
+        .slice(0, splitIndex)
+        .map(node => node.outerHTML || node.textContent)
+        .join('');
+
+    const secondPart = elements
+        .slice(splitIndex)
+        .map(node => node.outerHTML || node.textContent)
+        .join('');
+
+    return [firstPart, secondPart];
+}
+
+
+    const [leftContent, rightContent] = useMemo(() => splitHtmlIntoTwoParts(aboutDetail), [aboutDetail]);
+
+
+
     return (
         <>
             {/* Start About Area */}
@@ -43,16 +70,16 @@ export default  function AboutSection({ aboutDetail }) {
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
-                            <div className="about-content" dangerouslySetInnerHTML={{__html:aboutSection1}}>
-                              
-                            </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="about-content" dangerouslySetInnerHTML={{__html:aboutSection2}}>
-                              
-                            </div>
-                        </div>
+                            <div className="about-content" dangerouslySetInnerHTML={{ __html: leftContent }}>
 
+                            </div>
+                        </div>
+                        {pathname === '/about-us' && <div className="col-12">
+                            <div className="about-content" dangerouslySetInnerHTML={{ __html: rightContent }}>
+
+                            </div>
+                        </div>
+                        }
                     </div>
                 </div>
                 <div className="shape1" data-speed="0.06" data-revert="true">

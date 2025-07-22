@@ -38,6 +38,11 @@ export default async function AboutUs() {
     return (
         <>
             {/*Breadcrumb*/}
+              <head>
+                <meta name="keywords" content={ aboutDetail.meta_keywords} />
+                <meta name="description" content={ aboutDetail.meta_description} />
+                <title>{ aboutDetail.seo_title}</title>
+            </head>
             <Breadcrumb title="About Us" />
 
             <AboutSection aboutDetail={decodedHtml} />

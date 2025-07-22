@@ -28,7 +28,7 @@ export default function TestSeriesPage({ courseDetail, faqs, reviews }) {
                 <meta name="keywords" content={courseDetail.meta_keywords} />
                 <meta name="description" content={courseDetail.meta_description} />
             </head>
-            <Breadcrumb title={`Test - ${courseDetail.title}`} />
+            <Breadcrumb title={`${courseDetail.title}`} />
 
             {/* Start Courses Details Area */}
             <div className="courses-details-area pb-100">

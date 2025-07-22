@@ -102,7 +102,7 @@ export function generateEmailHeader() {
                                                 align="center">
                                                 <img alt="Draa.in"
                                                     height="245"
-                                                    src="https://doctorsjourney.in/images/email/emailer-banner.png"
+                                                    src="https://draa.in/images/email/emailer-banner.png"
                                                     style="display:block;border:0;outline:0;text-decoration:none"
                                                     width="600"
                                                     align="center"

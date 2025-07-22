@@ -114,7 +114,7 @@ export default function Footer({ courses }) {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
                         <form className="newsletter-form" data-toggle="validator" onSubmit={submitForm}>
-                            <input type="text" className="input-newsletter" placeholder="Enter your email address" name="email" required="" autoComplete="off" style={{ border: validation.email === 0 && '1px solid red' }} onChange={(e) => handleChange(e)} value={data.email} />
+                            <input type="text" className="input-newsletter" placeholder="Enter your email address" name="email" required="" autoComplete="off" style={{ border: validation.email !== "" && validation.email !== "-1" && '1px solid red' }} onChange={(e) => handleChange(e)} value={data.email} />
                             <button type="submit" className="default-btn">
                                 {loading ? <div style={{ display: 'flex', justifyContent: 'center' }}><div className="spinner-border text-success" role="status">
                                     <span className="sr-only">Loading...</span>

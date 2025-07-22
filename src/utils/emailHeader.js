@@ -25,9 +25,9 @@ export function generateEmailHeader() {
                                                     bgcolor="#ffffff">
                                                     <tbody>
                                                         <tr>
-                                                            <td style="padding:0;Margin:0;padding-top:10px;padding-left:20px;padding-right:20px;background-color:#d8eaf5"
+                                                            <td style="padding:0;Margin:0;padding-top:10px;padding-left:20px;padding-right:20px;background-color:#fff0e1"
                                                                 align="left"
-                                                                bgcolor="#d8eaf5">
+                                                                bgcolor="#fff0e1">
                                                                 <table
                                                                     cellpadding="0"
                                                                     cellspacing="0"
@@ -84,8 +84,8 @@ export function generateEmailHeader() {
             </td>
         </tr>
         <tr>
-            <td style="padding:0;Margin:0;background-color:#d8eaf5"
-                align="left" bgcolor="#d8eaf5">
+            <td style="padding:0;Margin:0;background-color:#fff0e1"
+                align="left" bgcolor="#fff0e1">
                 <table cellpadding="0" cellspacing="0"
                     style="border-collapse:collapse;border-spacing:0"
                     width="100%">

@@ -25,9 +25,9 @@ export function generateEmailFooter() {
                                                     <td style="padding:0;Margin:0;width:270px"
                                                         align="left">
                                                         <table cellpadding="0" cellspacing="0"
-                                                            style="border-collapse:separate;border-spacing:0;background-color:#d8eaf5;border-radius:7px"
+                                                            style="border-collapse:separate;border-spacing:0;background-color:#fff0e1;border-radius:7px"
                                                             width="100%" role="presentation"
-                                                            bgcolor="#d8eaf5">
+                                                            bgcolor="#fff0e1">
                                                             <tbody>
                                                                 <tr>
                                                                     <td style="padding:0;Margin:0;padding-right:5px;padding-top:10px;padding-left:10px;width:55px;font-size:0"
@@ -95,9 +95,9 @@ export function generateEmailFooter() {
                                                     <td style="padding:0;Margin:0;width:270px"
                                                         align="left">
                                                         <table cellpadding="0" cellspacing="0"
-                                                            style="border-collapse:separate;border-spacing:0;background-color:#d8eaf5;border-radius:7px"
+                                                            style="border-collapse:separate;border-spacing:0;background-color:#fff0e1;border-radius:7px"
                                                             width="100%" role="presentation"
-                                                            bgcolor="#d8eaf5">
+                                                            bgcolor="#fff0e1">
                                                             <tbody>
                                                                 <tr>
                                                                     <td style="padding:0;Margin:0;padding-right:5px;padding-top:10px;padding-left:10px;width:55px;font-size:0"
@@ -171,9 +171,9 @@ export function generateEmailFooter() {
                                                     <td style="padding:0;Margin:0;width:400px"
                                                         align="left">
                                                         <table cellpadding="0" cellspacing="0"
-                                                            style="border-collapse:separate;border-spacing:0;background-color:#d8eaf5;border-radius:7px"
+                                                            style="border-collapse:separate;border-spacing:0;background-color:#fff0e1;border-radius:7px"
                                                             width="100%" role="presentation"
-                                                            bgcolor="#d8eaf5">
+                                                            bgcolor="#fff0e1">
                                                             <tbody>
                                                                 <tr>
                                                                     <td style="padding:0;Margin:0;padding-right:5px;padding-top:10px;padding-left:10px;width:55px;font-size:0"

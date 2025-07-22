@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faClock, faMapLocation, faPhone } from "@fortawesome/free-solid-svg-icons";
 
-export default async function Login() {
+export default  function Login() {
     return (
         <>
             {/*Breadcrumb*/}

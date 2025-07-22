@@ -1,33 +1,35 @@
-import AboutSection from "@/component/AboutSection";
-import Breadcrumb from "@/component/Breadcrumb";
-import TestimonialOdometer from "@/component/TestimonialOdometer";
-import ThumbnailCourseAdvisor from "@/component/ThumbnailCourseAdvisor";
+export const dynamic='force-dynamic'
+
+import AboutSection  from "../../component/AboutSection";
+import Breadcrumb from "../../component/Breadcrumb";
+import ThumbnailCourseAdvisor from  "../../component/ThumbnailCourseAdvisor";
 
 export default async function AboutUs() {
 
     let memberlist = [];
-    let aboutDetail ={};
-    let  decodedHtml;
-    
+    let aboutDetail = {};
+    let decodedHtml='';
+
     try {
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/about-us`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/about`, {
 
             method: 'GET',
-            cache: 'no-store'
+            cache: 'no-store',
+
         })
 
         const res = await response.json();
         if (res.status) {
             memberlist = res.memberlist;
-             aboutDetail = res.aboutdata;
+            aboutDetail = res.aboutdata;
             const mimeType = 'text/html';
             const base64 = aboutDetail.about;
             const src = `data:${mimeType};base64,${base64}`;
-            const spiltted = src.split(',')[1];        
+            const spiltted = src.split(',')[1];
             decodedHtml = atob(spiltted);
-         
-            
+
+
         }
 
     } catch (error) {
@@ -38,7 +40,7 @@ export default async function AboutUs() {
             {/*Breadcrumb*/}
             <Breadcrumb title="About Us" />
 
-            <AboutSection aboutDetail={decodedHtml}/>
+            <AboutSection aboutDetail={decodedHtml} />
 
             {/* <TestimonialOdometer /> */}
 
@@ -52,7 +54,7 @@ export default async function AboutUs() {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
                     </div>
-                    <ThumbnailCourseAdvisor memberlist={memberlist}/>
+                    <ThumbnailCourseAdvisor memberlist={memberlist} />
                 </div>
             </div>
             {/* End Advisor Area */}

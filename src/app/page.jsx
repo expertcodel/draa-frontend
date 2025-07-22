@@ -1,3 +1,4 @@
+export const dynamic='force-dynamic'
 import Home from "../component/Home";
 
 
@@ -10,7 +11,7 @@ export default async function Page() {
     let courselist = [];
     let testSerieslist = [];
     let sliderlist = [];
-    let decodedHtml;
+    let decodedHtml='';
     try {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/home`, {
@@ -33,6 +34,8 @@ export default async function Page() {
             const src = `data:${mimeType};base64,${base64}`;
             const spiltted = src.split(',')[1];
             decodedHtml = atob(spiltted);
+         
+
 
         }
 
@@ -46,6 +49,6 @@ export default async function Page() {
 
 
     return (
-        <Home blogList={blogList} bookList={bookList} testimoniallist={testimoniallist} category={category} courselist={courselist} testSerieslist={testSerieslist} sliderlist={sliderlist} aboutDetail={decodedHtml}/>
+        <Home blogList={blogList} bookList={bookList} testimoniallist={testimoniallist} category={category} courselist={courselist} testSerieslist={testSerieslist} sliderlist={sliderlist} aboutDetail={decodedHtml} />
     );
 }

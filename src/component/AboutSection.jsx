@@ -5,35 +5,44 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import DOMPurify from 'dompurify';
-import { useMemo } from 'react';
+
 export default function AboutSection({ aboutDetail }) {
     const pathname = usePathname();
-  function splitHtmlIntoTwoParts(htmlString) {
-    if (!htmlString) return ['', ''];
 
-    const container = document.createElement('div');
-    container.innerHTML = htmlString;
+    
 
-    const elements = Array.from(container.childNodes);
-    const total = elements.length;
-
-    const splitIndex = Math.floor(total * 0.30); 
-
-    const firstPart = elements
-        .slice(0, splitIndex)
-        .map(node => node.outerHTML || node.textContent)
-        .join('');
-
-    const secondPart = elements
-        .slice(splitIndex)
-        .map(node => node.outerHTML || node.textContent)
-        .join('');
-
-    return [firstPart, secondPart];
-}
+    const htmlString = aboutDetail.replace(/â/g, '-')
+        .replace(/â/g, '"')
+        .replace(/â/g, '"')
+        .replace(/â/g, "'")
+        .replace(/â¦/g, '...')
+        .replace(/â/g, '-');
 
 
-    const [leftContent, rightContent] = useMemo(() => splitHtmlIntoTwoParts(aboutDetail), [aboutDetail]);
+    function cleanAttributesFromHtml(htmlString) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+
+        const elements = doc.body.querySelectorAll('*');
+        elements.forEach(el => {
+            // Remove specific unwanted attributes
+            el.removeAttribute('rt');
+            el.removeAttribute('data-end');
+            el.removeAttribute('style'); // You can be more selective if needed
+        });
+
+        return doc.body.innerHTML;
+    }
+
+    const cleanHtml=cleanAttributesFromHtml(htmlString)
+
+    const cleanDescription1 = DOMPurify.sanitize((cleanHtml.substr(0, cleanHtml.length / 2)), {
+        FORBID_ATTR: ['style'], // remove inline styles
+    });
+    const cleanDescription2 = DOMPurify.sanitize((cleanHtml.substr(cleanHtml.length / 2, cleanHtml.length)), {
+        FORBID_ATTR: ['style'], // remove inline styles
+    });
+
 
 
 
@@ -70,12 +79,12 @@ export default function AboutSection({ aboutDetail }) {
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
-                            <div className="about-content" dangerouslySetInnerHTML={{ __html: leftContent }}>
+                            <div className="about-content" dangerouslySetInnerHTML={{ __html: cleanDescription1 }}>
 
                             </div>
                         </div>
-                        {pathname === '/about-us' && <div className="col-12">
-                            <div className="about-content" dangerouslySetInnerHTML={{ __html: rightContent }}>
+                        {pathname === '/about-us' && <div className="col-12 mt-3">
+                            <div className="about-content" dangerouslySetInnerHTML={{ __html: cleanDescription2 }}>
 
                             </div>
                         </div>

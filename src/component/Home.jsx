@@ -18,17 +18,44 @@ import { useState, useEffect } from "react";
 import HeroSilderCarousel from "./HeroSilderCarousel.jsx";
 import SearchForm from './SearchForm';
 
-export default function Home({ blogList, bookList, testimoniallist, category, courselist, testSerieslist }) {
+export default function Home({ blogList, bookList, testimoniallist, category, courselist, testSerieslist,sliderlist ,aboutDetail}) {
 
 
     const [courseList, setCourselist] = useState(courselist);
     const [message, setMessage] = useState(typeof window !== 'undefined' && sessionStorage.getItem('successMsg') ? sessionStorage.getItem('successMsg') : "")
-    
     useEffect(() => {
 
 
-      console.log(category,"category");
-    
+
+        const subscribe = async (email) => {
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/createNewsletter?email=${email}`, {
+                method: 'GET'
+            });
+
+            const res = await response.json();
+            setMessage(res.message);
+            const timer = setTimeout(() => {
+                setMessage("");
+                sessionStorage.removeItem('successMsg');
+            }, 3000);
+
+            return () => clearTimeout(timer);
+
+        }
+
+        const query = window.location.search;
+        const email = new URLSearchParams(query).get('email');
+        if (email) {
+            subscribe(email)
+        }
+
+
+
+    }, [])
+
+    useEffect(() => {
+
         if (message !== "") {
             const timer = setTimeout(() => {
                 setMessage("");
@@ -68,7 +95,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                     message !== "" && <Tooltip message={message} />
                 }
                 <div className="container heroSlider">
-                    <HeroSilderCarousel />
+                    <HeroSilderCarousel sliderlist={sliderlist}/>
                     <div className="banner-wrapper-content heroSearchSec">
                         <SearchForm />
                         <ul className="popular-search-list">
@@ -170,7 +197,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
             </div>
             {/* End Courses Area */}
 
-            <AboutSection bgClass="bg-fef8ef" />
+            <AboutSection aboutDetail={aboutDetail} />
 
             {/* Start Test Series */}
             <div className="features-area pt-100 pb-70">
@@ -230,7 +257,7 @@ export default function Home({ blogList, bookList, testimoniallist, category, co
                     </div>
                     <div className="row justify-content-center">
                         {
-                            blogList.map((blog) => 
+                            blogList.map((blog) =>
                                 <div className="col-lg-4 col-md-6" key={blog.id}>
                                     <div className="single-blog-post">
                                         <div className="post-image">

@@ -6,12 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 
-export default  function AboutSection({ bgClass="" }) {
+export default  function AboutSection({ aboutDetail }) {
     const pathname = usePathname();
+    const aboutSection1=aboutDetail.substr(0,aboutDetail.length/2);
+    const aboutSection2=aboutDetail.substr(aboutDetail.length/2,aboutDetail.length/2);
     return (
         <>
             {/* Start About Area */}
-            <div className={`about-area ${bgClass} ptb-100`}>
+            <div className={`about-area bg-fef8ef ptb-100`}>
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-lg-6 col-md-12">
@@ -41,58 +43,23 @@ export default  function AboutSection({ bgClass="" }) {
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
-                            <div className="about-content">
-                                <span className="sub-title">About Us</span>
-                                <h2>
-                                    Transforming Education Through Innovation, Technology, and AI
-                                </h2>
-                                <p>
-                                    Our guiding principles are Teaching, Tutoring and Training. Doing Research Assessment & Analysis (DRAA) (OPC) Pvt Ltd, bring education, technology, innovation, and AI together to transform learning experiences.
-                                    {
-                                        pathname === "/about-us" && (
-                                            <>
-                                                {" "}At DRAA, we understand that the landscape of education and technology is constantly evolving. To keep pace with these changes, we specialize in designing game-based learning modules that not only engage but also enhance competition, creativity, and student-centric learning. Our guiding principles drive us to create cutting-edge solutions that empower students and educators alike, fostering an environment where learning is dynamic, interactive, and impactful.
-                                            </>
-                                        )
-                                    }
-                                </p>
-                                <ul className="features-list">
-                                    <li>
-                                        <span>
-                                            <em><FontAwesomeIcon icon={faLightbulb} /></em> Innovative Learning Models
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <em><FontAwesomeIcon icon={faGamepad} /></em> Exam-Based Education
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <em><FontAwesomeIcon icon={faRobot} /></em> AI-Powered Solutions
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <em><FontAwesomeIcon icon={faChalkboardTeacher} /></em> Engaging & Competitive Training
-                                        </span>
-                                    </li>
-                                </ul>
-                                {pathname !== "/about-us" && (
-                                    <Link href="/about-us" className="default-btn">
-                                        <FontAwesomeIcon icon={faUser} /> Know More
-                                        <span />
-                                    </Link>
-                                )}
+                            <div className="about-content" dangerouslySetInnerHTML={{__html:aboutSection1}}>
+                              
                             </div>
                         </div>
+                        <div className="col-12">
+                            <div className="about-content" dangerouslySetInnerHTML={{__html:aboutSection2}}>
+                              
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div className="shape1" data-speed="0.06" data-revert="true">
                     <img src="/images/shape/shape1.png" alt="image" />
                 </div>
                 <div className="shape2" data-speed="0.06" data-revert="true">
-                    <img src="/images/shape/shape2.png" alt="image" />
+                    {/* <img src="/images/shape/shape2.png" alt="image" /> */}
                 </div>
                 <div className="shape3" data-speed="0.06" data-revert="true">
                     <img src="/images/shape/shape3.png" alt="image" />

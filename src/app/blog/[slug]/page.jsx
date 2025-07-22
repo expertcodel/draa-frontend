@@ -2,7 +2,7 @@ import BlogDetail from "../../../component/BlogDetail";
 export default async function Page({ params }) {
 
     const { slug } = await params;
-    let blogDetail = [];
+    let blogDetail ={};
     let  decodedHtml;
     let blogList=[];
     let categoryList=[];

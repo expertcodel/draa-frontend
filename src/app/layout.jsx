@@ -36,6 +36,7 @@ export default async function RootLayout({ children }) {
   let booklist = [];
   let courses=[];
   let testseries=[];
+
   try {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/header`, {
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }) {
       courselist = res.courselist;
       courses=res.courses;
       testseries=res.testseries;
+   
       
     }
 

@@ -19818,6 +19818,13 @@ Booking Popup Modal Area CSS
   overflow: hidden;
 }
 
+.line-clamp-15 {
+  display: -webkit-box;
+  -webkit-line-clamp: 15;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /********* customListShow *******/
 .customListShow{position: absolute; z-index: 99;}
 .customListShow ul.absolute{

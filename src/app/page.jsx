@@ -9,6 +9,8 @@ export default async function Page() {
     let category = [];
     let courselist = [];
     let testSerieslist = [];
+    let sliderlist = [];
+    let decodedHtml;
     try {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/home`, {
@@ -24,8 +26,14 @@ export default async function Page() {
             testimoniallist = res.testimoniallist;
             category = res.category;
             courselist = res.courselist;
-            testSerieslist=res.testserieslist
-            
+            testSerieslist = res.testserieslist
+            sliderlist = res.sliderlist
+            const mimeType = 'text/html';
+            const base64 = res.about;
+            const src = `data:${mimeType};base64,${base64}`;
+            const spiltted = src.split(',')[1];
+            decodedHtml = atob(spiltted);
+
         }
 
     } catch (error) {
@@ -38,6 +46,6 @@ export default async function Page() {
 
 
     return (
-      <Home blogList={blogList} bookList={bookList} testimoniallist={testimoniallist} category={category} courselist={courselist} testSerieslist={testSerieslist}/>
+        <Home blogList={blogList} bookList={bookList} testimoniallist={testimoniallist} category={category} courselist={courselist} testSerieslist={testSerieslist} sliderlist={sliderlist} aboutDetail={decodedHtml}/>
     );
 }

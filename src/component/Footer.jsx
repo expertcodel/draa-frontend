@@ -3,15 +3,68 @@
 import { faFacebook, faFacebookSquare, faInstagram, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faCopyright } from '@fortawesome/free-regular-svg-icons';
 import { faEnvelope, faEnvelopeOpen, faMapLocation, faPaperPlane, faPhone, faPhoneSquare } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
+import Tooltip from './Tooltip';
 export default function Footer({ courses }) {
     const topCategories = courses.slice(0, 4);
+    const [message, setMessage] = useState({ succMsg: "", failedMsg: "" });
+    const [loading, setLoading] = useState(false);
+    const [validation, setValidation] = useState({ email: -1 })
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
+    const submitForm = async (e) => {
+
+        e.preventDefault();
+        let valid = true;
+        const email = e.target.email.value.trim();
+
+        if (!validateEmail(email)) {
+            valid = false;
+        }
+
+        if (valid) {
+
+            setValidation({ email: 1 })
+            setLoading(true)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/createNewsletter`, { method: "POST", body: JSON.stringify({ email }), headers: { 'Content-Type': 'application/json' } });
+            const res = await response.json();
+            setLoading(false)
+            if (res.status) {
+                setMessage({ succMsg: res.message });
+                e.target.email.value = ""
+                setTimeout(() => {
+                    setMessage({ succMsg: "" });
+                }, 3000);
+            }
+            else {
+                setMessage({ failedMsg: res.message });
+                setTimeout(() => {
+                    setMessage({ failedMsg: "" });
+                }, 3000);
+            }
+
+
+        }
+        else {
+            setValidation({ email: 0 })
+        }
+
+
+    }
     return (
         <>
 
             {/* Start Subscribe Area */}
+            {message.succMsg !== "" && <Tooltip message={message.succMsg} />}
             <div className="subscribe-area ptb-100">
                 <div className="container">
                     <div className="subscribe-content">
@@ -20,12 +73,18 @@ export default function Footer({ courses }) {
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
-                        <form className="newsletter-form" data-toggle="validator">
-                            <input type="text" className="input-newsletter" placeholder="Enter your email address" name="EMAIL" required="" autoComplete="off" />
-                            <button type="submit" className="default-btn">
+                        <form className="newsletter-form" data-toggle="validator" onSubmit={submitForm}>
+                            <input type="text" className="input-newsletter" placeholder="Enter your email address" name="email" required="" autoComplete="off" style={{ border: validation.email === 0 && '1px solid red' }} />
+                            {loading ? <div style={{ display: 'flex', justifyContent: 'center' }}><div className="spinner-border text-success" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div> </div> : <button type="submit" className="default-btn">
                                 <i className="flaticon-user" /> Subscribe Now
                                 <span />
-                            </button>
+                            </button>}
+                            {
+                                message.failedMsg !== "" && <div>{message.failedMsg}</div>
+                            }
+
                             <div id="validator-newsletter" className="form-result" />
                         </form>
                     </div>
@@ -108,7 +167,7 @@ export default function Footer({ courses }) {
                                 <h3>Courses</h3>
                                 <ul className="footer-links-list">
                                     {topCategories.map((cat, i) => {
-                                      
+
                                         return (
                                             <li key={i}>
                                                 <Link href={`/courses/?course_name=${cat.slug}`}>

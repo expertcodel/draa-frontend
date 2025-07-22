@@ -8,7 +8,7 @@ import Image from "next/image";
 import heroBanner from "../utils/heroBanner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-export default function HeroSilderCarousel() {
+export default function HeroSilderCarousel({sliderlist}) {
   return (
     <Swiper
       modules={[Autoplay, Pagination]}
@@ -31,30 +31,31 @@ export default function HeroSilderCarousel() {
       }}
       className="hero-slider customSwiper"
     >
-        {heroBanner.map((slide, i) => (
+        {sliderlist.map((slide, i) => (
             <SwiperSlide key={i}>
                 <div className="row align-items-center">
                     <div className="col-lg-6 col-md-12">
                         <div className="banner-wrapper-content">
-                            <h1>{slide.heading}</h1>
-                            <p>
-                                {slide.subHeading}
+                            <h1>{slide.title}</h1>
+                            <p dangerouslySetInnerHTML={{__html:slide.text}}>
+                               
                             </p>
                             <div className="position-relative w-100 d-flex align-items-center">
-                                <Link href={`/books/${slide.slug}`} className="default-btn me-2">
-                                    Explore <FontAwesomeIcon icon={faAngleRight} />
+                                <Link href={`/${slide.button_url}`} className="default-btn me-2">
+                                    {slide.button_text} <FontAwesomeIcon icon={faAngleRight} />
                                     <span />
                                 </Link>
-                                <button className="default-btn">
-                                    Apply Now <FontAwesomeIcon icon={faAngleRight} />
+                                 <Link href={`/${slide.button_url_two}`} className="default-btn">
+                                    {slide.button_text_two} <FontAwesomeIcon icon={faAngleRight} />
                                     <span />
-                                </button>
+                                </Link>
+                               
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-6 col-md-12">
                         <div className="banner-wrapper-image">
-                            <Image width={550} height={620} src={slide.src} alt={slide.heading} />
+                            <img width={550} height={620} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/sliders/${slide.image}`} alt={slide.heading} />
                             <div className="banner-shape8" data-speed="0.06" data-revert="true">
                                 <img src="/images/shape/banner-shape8.png" alt="image" />
                             </div>

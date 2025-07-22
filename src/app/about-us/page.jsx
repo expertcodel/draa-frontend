@@ -6,10 +6,12 @@ import ThumbnailCourseAdvisor from "@/component/ThumbnailCourseAdvisor";
 export default async function AboutUs() {
 
     let memberlist = [];
+    let aboutDetail ={};
+    let  decodedHtml;
     
     try {
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/faculty/?page=1`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/about-us`, {
 
             method: 'GET',
             cache: 'no-store'
@@ -18,7 +20,14 @@ export default async function AboutUs() {
         const res = await response.json();
         if (res.status) {
             memberlist = res.memberlist;
-          
+             aboutDetail = res.aboutdata;
+            const mimeType = 'text/html';
+            const base64 = aboutDetail.about;
+            const src = `data:${mimeType};base64,${base64}`;
+            const spiltted = src.split(',')[1];        
+            decodedHtml = atob(spiltted);
+         
+            
         }
 
     } catch (error) {
@@ -29,7 +38,7 @@ export default async function AboutUs() {
             {/*Breadcrumb*/}
             <Breadcrumb title="About Us" />
 
-            <AboutSection />
+            <AboutSection aboutDetail={decodedHtml}/>
 
             {/* <TestimonialOdometer /> */}
 

@@ -111,7 +111,7 @@ export default function TestSeries({ courselist, totalItems, total }) {
                     <div className="elearniv-grid-sorting row align-items-center">
                         <div className="col-md-8 col-sm-7 result-count">
                             <p>
-                                We found <span className="count">{Total}</span> Test available for you
+                                We found <span className="count">{Total}</span> Test series available for you
                             </p>
                         </div>
                         <div className="col-md-4 col-sm-5 filterOption">

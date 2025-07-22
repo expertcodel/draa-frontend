@@ -33,7 +33,7 @@ export const newsletterModel = () => {
             defaultValue:false
         }
 
-    })
+    },{timestamps:false})
 
     connection.sync();
     return newslettermodel

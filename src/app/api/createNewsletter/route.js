@@ -116,7 +116,7 @@ export async function POST(request) {
 
         if (existedEmail) {
 
-            return NextResponse.json({ status: true, message: "You have to verify your email to subscribe us!" });
+            return NextResponse.json({ status: true, message: "sent! You have to verify your email to subscribe us" });
 
         }
         else {

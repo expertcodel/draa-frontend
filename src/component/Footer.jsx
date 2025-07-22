@@ -27,8 +27,20 @@ export default function Footer({ courses }) {
         let valid = true;
         const email = e.target.email.value.trim();
 
-        if (!validateEmail(email)) {
+        if (email === "") {
             valid = false;
+            setMessage({ failedMsg: "this field can't be blank",succMsg:"" });
+            setTimeout(() => {
+                setMessage({ failedMsg: "" ,succMsg:""});
+            }, 3000);
+        }
+
+        else if (!validateEmail(email)) {
+            valid = false;
+            setMessage({ failedMsg: "Please fill valid email",succMsg:"" });
+            setTimeout(() => {
+                setMessage({ failedMsg: "",succMsg:"" });
+            }, 3000);
         }
 
         if (valid) {
@@ -39,16 +51,16 @@ export default function Footer({ courses }) {
             const res = await response.json();
             setLoading(false)
             if (res.status) {
-                setMessage({ succMsg: res.message });
+                setMessage({ succMsg: res.message ,failedMsg:""});
                 e.target.email.value = ""
                 setTimeout(() => {
-                    setMessage({ succMsg: "" });
+                    setMessage({ succMsg: "" ,failedMsg:""});
                 }, 3000);
             }
             else {
-                setMessage({ failedMsg: res.message });
+                setMessage({ failedMsg: res.message ,succMsg:""});
                 setTimeout(() => {
-                    setMessage({ failedMsg: "" });
+                    setMessage({ failedMsg: "",succMsg:"" });
                 }, 3000);
             }
 
@@ -56,6 +68,7 @@ export default function Footer({ courses }) {
         }
         else {
             setValidation({ email: 0 })
+
         }
 
 
@@ -75,14 +88,15 @@ export default function Footer({ courses }) {
                         </p>
                         <form className="newsletter-form" data-toggle="validator" onSubmit={submitForm}>
                             <input type="text" className="input-newsletter" placeholder="Enter your email address" name="email" required="" autoComplete="off" style={{ border: validation.email === 0 && '1px solid red' }} />
-                            {loading ? <div style={{ display: 'flex', justifyContent: 'center' }}><div className="spinner-border text-success" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div> </div> : <button type="submit" className="default-btn">
-                                <i className="flaticon-user" /> Subscribe Now
-                                <span />
-                            </button>}
+                            <button type="submit" className="default-btn">
+                                {loading ? <div style={{ display: 'flex', justifyContent: 'center' }}><div className="spinner-border text-success" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div> </div> :
+                                    <><i className="flaticon-user" />Subscribe Now </>}
+                            </button>
+
                             {
-                                message.failedMsg !== "" && <div>{message.failedMsg}</div>
+                                message.failedMsg !== "" && <div style={{ color: 'red' }}>{message.failedMsg}</div>
                             }
 
                             <div id="validator-newsletter" className="form-result" />

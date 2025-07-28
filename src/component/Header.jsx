@@ -212,10 +212,10 @@ export default function Header({ courselist, booklist, courses, testseries }) {
                             <Image width={90} height={80} src="/images/logo.png" alt="logo" />
                         </Link>
                         <div className={classNames("showMobileSec", { show: isMobileMenuOpen, })}>
-                            <Link href="/login" className="default-btn">
+                            <a href="https://app.draa.in/student" target="_blank" className="default-btn">
                                 <FontAwesomeIcon icon={faUser} /> Login
                                 <span />
-                            </Link>
+                            </a>
                             <button className="mobile-toggle" onClick={toggleMobileMenu}>
                                 <span className="bar" />
                                 <span className="bar" />
@@ -238,10 +238,10 @@ export default function Header({ courselist, booklist, courses, testseries }) {
                                     </div>
                                 </div> */}
                                 <div className="option-item">
-                                    <Link href="/login" className="default-btn">
+                                    <a href="https://app.draa.in/student" target="_blank" className="default-btn">
                                         <FontAwesomeIcon icon={faUser} /> Login
                                         <span />
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>
